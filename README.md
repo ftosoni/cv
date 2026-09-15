@@ -1,97 +1,123 @@
-# AltaCV, yet another LaTeX CV/Résumé class
+# Curriculum Vitae — Francesco Tosoni, PhD
 
-v1.2 (11 February 2020), by LianTze Lim (liantze@gmail.com)
+Source for the academic CV of **Francesco Tosoni** (Scuola Superiore Sant'Anna /
+University of Pisa). Typeset in LaTeX on top of the
+[AltaCV](https://github.com/liantze/AltaCV) class.
 
-_Sample file with new paracol layout added on 2 February 2020_
+- 🌐 Website: <https://www.francescotosoni.it>
+- 📄 Latest PDFs (built by CI): <https://github.com/ftosoni/cv/releases/latest>
+- 🔗 ORCID [`0000-0001-8457-3866`](https://orcid.org/0000-0001-8457-3866) ·
+  [DBLP](https://dblp.org/pid/317/5120-1.html) ·
+  [Google Scholar](https://scholar.google.com/citations?user=8-0w_KAAAAAJ)
 
-(Thanks to [Nur](https://github.com/nurh) for the name.)
+## Build variants
 
-It all started with this:
+The CV is generated in **four variants** from a single source (`main.tex`),
+controlled by two flags:
 
-[<img src="tweet-that-started-this.png" width="500px">](https://twitter.com/Leonduck/status/764281546408923136)
+| Flag | `1` | `0` (default) |
+| --- | --- | --- |
+| `\BUILDSHORT` | condensed CV | full CV |
+| `\BUILDPHOTO` | with photo | no photo |
 
-Leonardo was talking about a [résumé of Marissa Mayer that Business Insider put together](http://www.businessinsider.my/a-sample-resume-for-marissa-mayer-2016-7/) using [enhancv.com](https://enhancv.com).
-I _knew_ I had to do something about it. And so AltaCV was born.
+The `short` variant drops the more encyclopaedic sections (code artefacts,
+professional internships, conference attendance, coursework lists). The
+`no-photo` variant suits the anglosphere/international market where CV photos are
+discouraged; the photo variant suits EU academia.
 
-## Samples
+Four thin wrappers select the combinations:
 
-This is how the re-created résumé looks like ([view/open on Overleaf](https://www.overleaf.com/latex/examples/recreating-business-insiders-cv-of-marissa-mayer-using-altacv/gtqfpbwncfvp)):
+| Wrapper | Variant |
+| --- | --- |
+| [`cv-full-eu.tex`](cv-full-eu.tex) | full, with photo |
+| [`cv-full-intl.tex`](cv-full-intl.tex) | full, no photo |
+| [`cv-short-eu.tex`](cv-short-eu.tex) | short, with photo |
+| [`cv-short-intl.tex`](cv-short-intl.tex) | short, no photo |
 
-<img src="mmayer.png" alt="Marissa Mayer's résumé, re-created with AltaCV" width="600px">
+## Building the PDF
 
-Though if you're creating your own CV/résumé, you'd probably prefer using the basic template ([view/open on Overleaf](https://www.overleaf.com/latex/templates/altacv-template/trgqjpwnmtgv)):
+The document **must** be compiled with **XeLaTeX** (or LuaLaTeX): it uses
+`fontspec` with the Lato font and the `fontawesome5` / `academicons` icon
+packages, which require a Unicode engine.
 
-<img src="sample.png" alt="sample barebones AltaCV template" width="600px">
+Build the default (full, with photo):
 
-
-## Requirements and Compilation
-
-* pdflatex + biber + pdflatex
-* AltaCV uses [`fontawesome`](http://www.ctan.org/pkg/fontawesome) and [`academicons`](http://www.ctan.org/pkg/academicons); they're included in both TeX Live 2016 and MikTeX 2.9.
-* Loading `academicons` is optional: enable it by adding the `academicons` option to `\documentclass`.
-* Use the `normalphoto` option to get normal (i.e. non-circular) photos.
-* As of v1.2 you can add multiple photos on the left or right: `\photoL{2cm}{logo1}` and `\photoR{2.5cm}{logo2,photo}`. (`\photo` will work like `\photoR`.) Separate your image filenames with commas _without_ spaces.
-* Use the `ragged2d` option to activate hyphenations while keeping text left-justified; line endings will thus be less jagged and more aesthetically pleasing.
-* Can now be compiled with pdflatex, XeLaTeX and LuaLaTeX!
-* However if you're using `academicons`, you _must_ use either XeLaTeX or LuaLaTeX. If the doc then compiles but the icons don't show up in the output PDF, try compiling with LuaLaTeX instead.
-* The samples here use the [Lato](http://www.latofonts.com/lato-free-fonts/) font. Feel free to use a different typeface package instead—often a different typeface will change the entire CV's feel.
-
-
-## Example Files
-
-### `sample.tex`
-
-(You may prefer to use `sample-alt.tex` instead; please read both sections before proceeding.)
-
-This is the original sample template file. The right sidebar is actually a _marginpar_, so it doesn't support footnote and cannot automatically break across pages if it's too long. You would need to split your right sidebar contents into separate files e.g. `p1sidebar.tex` and `p2sidebar.tex`, and insert them as the optional argument of the `\cvsection{...}` that you want to align them with:
-
-```latex
-\cvsection[p1sidebar]{Experience}
-...
-... END OF FIRST PAGE OF YOUR CV ...
-\cvsection[page2sidebar]{Publications}
-...
+```bash
+latexmk -xelatex main.tex
 ```
 
-This assumes that the next page's main column would start immediately with a `\cvsection`, so that the top of your right sidebar contents also appear at the top of the page. Now if the _next_ page doesn't start with a `\cvsection` but you'd still like to add a sidebar, then use this command on the _current_ page to add it. The optional argument lets you pull up the sidebar a bit so that it looks aligned with the top of the main column:
+Build a specific variant via its wrapper:
 
-```latex
-\addnextpagesidebar[-1ex]{page3sidebar}
+```bash
+latexmk -xelatex cv-short-intl.tex
 ```
 
-If you want to change the left and right columns' widths, you'll need to tinker with the `right` (distance from paper's right edge until the main column's right edge) and `marginparwidth` (width of the right sidebar) options in the `\geometry` line. For example, to make the right sidebar wider by 2cm, you could use
+`latexmk` runs Biber automatically. To compile by hand, run
+`xelatex → biber → xelatex → xelatex` on the chosen root file.
 
-```latex
-%% original was right=9cm, marginparwidth=6.8cm
-\geometry{left=1cm,right=11cm,marginparwidth=8.8cm,marginparsep=1.2cm,top=1cm,bottom=1cm}
+### Requirements
+
+- A recent TeX distribution (TeX Live 2020+ or MiKTeX) with:
+  `altacv` dependencies, `fontspec`, `paracol`, `enumitem`, `fontawesome5`,
+  `academicons`, `tikz`, `wrapfig`, `adjustbox`, `hyperref`, `eurosym`,
+  `biblatex` + `biber`.
+- The **Lato** font (TeX Live `lato` package).
+- A Devanagari font for the one Hindi label: **Mangal** (bundled with Windows)
+  or **Noto Sans Devanagari**. The preamble auto-detects these and degrades
+  gracefully to a no-op if neither is present, so the build never fails on this.
+
+MiKTeX offers to install any missing packages on first compilation.
+
+## Repository layout
+
+| Path | Purpose |
+| --- | --- |
+| [`main.tex`](main.tex) | The CV source (the file you edit). |
+| `cv-{full,short}-{eu,intl}.tex` | One-line wrappers selecting a build variant. |
+| `altacv.cls` | The AltaCV document class (upstream). |
+| `sample.bib` | Bibliography database loaded via `biblatex`. |
+| `photo.jpeg`, `signature.pdf`, `unipi-logo.png`, … | Images used in the CV. |
+| `old.tex` | A previous draft, kept for reference. |
+| `.github/workflows/build-cv.yml` | CI that builds all four variants (see below). |
+
+Only `main.pdf` (the full+photo build) is version-controlled as a convenience
+snapshot; the variant PDFs are git-ignored and produced by CI.
+
+## Continuous integration
+
+[`.github/workflows/build-cv.yml`](.github/workflows/build-cv.yml) recompiles the
+CV on every push/PR that touches the sources (and on demand via *Run workflow*).
+A build **matrix** compiles all four variants in parallel on a full TeX Live
+image; a broken source fails the check. Each variant's PDF is uploaded as an
+artifact, and on `main` all four are attached to a rolling **`latest`** GitHub
+Release, e.g.:
+
 ```
-as well as doing a bit of arithmetic when you're making the header to get it full-width, i.e. reducing the sidebar by 2cm and extending the main column by 2cm.
-
-```latex
-\begin{adjustwidth}{}{-10cm}  %% original was -8cm
-\makecvheader
-\end{adjustwidth}
+https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf
+https://github.com/ftosoni/cv/releases/latest/download/cv-short-intl.pdf
 ```
 
-### `sample-alt.tex` [ADDED 2 FEBRUARY 2020]
-Many users have overlooked the optional argument of `\cvsection` to insert the right sidebar contents, and often confused that the right sidebar doesn't automatically break across pages. This new layout uses the `paracol` package for typesetting the left and right columns that _can_ break across pages. It also makes changing the column widths easier:
+## Publications & talks
 
-```latex
-%% Set the left/right column width ratio to 6:4.
-\columnratio{0.6}
+Publication and talk entries mirror the canonical lists maintained on
+<https://www.francescotosoni.it> (`publications.html`, `talks.html`). Each entry
+carries the full set of links (DOI, arXiv, author PDF, Wikidata, code, data,
+SWHID, erratum, licence) as compact icon "pills"; a legend under *Publications*
+explains the icons. Publications use DBLP-style keys — `jN` journal, `cN`
+conference, `wN` working paper — consistent with the website.
 
-% Start a 2-column paracol. Both the left and right columns will automatically
-% break across pages if things get too long.
-\begin{paracol}{2}
-\cvsection{Experience}
-...
-... END OF LEFT COLUMN CONTENTS ...
+## Colours & accessibility
 
-% Now switch to the right column.
-\switchcolumn
-\cvsection{Education}
-...
-...END OF RIGHT COLUMN CONTENTS ...
-\end{paracol}
-```
-You can also use `\swithcolumn*` for "synchronising" the columns, as well as other commands from the `paracol` package. See the [`paracol` package documentation](http://texdoc.net/pkg/paracol) for further details.
+The palette uses a deep-crimson accent (`#A6172D`, ~7.5:1 contrast on white,
+WCAG 2.1 AAA for normal text). Hyperlinks share the accent colour, and the
+"Research Focus" skill tags use solid accent fills with white text for a legible
+contrast ratio.
+
+## Credits & licence
+
+Built on **AltaCV** v1.2 by Lian Tze Lim, distributed under the
+[LaTeX Project Public License (LPPL) v1.3c](http://www.latex-project.org/lppl.txt).
+The AltaCV class file retains its original licence.
+
+The CV **content** (text, images, and personal data in `main.tex` and the bundled
+images) is © Francesco Tosoni and is not covered by the LPPL.

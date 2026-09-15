@@ -5,6 +5,7 @@
 *.out
 *.run.xml
 *.synctex.gz
+*.xdv
 *.blg
 *.bbl
 *.toc
@@ -12,6 +13,12 @@
 *.lot
 *.fls
 *.fdb_latexmk
+
+# PDF delle varianti generate dai wrapper cv-*.tex (solo main.pdf è versionato)
+cv-full-eu.pdf
+cv-full-intl.pdf
+cv-short-eu.pdf
+cv-short-intl.pdf
 
 # File temporanei
 *.tmp

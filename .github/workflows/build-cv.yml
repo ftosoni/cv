@@ -1,0 +1,92 @@
+name: Build CV
+
+# Recompiles the CV whenever the sources change, catching a broken LaTeX build
+# immediately and publishing up-to-date PDFs. Four variants are built in
+# parallel from the thin wrappers cv-*.tex:
+#   cv-full-eu     full CV, with photo        (EU academia)
+#   cv-full-intl   full CV, no photo          (anglosphere / international)
+#   cv-short-eu    condensed CV, with photo
+#   cv-short-intl  condensed CV, no photo
+# Every run uploads each PDF as an artifact; on `main` all four are attached to
+# a rolling "latest" release, e.g.:
+#   https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**.tex'
+      - '**.cls'
+      - '**.bib'
+      - '**.png'
+      - '**.jpg'
+      - '**.jpeg'
+      - 'signature.pdf'
+      - '.github/workflows/build-cv.yml'
+  pull_request:
+    paths:
+      - '**.tex'
+      - '**.cls'
+      - '**.bib'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-cv-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: [cv-full-eu, cv-full-intl, cv-short-eu, cv-short-intl]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Full TeX Live image; XeLaTeX is required for fontspec, the Lato font,
+      # fontawesome5 and academicons. Biber runs automatically.
+      - name: Compile ${{ matrix.variant }}
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: ${{ matrix.variant }}.tex
+          latexmk_use_xelatex: true
+
+      - name: Upload ${{ matrix.variant }}.pdf
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.variant }}
+          path: ${{ matrix.variant }}.pdf
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all built PDFs
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Collect PDFs
+        run: |
+          mkdir -p release
+          find artifacts -name '*.pdf' -exec cp {} release/ \;
+          ls -l release
+
+      # Rolling release with the freshest PDFs. Remove this job for an
+      # artifact-only workflow.
+      - name: Publish to "latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: Latest CV build
+          files: release/*.pdf
+          body: >
+            Automatically built from commit ${{ github.sha }}.
+            Variants: full / short  ×  EU (photo) / international (no photo).

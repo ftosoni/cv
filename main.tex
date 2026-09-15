@@ -26,10 +26,37 @@
 
 \documentclass[10pt,a4paper,ragged2e,academicons]{altacv}
 
+%% ---------------------------------------------------------------------------
+%% Build variants. Defaults produce the full CV WITH photo (main.tex / main.pdf).
+%% Override from the command line, or use the thin wrappers cv-*.tex, e.g.:
+%%   xelatex "\def\BUILDSHORT{1}\def\BUILDPHOTO{0}\input{main.tex}"
+%%     BUILDSHORT = 1  -> condensed CV   (0 = full, default)
+%%     BUILDPHOTO = 0  -> omit the photo (1 = with photo, default)
+%% ---------------------------------------------------------------------------
+\providecommand{\BUILDSHORT}{0}
+\providecommand{\BUILDPHOTO}{1}
+\newif\ifshortcv
+\newif\ifphotocv
+\ifnum\BUILDSHORT=1 \shortcvtrue\else\shortcvfalse\fi
+\ifnum\BUILDPHOTO=1 \photocvtrue\else\photocvfalse\fi
+\newcommand{\longonly}[1]{\ifshortcv\else#1\fi}% content only in the full CV
+\newcommand{\shortonly}[1]{\ifshortcv#1\fi}% content only in the short CV
+
 %hindi
 % \usepackage{polyglossia}
 \usepackage{fontspec}
-\newfontfamily\hindi[Script=Devanagari]{Mangal}
+% Devanagari font for the Hindi label. Mangal ships with Windows; the CI runner
+% (Ubuntu/TeX Live) does not have it, so fall back to Noto Sans Devanagari, and
+% finally to a no-op so the build never fails if no Devanagari font is present.
+\IfFontExistsTF{Mangal}{%
+  \newfontfamily\hindi[Script=Devanagari]{Mangal}%
+}{%
+  \IfFontExistsTF{Noto Sans Devanagari}{%
+    \newfontfamily\hindi[Script=Devanagari]{Noto Sans Devanagari}%
+  }{%
+    \newcommand{\hindi}{}%
+  }%
+}
 
 %% AltaCV uses the fontawesome and academicon fonts
 %% and packages.
@@ -56,12 +83,17 @@
   \usepackage[default]{lato}
 \fi
 
-% Change the colours if you want to
-\definecolor{Carmine}{HTML}{DC143C}
+% Change the colours if you want to.
+% Accessible, high-contrast palette (WCAG 2.1):
+%   accent  = deep crimson #A6172D -> ~7.5:1 on white (passes AAA for normal text)
+%   heading/body = black, emphasis = near-black grey.
+% The previous accent (Carmine #DC143C) was only ~5:1 and, once lightened for
+% the skills-cloud pills, produced white-on-pink text that failed AA.
+\definecolor{AccentRed}{HTML}{A6172D}
 \definecolor{DarkGray}{HTML}{202020}
 
 \colorlet{heading}{Black}
-\colorlet{accent}{Carmine}
+\colorlet{accent}{AccentRed}
 \colorlet{emphasis}{DarkGray}
 \colorlet{body}{Black}
 
@@ -80,9 +112,10 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=magenta,
+    linkcolor=accent,
+    filecolor=accent,
+    urlcolor=accent,
+    citecolor=accent,
 }
 
 % added by ftosoni 2025-03-28
@@ -104,13 +137,43 @@
     \includegraphics[height=1.2em]{path/to/your/custom_icon.pdf}% Adjust height as needed
 }
 
+% ------------------------------------------------------------------------------
+% Compact icon links for publications and talks (mirror the pill links on
+% francescotosoni.it). Colour comes from hyperref (urlcolor = accent), so both
+% the icon and the label render in the accent colour.
+% ------------------------------------------------------------------------------
+\newcommand{\Ldoi}[1]{\href{https://doi.org/#1}{\faLink\,DOI}}
+\newcommand{\Larxiv}[1]{\href{https://arxiv.org/abs/#1}{\faScroll\,arXiv}}
+\newcommand{\Ldata}[1]{\href{#1}{\faArchive\,data}}
+\newcommand{\Lwdpaper}[1]{\href{https://www.wikidata.org/wiki/#1}{\faDatabase\,WD\,(paper)}}
+\newcommand{\Lwdcode}[1]{\href{https://www.wikidata.org/wiki/#1}{\faDatabase\,WD\,(code)}}
+\newcommand{\Lgh}[1]{\href{#1}{\faGithub\,code}}
+\newcommand{\Lgl}[1]{\href{#1}{\faGitlab\,code}}
+\newcommand{\Lswhid}[1]{\href{https://archive.softwareheritage.org/#1}{\faFingerprint\,SWHID}}
+\newcommand{\Lpdf}[1]{\href{#1}{\faFilePdf\,PDF}}
+\newcommand{\Lfix}[1]{\href{#1}{\faWrench\,erratum}}
+\newcommand{\Lcc}[2]{\href{#1}{\faCreativeCommons\,#2}}
+% talks
+\newcommand{\Lweb}[1]{\href{#1}{\faGlobe\,website}}
+\newcommand{\Lslides}[1]{\href{#1}{\faFilePowerpoint\,slides}}
+\newcommand{\Lcommons}[1]{\href{#1}{\faImages\,Commons}}
+\newcommand{\Lvideo}[1]{\href{#1}{\faYoutube\,video}}
+\newcommand{\Lposter}[1]{\href{#1}{\faImage\,poster}}
+\newcommand{\Lzenodo}[1]{\href{#1}{\faArchive\,Zenodo}}
+\newcommand{\Lphab}[1]{\href{#1}{\faTasks\,Phabricator}}
+\newcommand{\Lcert}[1]{\href{#1}{\faCertificate\,certificate}}
+% pill separator
+\newcommand{\Lsep}{\;\textcolor{body!40}{\textbullet}\;}
+
 \begin{document}
 \newcounter{countdown} % Contatore per il countdown
 
 \name{Francesco Tosoni, PhD}
 \tagline{Lossless Compression | Open Data Infrastructure | Green Algorithm Engineering}
 %% You can add multiple photos on the left or right
-\photoR{2.8cm}{photo.jpeg}
+%% Photo shown only in the "EU" variant (\photocv true); omitted for the
+%% anglosphere/international variant where photos are discouraged.
+\ifphotocv\photoR{2.8cm}{photo.jpeg}\fi
 % \photoL{2.5cm}{Yacht_High,Suitcase_High}
 \personalinfo{%
   \email{\href{mailto:francesco.tosoni@santannapisa.it}{francesco.tosoni@santannapisa.it}}
@@ -148,6 +211,12 @@
 % break across pages if things get too long.
 \begin{paracol}{1}
 
+\medskip
+\noindent
+Computer scientist (PhD) working at the intersection of {\em lossless data compression}, {\em compressed data structures}, and {\em green, energy-aware algorithm engineering}. My current research designs scalable, energy-aware compression, indexing, and semantic-search techniques for large source-code archives (Software Heritage), grounded in a commitment to open science and open-data infrastructures.
+
+\medskip
+
 \cvsection{Education}
 
 \cvevent{PhD in Computer Science (EQF 8)}{University of Pisa}{Nov 2020 -- Jan 2024}{Pisa, Italy}
@@ -164,13 +233,14 @@ My doctoral research focused on {\em computation-friendly} lossless compression 
 
 \cvevent{MSc in Computer Science and Networking (EQF 7)}{University of Pisa \textit{and} Sant'Anna School of Advanced Studies}{Nov 2017 -- Mar 2020}{Pisa, Italy}
 
-The MSc programme in Computer Science and Networking (conducted in English) was a joint initiative of the TeCIP Institute (\href{https://web.archive.org/web/20170703072910/www.santannapisa.it/it/formazione/masters-degree-computer-science-and-networking}{Sant'Anna School of Advanced Studies}) and the \href{https://didattica.di.unipi.it/laurea-magistrale-in-informatica-e-networking/}{University of Pisa} (Departments of Computer Science and Information Engineering), attracting international students. Relevant coursework:
+The MSc programme in Computer Science and Networking (conducted in English) was a joint initiative of the TeCIP Institute (\href{https://web.archive.org/web/20170703072910/www.santannapisa.it/it/formazione/masters-degree-computer-science-and-networking}{Sant'Anna School of Advanced Studies}) and the \href{https://didattica.di.unipi.it/laurea-magistrale-in-informatica-e-networking/}{University of Pisa} (Departments of Computer Science and Information Engineering), attracting international students.
+\longonly{Relevant coursework:
 \begin{itemize}
     \item Algorithm Design, Analysis, and Implementation
     \item Big Data Analytics, Search Engines, and Information Retrieval
     \item High-Performance Computing (HPC) and Parallel Computing (focus on multi-threading)
     \item Networking (protocols, components, configuration, and management), JUNOS network OS, optical fibre technologies
-\end{itemize}
+\end{itemize}}
 
 \smallskip
 
@@ -188,12 +258,12 @@ Served as a {\em student representative} for the Master's programme (2018--2020)
 
 The \href{https://www.unipg.it/didattica/corsi-di-laurea-e-laurea-magistrale/archivio/offerta-formativa-2017-18?view=elenco&ricerca=on&annoregolamento=2014&dipartimento=516600&lingua=&nomecorso=&tipocorso=L&sede=&classe=&cerca=&idcorso=196&idpds=&tab=}{BSc in Computer and Electronic Engineering} provides a robust foundation in mathematics and physics, equipping students with the engineering skills to solve complex problems and integrate diverse knowledge for roles in electronics or ICT.
 
-Relevant coursework:
+\longonly{Relevant coursework:
 \begin{itemize}
     \item Fundamentals of Telecommunications, Signal Processing, and Automation
     \item Algorithms, Databases, and Computer Programming (focus on \texttt{Java} and \texttt{C})
     \item Fundamentals of Antennas and Electronic Circuits
-\end{itemize}
+\end{itemize}}
 
 \smallskip
 
@@ -258,61 +328,65 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvsection{Publications}
 
+{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,data \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,erratum \Lsep \faCreativeCommons\,licence.}}
+
+\smallskip
+
 % === Journals ===
 \cvsubsection{Journals}[
   \color{emphasis} % Optional: Subtle styling
   \faBook\ % Icon for journals
 ]
 
-\setcounter{countdown}{4} % Imposta il contatore iniziale a 4
+\setcounter{countdown}{4} % Numbering follows the online publication list (francescotosoni.it): j1..j4
 
 \begin{enumerate}[
     label=\textbf{[j\arabic{countdown}].}
 ]
 
-    \item 
+    \item
     \textbf{F.~Tosoni}, P.~Bille, V.~Brunacci, A.~De Angelis, P.~Ferragina, G.~Manzini. \\
     ``Toward Greener Matrix Operations by Lossless Compressed Formats''. \\
-    \textit{IEEE Access} [Q1, IF: 3.4], \\
-    \href{https://doi.org/10.1109/ACCESS.2025.3555119}{10.1109/ACCESS.2025.3555119}. 
+    \textit{IEEE Access} [Q1, IF: 3.4], vol.~13, pp.~56756--56779, 2025. \\
+    \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lpdf{https://www.francescotosoni.it/static/j4.pdf} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv} \Lsep \Lcc{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
 
-    As the principal investigator, corresponding and first author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations.
-    
+    As the principal investigator, corresponding and first author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations. Published as Gold open access under CC~BY~4.0.
+
     \addtocounter{countdown}{-1}
 
-    \item 
+    \item
     A.~Boffa, P.~Ferragina, \textbf{F.~Tosoni}, G.~Vinciguerra. \\
     ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
-    \textit{Information Systems} (IS) [Q1, IF: 3.0], \\ 
-    \href{https://doi.org/10.1016/j.is.2023.102316}{10.1016/j.is.2023.102316}.
-    
-    I contributed to both the theoretical framework and the codebase of the CoCo-trie.
-    
+    \textit{Information Systems} (IS) [Q1, IF: 3.0], vol.~120, art.~102316, 2024. \\
+    \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lpdf{https://www.francescotosoni.it/static/j3.pdf} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb} \Lsep \Lcc{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+
+    Extended version of the SPIRE~2022 paper [c1]. I contributed to both the theoretical framework and the codebase of the CoCo-trie.
+
+    \addtocounter{countdown}{-1}
+
+    \item
+    P.~Ferragina, G.~Manzini, T.~Gagie, D.~Köppl, G.~Navarro, M.~Striani, \textbf{F.~Tosoni}. \\
+    ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
+    \textit{Proc. VLDB Endowment} (PVLDB) [Q1, IF: 2.6], vol.~15, no.~10, pp.~2175--2187, 2022. \\
+    \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lpdf{https://www.francescotosoni.it/static/j2.pdf} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e} \Lsep \Lcc{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+
+    As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
+
     \addtocounter{countdown}{-1}
 
     \item
     \textbf{F.~Tosoni}, P.~Ferragina, A.~Marino, G.~Resta, P.~Santi. \\
     ``Locality Filtering for Efficient Ride-Sharing Platforms''. \\
-    \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) [Q1, IF: 7.9], 
-    vol.~23, no.~7, pp.~7785--7785, 2022. \\
-    \href{https://doi.org/10.1109/TITS.2021.3072830}{10.1109/TITS.2021.3072830}.
+    \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) [Q1, IF: 7.9],
+    vol.~23, no.~7, pp.~7785--7804, 2022. \\
+    \Ldoi{10.1109/TITS.2021.3072830} \Lsep \Lwdpaper{Q138605098}
 
     Based on my MSc thesis, this work, developed in collaboration with the \href{https://senseable.mit.edu/}{MIT Senseable} City Lab, earned the \href{https://www.conscienze.it/premi_2020_vincitori.asp}{con.Scienze National Best Master’s Thesis Award 2020}.
-    
-    \addtocounter{countdown}{-1}
 
-    \item
-    P.~Ferragina, T.~Gagie, D.~Köppl, G.~Manzini, G.~Navarro, M.~Striani, \textbf{F.~Tosoni}. \\
-    ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
-    \textit{Proc. VLDB Endowment} (PVLDB) [Q1, IF: 2.6], \\
-    \href{https://doi.org/10.14778/3547305.3547321}{10.14778/3547305.3547321}.
-
-    As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
-    
     \addtocounter{countdown}{-1}
 \end{enumerate}
 
-\setcounter{countdown}{2} % Reset counter for conferences
+\setcounter{countdown}{5} % Reset counter for conferences: c1..c5
 
 % === Conferences ===
 \cvsubsection{Conferences}[
@@ -324,20 +398,50 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 ]
 
   \item
-  P.~Ferragina, \textbf{F.~Tosoni}. \\
-  ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
-  \textit{Greenvolve}, co-located at \textit{IEEE International Conference on Software Analysis, Evolution and Reengineering} (IEEE SANER) [Rank: A], \\
-  \href{https://doi.org/10.1109/SANER-C67878.2026.00027}{10.1109/SANER-C67878.2026.00027} (to appear).
+  \textbf{F.~Tosoni}, G.~Mencagli. \\
+  ``Streaming Right Multiplication over Grammar-Compressed Matrices: A Memory-Bounded GPU Engine for Genotype and Graph Data''. \\
+  \textit{SIAM Symposium on Algorithm Engineering and Experiments} (ALENEX), 2027 \emph{(to appear)}. \\
+  \Larxiv{2607.24971} \Lsep \Lgh{https://github.com/ftosoni/g-mm-repair} \Lsep \Ldata{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
 
-  I wrote and curated the codebase, contributed to the scientific framework and writing and managed contacts with the Software Heritage team at Inria Paris.
-          
+  As first and corresponding author, I designed and implemented a memory-bounded GPU engine for right-multiplication over grammar-compressed matrices, targeting genotype and graph data. Code and data are openly released and archived in Software Heritage.
+
      \addtocounter{countdown}{-1}
 
   \item
-  A.~Boffa, P.~Ferragina, \textbf{F.~Tosoni}, G.~Viciguerra. \\
+  C.~C.~Pellizzari di San Girolamo, \textbf{F.~Tosoni}. \\
+  ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
+  \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026}, \emph{(to appear)}. \\
+  \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
+
+  Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  L.~Venuta, \textbf{F.~Tosoni}, P.~Ferragina. \\
+  ``Candidate Recall in Large-Scale Code-to-Code Retrieval: A Comprehensive Benchmark''. \\
+  \textit{Web Information Systems Engineering} (WISE), Springer, 2026 \emph{(to appear)}. \\
+  \Larxiv{2606.27401} \Lsep \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub\,code}
+
+  A comprehensive benchmark of candidate recall for large-scale code-to-code retrieval.
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  P.~Ferragina, \textbf{F.~Tosoni}. \\
+  ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
+  \textit{GREENVOLVE}, co-located at \textit{IEEE International Conference on Software Analysis, Evolution and Reengineering} (IEEE SANER Companion) [Rank: A], pp.~157--164, 2026. \\
+  \Ldoi{10.1109/SANER-C67878.2026.00027} \Lsep \Larxiv{2601.13220} \Lsep \Lwdpaper{Q138702496} \Lsep \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage} \Lsep \Lfix{https://www.francescotosoni.it/errata/c2.html}
+
+  I wrote and curated the codebase, contributed to the scientific framework and writing and managed contacts with the Software Heritage team at Inria Paris.
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  A.~Boffa, P.~Ferragina, \textbf{F.~Tosoni}, G.~Vinciguerra. \\
   ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''. \\
-  \textit{String Processing and Information Retrieval} (SPIRE) [Rank: C], \\
-  \href{https://doi.org/10.1007/978-3-031-20643-6_17}{10.1007/978-3-031-20643-6\_17}.
+  \textit{String Processing and Information Retrieval} (SPIRE) [Rank: C], pp.~233--249, 2022. \\
+  \href{https://doi.org/10.1007/978-3-031-20643-6_17}{\faLink\,DOI} \Lsep \Lwdpaper{Q138605132} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie}
 
   I contributed to both the theoretical framework and the codebase of the CoCo-trie.
 
@@ -346,11 +450,60 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \end{enumerate}
 
+\setcounter{countdown}{4} % Reset counter for working papers: w1..w4
+
+% === Working papers ===
+\cvsubsection{Working papers}[
+  \color{emphasis} % Match journal style
+  \faScroll\ % Icon for preprints / working papers
+]
+
+{\em Note}: Preprints under review or in preparation; not yet accepted at a peer-reviewed venue.
+
 \smallskip
 
+\begin{enumerate}[
+    label=\textbf{[w\arabic{countdown}].}
+]
+
+  \item
+  \textbf{F.~Tosoni}, P.~Ferragina. \\
+  ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
+  \emph{Extended manuscript of the conference paper [c2].} \\
+  \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage}
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  \textbf{F.~Tosoni}. \\
+  ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
+  \Larxiv{2607.26766} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search}
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  G.~Carmona, P.~Ferragina, G.~Manzini, \textbf{F.~Tosoni}. \\
+  ``Extended Depth-First Representations of $k^2$-trees''. \\
+  \emph{Extends} ``Depth-First Representations of $k^2$-trees'' (\href{https://doi.org/10.1007/978-3-032-05228-5_4}{SPIRE 2025}). \\
+  \Larxiv{2607.28136}
+
+     \addtocounter{countdown}{-1}
+
+  \item
+  \textbf{F.~Tosoni}. \\
+  ``An Analysis and Implementation of Seam Carving for Content-Aware Image Resizing''. \\
+  \Larxiv{2608.04329} \Lsep \Lwdcode{Q141435187} \Lsep \Lgh{https://github.com/ftosoni/seam-carving}
+
+     \addtocounter{countdown}{-1}
+
+\end{enumerate}
+
+\smallskip
+
+\ifshortcv\else
 \cvsection{Code artefacts}
 
-{\em Note}: For each code artefact, I report the associated publication (c1, c2, j1, j2, j3, and j4) in which the code served for experimental evaluations.
+{\em Note}: For each code artefact, I report the associated publication (c1, c2, j2, j3, and j4) in which the code served for experimental evaluations.
 
 \divider
 
@@ -431,6 +584,8 @@ Developed and presented a Proof-of-Concept Toolforge tool to test against web ac
 
 \end{itemize}
    
+\fi% end \ifshortcv (Code artefacts hidden in the short CV)
+
 \smallskip
 
 \cvsection{Scholarships}
@@ -499,23 +654,39 @@ Learn more at \href{https://www.supercomputing-icsc.it/}{www.supercomputing-icsc
 \divider
 
 \cvevent{European Union-Horizon 2020 Program}{SoBigData++: European Integrated Infrastructure for Social Mining and Big Data Analytics}{2020--ongoing}{Grant 871042}
-Funded through the Scheme ``INFRAIA-01-2018-2019—Integrating Activities for Advanced Communities.'' More information can be found at \href{http://www.sobigdata.eu}{www.sobigdata.eu}. (j1, j3, j4)
+Funded through the Scheme ``INFRAIA-01-2018-2019—Integrating Activities for Advanced Communities.'' More information can be found at \href{http://www.sobigdata.eu}{www.sobigdata.eu}. (j2, j3, j4)
 
 \divider
 
 \cvevent{European Union-Horizon 2020 Program}{HumanE AI Network}{2020--ongoing}{Grant {\tt 952026}}
 Funding through the project ``HumanE AI Network.'' \\
-See \href{https://www.humane-ai.eu}{www.humane-ai.eu} for details. (j1)
+See \href{https://www.humane-ai.eu}{www.humane-ai.eu} for details. (j2)
 
 \divider %\switchcolumn
 
 \cvevent{NextGenerationEU – PNRR / MUR PRIN Project}{Multicriteria Data Structures and Algorithms: From Compressed to Learned Indexes, and Beyond}{2019–2023}{Grant n. {\tt 2017WR7SHH}}
-Funding from the Italian Ministry of University and Research (MUR) under the ``Progetti di Rilevante Interesse Nazionale'' (PRIN) programme for the project ``Multicriteria Data Structures and Algorithms.'' Extended research includes compressed/learned indexes and beyond. Project website: \href{https://learned.di.unipi.it}{learned.di.unipi.it}. (j1, j3)
+Funding from the Italian Ministry of University and Research (MUR) under the ``Progetti di Rilevante Interesse Nazionale'' (PRIN) programme for the project ``Multicriteria Data Structures and Algorithms.'' Extended research includes compressed/learned indexes and beyond. Project website: \href{https://learned.di.unipi.it}{learned.di.unipi.it}. (j2, j3)
 
 \divider
 
 \cvevent{MIT-UniPI Grant}{Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility}{2019–2021}{}
-Grant on ``Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility'' (\href{https://old.unipi.it/index.php/finanziamenti-di-ateneo/itemlist/category/332-mit-unipi-project}{website}). (j2)
+Grant on ``Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility'' (\href{https://old.unipi.it/index.php/finanziamenti-di-ateneo/itemlist/category/332-mit-unipi-project}{\faGlobe\,website}). (j1)
+
+\smallskip
+
+\cvsection{Personal grants}
+
+{\em Note}: Competitive grants awarded to me personally as applicant/grantee.
+
+\divider
+
+\cvevent{Wikimedia CH --- Open-Access Publication Grant}{Support for open-access publication of the Code2Code Search system}{2026}{1{,}000 CHF}
+Awarded by \href{https://wikimedia.ch}{Wikimedia CH} to cover the article-processing charges for the open-access publication of ``MediaWiki Code2Code Search'' (w3). Approved June 2026. (\href{https://w.wiki/SrcE}{\faGlobe\,grant page})
+
+\divider
+
+\cvevent{Wikimedia Italia --- Microgrant 2026}{Participation in the Wikidata Workshop @ ISWC 2026, Bari}{24--27 Oct 2026}{\euro 1{,}704}
+Microgrant from \href{https://www.wikimedia.it}{Wikimedia Italia} to attend the Wikidata Workshop co-located with ISWC~2026 (Bari, Italy) and present the accepted paper bridging Software Heritage, COAR Notify and Wikidata (c4). Joint with C.~C.~Pellizzari di San Girolamo. (\href{https://w.wiki/UHgf}{\faGlobe\,grant page})
 
 \smallskip
 
@@ -536,179 +707,117 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
 
 \medskip
 
+\ifshortcv\else
 \cvsection{Professional internships and traineeships}
 
-\cvevent{Research Intern \& Software Development (Software Heritage)}{Inria --- Software Heritage}{Jul 2025}{Paris, France}
-A focused research collaboration on efficient code compression and scalable data retrieval systems for Software Heritage, a leading global source code archive. Developed and optimised solutions for Terabyte-scale caching systems and shard format optimisation, directly addressing challenges in managing vast source code archives. This work, conducted within the CodeCommons project, aimed at enhancing the performance and cost-efficiency of large-scale software preservation and accessibility. Focused on applying advanced compression algorithms to real-world industrial-scale data, fostering innovation in data management for digital heritage.
-
-\divider
-    
-% \cvevent{Intern}{Software Heritage}{Jul 2025}{Paris, France}
-% ???
-
-\cvevent{Invited participant}{Bending Spoons}{Sep 2018}{Copenhagen, Denmark}
-Selected as one of 20 top Italian tech students from a pool of over 400 applicants to participate in this coding challenge event. Engaged directly with Bending Spoons team members and founders, gaining insights into the industry.
+\cvevent{Research Intern \& Software Development}{Inria --- Software Heritage}{Jul 2025}{Paris, France}
+A focused research collaboration on efficient code compression and scalable data retrieval for Software Heritage (Terabyte-scale caching systems and shard-format optimisation), within the CodeCommons project.
 
 \divider
 
-\cvevent{Intern}{EPLASS GmbH}{Aug 2014}{Würzburg, Germany}
-%\cvevent{Software Development Trainee}{EPLASS GmbH}{Aug 2014}{Würzburg, Germany}
-Worked with \texttt{C\#} at an internet-based software company specialising in international collaborations. (\href{https://www.francescotosoni.it/static/eplass.pdf}{attendance certificate})
-
-\divider
-
-\cvevent{Intern}{Flyeralarm GmbH}{Aug 2014}{Würzburg, Germany}
-Supported cross-departmental operations at a pan-European online printing firm. (\href{https://www.francescotosoni.it/static/flyeralarm.pdf}{attendance certificate})
-% \cvevent{Operations Assistant}{Flyeralarm GmbH}{Aug 2014}{Würzburg, Germany}
-% Supported cross-departmental operations (customer service, printing, manufacturing) at a pan-European online printing firm.
+\noindent Earlier internships and traineeships:
+\begin{itemize}[leftmargin=1.3em, itemsep=2pt, topsep=1pt, parsep=0pt]
+  \item \textbf{Sep 2018}\enspace Invited participant, \textbf{Bending Spoons} (Copenhagen, Denmark) --- selected among 20 top Italian tech students from 400+ applicants for a coding-challenge event.
+  \item \textbf{Aug 2014}\enspace Intern, \textbf{EPLASS GmbH} (Würzburg, Germany) --- \texttt{C\#} development at an internet-based software company. {\footnotesize(\href{https://www.francescotosoni.it/static/eplass.pdf}{\faCertificate\,certificate})}
+  \item \textbf{Aug 2014}\enspace Intern, \textbf{Flyeralarm GmbH} (Würzburg, Germany) --- cross-departmental operations at a pan-European online printing firm. {\footnotesize(\href{https://www.francescotosoni.it/static/flyeralarm.pdf}{\faCertificate\,certificate})}
+\end{itemize}
+\fi% end \ifshortcv (Professional internships hidden in the short CV)
 
 \end{paracol}
 \begin{paracol}{1}
 
 \smallskip
 
-\cvsection{Speaker}
+\cvsection{Talks \& presentations}
 
 \end{paracol}
 \begin{paracol}{1} %\begin{paracol}{2}
 
-\cvevent{Wikimedia Hackathon 2026}{Unconference session: ``MediaWiki Code2Code Search: Semantic Search to Find Code by Under-the-Surface Similarity''}{2 May 2026}{Milan, Italy}
+{\small
+\newcommand{\yr}[1]{\smallskip{\normalsize\textbf{\textcolor{accent}{#1}}}\par\smallskip}
+\newcommand{\tinv}{\,\textcolor{accent}{\footnotesize[invited]}}
+\newcommand{\tvir}{\,\textcolor{body!60}{\footnotesize[virtual]}}
+\newenvironment{talklist}{\begin{itemize}[leftmargin=1.3em, itemsep=3pt, topsep=1pt, parsep=0pt]}{\end{itemize}}
 
-Led a session at the annual global Wikimedia technical flagship event, introducing a semantic search tool for the MediaWiki ecosystem. The project utilises Jina AI embeddings and vector-based retrieval to enable similarity-based code discovery.
+\yr{2026}
+\begin{talklist}
+  \item \textbf{31 Aug}\enspace \textit{``Unpacking Software Heritage Open Science''} --- DCW Conversation Hour \#44, Deoband Community Wikimedia, online.\tvir\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20260831.pdf}{\faFilePowerpoint\,slides} \Lsep \href{https://commons.wikimedia.org/wiki/File:DCW_Conversation_Hour_44,_Unpacking_Software_Heritage_Open_Science_(Francesco_Tosoni).pdf}{\faImages\,Commons} \Lsep \href{https://doi.org/10.5281/zenodo.22254222}{\faArchive\,Zenodo})}
 
-The discussion emphasised long-term code stewardship through archival in Software Heritage (SWH) and featured a multilingual UI designed for inclusive development. Outlined the future technical roadmap, including the transition to the Codex design system and the implementation of dynamic indexing pipelines for the evolving Wikimedia codebase. (\href{https://www.mediawiki.org/wiki/Wikimedia_Hackathon_2026/Program}{website}, \href{https://phabricator.wikimedia.org/T425057}{Phabricator task}, \href{https://commons.wikimedia.org/wiki/File:Mediawiki-code2codesearch-wmhackathon2026-slides.pdf}{slides})
+  \item \textbf{23 Jul}\enspace \textit{``India's Software Stories: preserving code as heritage with Software Heritage, Wikimedia Commons and Wikidata''} --- Wikimania 2026, Paris, France. Joint with P.~Santhosh Surampudi.\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20260723.pdf}{\faFilePowerpoint\,slides} \Lsep \href{https://commons.wikimedia.org/wiki/File:Wikimania_2026._India%27s_Software_Stories_(Super_nabla,_Pavan_Santhosh).pdf}{\faImages\,Commons} \Lsep \href{https://www.youtube.com/live/saeV6bZ7cIk?t=25105}{\faYoutube\,video})}
 
-\divider
+  \item \textbf{2 May}\enspace \textit{``MediaWiki Code2Code Search: Semantic Search to Find Code by Under-the-Surface Similarity''} --- Wikimedia Hackathon 2026 (unconference), Milan, Italy.\ {\footnotesize(\href{https://www.mediawiki.org/wiki/Wikimedia_Hackathon_2026/Program}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20260502.pdf}{\faFilePowerpoint\,slides} \Lsep \href{https://commons.wikimedia.org/wiki/File:Mediawiki-code2codesearch-wmhackathon2026-slides.pdf}{\faImages\,Commons} \Lsep \href{https://phabricator.wikimedia.org/T425057}{\faTasks\,Phabricator})}
 
-\cvevent{[Invited] CTS Seminar Series: Challenges and Perspectives of Formal Methods for Trustworthy Software}{Talk: ``The Software Heritage Open Science Ecosystem: Preserving software as executable knowledge''}{26 Mar 2026}{Univ.~of Pisa \& IMT Lucca}
+  \item \textbf{26 Mar}\enspace \textit{``The Software Heritage Open Science Ecosystem: Preserving software as executable knowledge''} --- CTS Seminar Series, Univ.~of Pisa \& IMT Lucca.\tinv\ {\footnotesize(\href{https://pages.di.unipi.it/bodei/CTS2026}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20260326.pdf}{\faFilePowerpoint\,slides})}
 
-Invited lecture for the joint PhD seminar series organised by the University of Pisa and IMT School for Advanced Studies Lucca. The session explored the technical foundations of Software Heritage (SWH), specifically the use of a massive Merkle Directed Acyclic Graph (DAG) for planetary-scale archival.
+  \item \textbf{17 Mar}\enspace \textit{``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''} --- GREENVOLVE Workshop @ SANER 2026, Limassol, Cyprus. Joint with P.~Ferragina.\ {\footnotesize(\href{https://conf.researchr.org/details/saner-2026/saner-2026-workshops-tutorials-track/10/The-Energy-Throughput-Trade-off-in-Lossless-Compressed-Source-Code-Storage}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20260317.pdf}{\faFilePowerpoint\,slides})}
 
-Discussed the role of Persistent Identifiers (SWHIDs) in supporting open science pillars—archival, reference, and citation—and presented a Master's thesis proposal on integrating SWHIDs into the Semantic Web via COAR Notify and Wikidata. (\href{https://pages.di.unipi.it/bodei/CTS2026}{website}, \href{https://www.francescotosoni.it/static/slides_20260326.pdf}{slides})
+  \item \textbf{21 Jan}\enspace \textit{``Lossless-Compressed Key-Value Store for the Software Heritage Archive''} --- A³Lab Inaugural Workshop (Session~I), Scuola Superiore Sant'Anna, Pisa.\ {\footnotesize(\href{https://www.santannapisa.it/it/evento/a3lab-inaugural-workshop-algorithms-ai-society}{\faGlobe\,website} \Lsep \href{https://www.santannapisa.it/sites/default/files/2026-01/21%20Jan%202026_02.pdf}{\faImage\,poster} \Lsep \href{https://www.francescotosoni.it/static/slides_20260121.pdf}{\faFilePowerpoint\,slides})}
+\end{talklist}
 
-\divider
+\yr{2025}
+\begin{talklist}
+  \item \textbf{21 Nov}\enspace \textit{``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''} --- DBS Group seminar (Prof.~J.~Gamper), NOI Techpark, Free Univ.~of Bozen-Bolzano.\tinv\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20251121.pdf}{\faFilePowerpoint\,slides})}
 
-\cvevent{SANER 2026 Workshops \& Tutorials}{Talk: ``The Energy–Throughput Trade-off in Lossless-Compressed Source Code Storage''}{17 Mar 2026}{Limassol, Cyprus}
+  \item \textbf{22 Sep}\enspace \textit{``Object Storage Compression''} --- CodeCommons Plenary Event (Infrastructure \& Unified Data Model track).\tinv\ {\footnotesize(\href{https://codecommons.org/news/codecommons-annual-review-2025-09-22/}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20250922.pdf}{\faFilePowerpoint\,slides})}
 
-Presented research at the GREENVOLVE workshop (part of the SANER 2026 series) regarding the design of a compressed key-value store for indexing large-scale source code datasets. The talk detailed extensive experiments on high-performance computing infrastructure to analyse the Pareto-optimal trade-offs between space occupancy, retrieval throughput, and energy efficiency.
+  \item \textbf{2 Jul}\enspace \textit{``Lossless-compressed data storage for SWH: Compressed, tunable \& energy-aware''} --- Software Heritage team seminar, Inria Paris Centre, Paris.\tinv\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20250702.pdf}{\faFilePowerpoint\,slides})}
 
-Key contributions included an automated system for energy-aware configuration tuning and the introduction of standardised green benchmarking for CI/CD pipelines, highlighting how data parallelism impacts energy consumption on modern hardware. Joint work with Paolo Ferragina. (\href{https://conf.researchr.org/details/saner-2026/saner-2026-workshops-tutorials-track/10/The-Energy-Throughput-Trade-off-in-Lossless-Compressed-Source-Code-Storage}{website}, \href{https://www.francescotosoni.it/static/slides_20260317.pdf}{slides})
+  \item \textbf{4 Jun}\enspace \textit{``Toward Greener Matrix Operations by Lossless Compressed Formats''} --- Workshop ``Learning from large, complex and structured data'', Sant'Anna School, Pisa.\tinv\ {\footnotesize(\href{https://www.santannapisa.it/en/evento/learning-large-complex-and-structured-data-advances-methods-and-applications}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20250604.pdf}{\faFilePowerpoint\,slides})}
 
-\divider
+  \item \textbf{27 Feb}\enspace \textit{``Verso operazioni più green su matrici tramite formati compressi senza perdita''} --- Google Developer Group (GDG) Pisa, Polo Fibonacci, Univ.~of Pisa.\tinv\ {\footnotesize(\href{https://gdg.community.dev/events/details/google-gdg-pisa-presents-verso-operazioni-piu-green-su-matrici-tramite-formati-compressi-senza-perdita/}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20250227.pdf}{\faFilePowerpoint\,slides})}
 
-\cvevent{Lossless-Compressed Key-Value Store for the Software Heritage Archive}{A³Lab Inaugural Workshop: Algorithms, AI \& Society}{21 Jan 2026}{Scuola Superiore Sant'Anna, Pisa}
-Presented talk in Session I: Compressed Storage and Indexing of Big Data at the inaugural workshop of the A³Lab. The talk detailed the design and implementation of a lossless-compressed Key-Value Store specifically engineered for the massive scale of the Software Heritage archive. (\href{https://www.santannapisa.it/it/evento/a3lab-inaugural-workshop-algorithms-ai-society}{event website}, \href{https://www.santannapisa.it/sites/default/files/2026-01/21%20Jan%202026_02.pdf}{poster}, \href{https://www.francescotosoni.it/static/slides_20260121.pdf}{slides})
+  \item \textbf{30 Jan}\enspace \textit{``Measuring impact by extracting knowledge of software assets''} (poster) --- 2025 Software Heritage Community Workshop, Inria, Paris.\ {\footnotesize(\href{https://zenodo.org/records/15230207}{\faArchive\,Zenodo} \Lsep \href{https://gitlab.softwareheritage.org/outreach/events/community-workshop-external/-/blob/main/2025-Community-workshop/presentation-page.md}{\faGlobe\,website})}
 
-\divider
+  \item \textbf{28 Jan}\enspace \textit{``Enhancing SWH Object Storage with Compressed and Dynamic Solutions''} --- CodeCommons Kickoff, Inria, Paris.\tinv\ {\footnotesize(\href{https://web.archive.org/web/20250318093619/https://hedgedoc.softwareheritage.org/cc_kickoff_workshops}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20250129.pdf}{\faFilePowerpoint\,slides})}
+\end{talklist}
 
-\cvevent{[Invited] Talk at NOI Techpark Bolzano}{Talk: ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''}{21 Nov 2025}{Free University of Bozen-Bolzano}
-Presented talk at the \href{https://dbs.inf.unibz.it/}{DBS Group} directed by \href{https://www.inf.unibz.it/~gamper/}{Prof. Johann Gamper} about my research on the trade-offs between energy consumption and throughput in lossless-compressed source code archival systems, as part of a seminar invitation from the Faculty of Engineering. The talk discussed tunable compression strategies aimed at optimizing storage efficiency while considering energy-awareness in large-scale code preservation infrastructures. (\href{https://www.francescotosoni.it/static/slides_20251121.pdf}{slides})
+\longonly{%
+\yr{2024}
+\begin{talklist}
+  \item \textbf{7 Nov}\enspace \textit{``Toward Greener Matrix Operations by Lossless Compressed Formats''} --- REGINDEX group seminar (Prof.~N.~Prezza), Ca' Foscari Univ., Venice.\tinv\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20241021.pdf}{\faFilePowerpoint\,slides})}
 
-\divider
+  \item \textbf{21 Oct}\enspace \textit{``Toward Greener Matrix Operations by Lossless Compressed Formats''} --- Efficient Machine Learning Reading Group (TU Graz, Prof.~O.~Saukh).\tinv\tvir\ {\footnotesize(\href{https://sites.google.com/view/efficientml/home}{\faGlobe\,website} \Lsep \href{https://youtu.be/m5qgUGXhbi4?si=C6MNIM5_sTKSRtBt}{\faYoutube\,video} \Lsep \href{https://www.francescotosoni.it/static/slides_20241021.pdf}{\faFilePowerpoint\,slides})}
+\end{talklist}
 
-\cvevent{[Invited] Talk at CodeCommons Plenary Event}{Talk: ``Object Storage Compression''}{22 Sep 2025}{CodeCommons}
-Gave an invited technical talk in the ``Infrastructure and Unified Data Model'' track on research into compression techniques for archival object storage systems. The presentation focused on methods to improve storage efficiency and data management within large-scale Software Heritage infrastructures. (\href{https://codecommons.org/news/codecommons-annual-review-2025-09-22/}{event website}, \href{https://www.francescotosoni.it/static/slides_20250922.pdf}{slides})
+\yr{2022}
+\begin{talklist}
+  \item \textbf{16 Sep}\enspace \textit{``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''} (j2) --- Complexity Science Hub (CSH) Webtalk, Vienna.\tinv\tvir\ {\footnotesize(\href{https://web.archive.org/web/20230528055208/https://www.csh.ac.at/event/csh-talk-francesco-tosoni-improving-matrix-vector-multiplication/}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20220916.pdf}{\faFilePowerpoint\,slides})}
 
-\divider
+  \item \textbf{5--9 Sep}\enspace \textit{``Improving Matrix-vector Multiplication via Lossless Grammar-Compressed Matrices''} (j2) --- VLDB~'22, Sydney, Australia.\tvir\ {\footnotesize(\href{https://vldb.org/2022}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/220907_VLDB_Research_2465.pdf}{\faFilePowerpoint\,slides})}
 
-\cvevent{[Invited] Talk at Software Heritage}{Talk: ``Lossless-compressed data storage for SWH: Compressed, tunable \& energy-aware''}{2 Jul 2025}{Inria Paris Centre, Paris}
-Gave a talk to the Software Heritage team about ongoing research on an I/O-efficient caching system, a terabyte-scale energy-aware solution for source code archival. A second milestone presented was a shard permutation designed to boost compression on the current SWH infrastructure. Shard refers to the file format used in Winery. (\href{https://www.francescotosoni.it/static/slides_20250702.pdf}{slides})
+  \item \textbf{17--23 Jul}\enspace \textit{PhD research summary presentation} --- Lipari School of Computational Complexity and Social Systems, Lipari, Italy.\ {\footnotesize(\href{https://www.francescotosoni.it/static/complex22.pdf}{\faCertificate\,certificate})}
+\end{talklist}
 
-\divider
-
-\cvevent{[Invited] Sant'Anna Workshop ``Learning from large, complex and structured data: advances in methods and applications''}{Talk: ``Toward Greener Matrix Operations by Lossless Compressed Formats''}{4 Jun 2025}{Sant'Anna School of Advanced Studies}
-
-Participated in a two-day workshop held in the Aula Magna of the Sant'Anna School of Advanced Studies (SSSUP) showcasing interdisciplinary research in Economics, Management, Law, and Data Science of young researchers from L'EMbeDS, SMaRT COnSTRUCT project, and the AI for Society PhD programme.
-
-Contributed the session {\em The frontiers of Computer Science} – Chair: Prof.~Andrea Vandin (\href{https://www.santannapisa.it/en/evento/learning-large-complex-and-structured-data-advances-methods-and-applications}{website}, \href{https://www.francescotosoni.it/static/slides_20250604.pdf}{slides})
-
-\divider
-
-\cvevent{[Invited] Google Developer Group (GDG) Pisa}{Talk: ``Verso operazioni più green su matrici tramite formati compressi senza perdita.''}{27 Feb 2025}{Polo Fibonacci, Univ.~of Pisa}
-
-Invited talk on lossless compressed formats for greener sparse matrix operations at GDG Pisa. Thanks to Giovanna Rotundo (Women Techmakers Pisa) for the invitation. (\href{https://gdg.community.dev/events/details/google-gdg-pisa-presents-verso-operazioni-piu-green-su-matrici-tramite-formati-compressi-senza-perdita/}{website}, \href{https://www.francescotosoni.it/static/slides_20250227.pdf}{slides})
-
-\divider
-
-\cvevent{2025 Software Heritage Community Workshop, Paris}{Poster: ``Measuring impact by extracting knowledge of software assets''}{30 Jan 2025}{Inria Palace, Paris}
-
-Contributed to a collaborative community workshop and presented one of the four community posters titled {\em Measuring impact by extracting knowledge of software assets} (\href{https://zenodo.org/records/15230207}{Zenodo link}). The initiative aimed to enhance transparency, improve accessibility, and advance SWH's mission. (\href{https://gitlab.softwareheritage.org/outreach/events/community-workshop-external/-/blob/main/2025-Community-workshop/presentation-page.md}{workshop website})
-
-Posters presented by other groups:
-\begin{itemize}
-    \item 
-    {\em Discovering open-source: One-stop shop for software discovery} (\href{https://zenodo.org/records/15229692}{Zenodo link})
-
-    \item
-    {\em The Library of Alexandria was available, until it was not} (\href{https://zenodo.org/records/15230091}{Zenodo link})
-
-    \item
-    {\em Repair today, repair tomorrow: Software Heritage} (\href{https://zenodo.org/records/15230319}{Zenodo link})
-\end{itemize}
-
-\divider
-
-\cvevent{[Invited] Software Heritage Kickoff Workshops, Paris}{Presented at the CodeCommons Kickoff}{28 Jan 2025}{Inria Paris, France}
-I gave a talk in front of all research teams about my contribution to enhancing space--time performances of insertion and retrieval into the SWH archive. Talk title: ``Enhancing SWH Object Storage with Compressed and Dynamic Solutions''. (\href{https://web.archive.org/web/20250318093619/https://hedgedoc.softwareheritage.org/cc_kickoff_workshops}{website}, \href{https://www.francescotosoni.it/static/slides_20250129.pdf}{slides})
-
-\divider 
-
-\cvevent{[Invited] Seminar at the Ca' Foscary University}{Toward Greener Matrix Operations by Lossless Compressed Formats}{7 Nov 2024}{Ca' Foscary Univ., Venice}
-
-Presented before the members of the \href{https://pric.unive.it/projects/regindex/home}{REGINDEX} research group (Ca' Foscari University, Venice), directed by Prof.~Nicola Prezza, a preprint I contributed as first author on the relationship between computation-friendly lossless compressed matrix formats for matrix-vector multiplication kernels and energy savings. (\href{https://www.francescotosoni.it/static/slides_20241021.pdf}{slides})
-
-\divider %\switchcolumn
-
-\cvevent{[Invited] Talk, Efficient Machine Learning Reading Group, chaired by TU Graz}{Toward Greener Matrix Operations by Lossless Compressed Formats}{21 Oct 2024}{virtual}
-
-Presented a preprint I contributed as first author on the relationship between computation-friendly lossless compressed matrix formats and energy savings in matrix-vector multiplication kernels. The seminar series is chaired by the \href{https://www.tugraz.at/arbeitsgruppen/iti-teams/elss/team-contact}{Embedded Learning and Sensing Systems} research group directed by Prof.~Olga Saukh (TU Graz). (\href{https://sites.google.com/view/efficientml/home}{website}, \href{https://youtu.be/m5qgUGXhbi4?si=C6MNIM5_sTKSRtBt}{YouTube}, \href{https://www.francescotosoni.it/static/slides_20241021.pdf}{slides})
-
-\divider
-
-\cvevent{[Invited] Complexity Science Hub (CSH) Webtalk, Vienna}{Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices}{16 Sep 2022}{Complexity Science Hub (CSH)}
-
-Presented the journal article (j2) at a virtual talk hosted by the CSH. Thank Prof.~Olga Saukh and Mr.~Niraj Kushwaha (CSH) for the invitation. (\href{https://web.archive.org/web/20230528055208/https://www.csh.ac.at/event/csh-talk-francesco-tosoni-improving-matrix-vector-multiplication/}{website}, \href{https://www.francescotosoni.it/static/slides_20220916.pdf}{slides})
-
-\divider
-
-\cvevent{VLDB '22: 48th International Conference on Very Large Databases}{Talk: ``Improving Matrix-vector Multiplication via Lossless Grammar-Compressed Matrices''}{5--9 Sep 2022}{Sydney, Australia}
-
-Presented the article (j2) as corresponding author [virtual]. (\href{https://vldb.org/2022}{PVLDB website}, \href{https://www.francescotosoni.it/static/220907_VLDB_Research_2465.pdf}{slides})
-
-\divider
-
-\cvevent{Lipari School of Computational Complexity and Social Systems}{PhD research summary presentation}{17--23 Jul 2022}{Lipari, Italy}
-
-During the summer school, I presented intermediate results of my PhD research. (\href{https://www.francescotosoni.it/static/complex22.pdf}{Certificate of attendance})
-
-\divider
-
-\cvevent{Mauriana Pesaresi Seminar Series 2020/2021, Univ.~of Pisa}{Locality Filtering for Efficient Ride Sharing Platforms}{19 Feb 2021}{Univ.~of Pisa, Italy}
-
-Presented my work on locality filtering techniques for ride-sharing platforms as part of this PhD student-organised seminar series. The talk discussed approaches to substantially speed up ride-sharing computations while maintaining solution quality. (\href{https://danilonumeroso.github.io/pesaresi-seminar-series/}{website}, \href{https://www.francescotosoni.it/static/slides_20210219.pdf}{slides})
+\yr{2021}
+\begin{talklist}
+  \item \textbf{19 Feb}\enspace \textit{``Locality Filtering for Efficient Ride-Sharing Platforms''} (j1) --- Mauriana Pesaresi Seminar Series 2020/2021, Univ.~of Pisa.\ {\footnotesize(\href{https://danilonumeroso.github.io/pesaresi-seminar-series/}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20210219.pdf}{\faFilePowerpoint\,slides})}
+\end{talklist}
+}% end \longonly
+} % end \small
 
 \end{paracol}
 \begin{paracol}{1} %\begin{paracol}{2}
 
 \medskip
 
+\ifshortcv\else
 \cvsection{Participation to conferences}
 
 \cvevent{The 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER 2026)}{IEEE Computer Society}{17--20 Mar 2026}{Limassol, Cyprus}
 
-In-person attendance to SANER 2026, the premier event on the theory and practice of recovering information from existing software and systems (\href{https://conf.researchr.org/home/saner-2026}{website})
+In-person attendance to SANER 2026, the premier event on the theory and practice of recovering information from existing software and systems (\href{https://conf.researchr.org/home/saner-2026}{\faGlobe\,website})
 
 \divider
 
 \cvevent{Software Heritage 2026 Symposium and Summit}{UNESCO headquarters}{28 Jan 2026}{Paris, France}
 
-Attended the 10th-anniversary symposium co-hosted by UNESCO and Software Heritage, focusing on the preservation of source code as a Digital Public Good. Participated in high-level discussions regarding the renewal of the UNESCO–Inria partnership, the role of Free and Open-Source Software (FOSS) in sustainable innovation, and the importance of transparent AI grounded in open, verifiable code archives. Explored the integration of software preservation within the UNESCO Recommendation on Open Science and the Global Digital Compact to support inclusive and interoperable digital ecosystems. (\href{https://www.unesco.org/en/articles/software-heritage-symposium-and-summit}{UNESCO website}, \href{https://diff.wikimedia.org/2026/02/16/when-source-code-archival-is-recognised-as-digital-public-good-insights-from-software-heritages-10-year-journey-at-unesco/}{Diff blog post})
+Attended the 10th-anniversary symposium co-hosted by UNESCO and Software Heritage, focusing on the preservation of source code as a Digital Public Good. Participated in high-level discussions regarding the renewal of the UNESCO–Inria partnership, the role of Free and Open-Source Software (FOSS) in sustainable innovation, and the importance of transparent AI grounded in open, verifiable code archives. Explored the integration of software preservation within the UNESCO Recommendation on Open Science and the Global Digital Compact to support inclusive and interoperable digital ecosystems. (\href{https://www.unesco.org/en/articles/software-heritage-symposium-and-summit}{\faGlobe\,UNESCO website} \Lsep \href{https://diff.wikimedia.org/2026/02/16/when-source-code-archival-is-recognised-as-digital-public-good-insights-from-software-heritages-10-year-journey-at-unesco/}{\faGlobe\,Diff blog post})
 
 \divider
 
 \cvevent{Software Heritage 2025 Symposium and Summit}{UNESCO headquarters}{29 Jan 2025}{Paris, France}
 
-Engaged with leaders from UNESCO, Inria, and Software Heritage, participating in discussions and panels on critical topics including cybersecurity and regulation (e.g., EU's Cyber Resilience Act), open and transparent AI (with insights from EU AI Office, IBM Research, Open Source Initiative), open science (aligned with UNESCO Recommendation on Open Science), and cultural preservation of software as digital heritage. (\href{https://www.unesco.org/en/articles/software-heritage-2025-symposium-and-summit}{UNESCO website}, \href{https://www.softwareheritage.org/2024/11/19/software-heritage-2025-symposium-summit/}{SWH website})
+Engaged with leaders from UNESCO, Inria, and Software Heritage, participating in discussions and panels on critical topics including cybersecurity and regulation (e.g., EU's Cyber Resilience Act), open and transparent AI (with insights from EU AI Office, IBM Research, Open Source Initiative), open science (aligned with UNESCO Recommendation on Open Science), and cultural preservation of software as digital heritage. (\href{https://www.unesco.org/en/articles/software-heritage-2025-symposium-and-summit}{\faGlobe\,UNESCO website} \Lsep \href{https://www.softwareheritage.org/2024/11/19/software-heritage-2025-symposium-summit/}{\faGlobe\,SWH website})
 
 % \divider
 
@@ -720,7 +829,9 @@ Engaged with leaders from UNESCO, Inria, and Software Heritage, participating in
 
 \cvevent{Conference article: ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''}{SPIRE '22: 29th International Symposium on String Processing and Information Retrieval}{8--10 nov 2022}{Concepción, Chile}
 
-In presence attendance to SPIRE '22, where my research group contributed the conference article (c1) (\href{http://spire2022.inf.udec.cl/}{website})
+In presence attendance to SPIRE '22, where my research group contributed the conference article (c1) (\href{http://spire2022.inf.udec.cl/}{\faGlobe\,website})
+
+\fi% end \ifshortcv (Participation to conferences hidden in the short CV)
 
 \medskip
 
@@ -754,8 +865,8 @@ In presence attendance to SPIRE '22, where my research group contributed the con
     information retrieval,
     stringology
 } {
-    \node[fill=accent!70!white, rounded corners=3pt, inner sep=4pt, 
-          anchor=base, font=\small\bfseries\color{white}] 
+    \node[fill=accent, rounded corners=3pt, inner sep=4pt,
+          anchor=base, font=\small\bfseries\color{white}]
         at (rand*2.2, -\i*0.45) {\skill};
 }
 \end{tikzpicture}
