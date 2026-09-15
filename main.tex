@@ -182,6 +182,20 @@
   \endgroup\par\smallskip
 }
 
+% ------------------------------------------------------------------------------
+% Grouped "Research focus" keyword pills (Technical Expertise section).
+% \skillpill renders a rounded accent chip that flows and wraps within a
+% RaggedRight block; \focusgroup prints a small accent label above each cluster.
+% The clusters are ordered to tell a coherent story (see that section).
+% ------------------------------------------------------------------------------
+\newcommand{\skillpill}[1]{%
+  \tikz[baseline=(sp.base)]{%
+    \node[fill=accent, rounded corners=2pt, inner sep=3pt, text=white,
+          font=\footnotesize\bfseries] (sp) {#1};}%
+  \hspace{3pt plus 3pt minus 1pt}\allowbreak
+}
+\newcommand{\focusgroup}[1]{\par\smallskip{\small\bfseries\textcolor{accent}{#1}}\par\smallskip}
+
 \begin{document}
 \newcounter{countdown} % Contatore per il countdown
 
@@ -862,36 +876,37 @@ In presence attendance to SPIRE '22, where my research group contributed the con
 
 \begin{paracol}{2}
 
-% Left Column: Skills Cloud (unchanged)
+% Left Column: Research focus, grouped into ordered thematic clusters so the
+% profile reads as one coherent line (compression -> compressed linear algebra
+% on GPUs -> code archives & semantic search -> green), not a scattered cloud.
 \begin{leftcolumn}
-\begin{center}
-\textbf{\textcolor{accent}{\faCloud\ Research Focus}} \\
-\vspace{0.5em}
-\begin{tikzpicture}
-\foreach [count=\i] \skill in {
-    computation-friendly compression,
-    % grammar compression,
-    % sparse matrix-vector multiplication,
-    lossless data compression,
-    compressed data structures,
-    green computing,
-    green software-engineering,
-    digital preservation,
-    source-code archives,
-    open data infrastructures,
-    energy-efficient algorithms,
-    string indexing,
-    graph algorithms,
-    key-value stores,
-    information retrieval,
-    stringology
-} {
-    \node[fill=accent, rounded corners=3pt, inner sep=4pt,
-          anchor=base, font=\small\bfseries\color{white}]
-        at (rand*2.2, -\i*0.45) {\skill};
-}
-\end{tikzpicture}
-\end{center}
+\textbf{\textcolor{accent}{\faCloud\ Research focus}}
+{\RaggedRight\setlength{\parindent}{0pt}\baselineskip=15pt\relax
+%
+\focusgroup{Compression \& compressed data structures}
+\skillpill{lossless compression}%
+\skillpill{compressed data structures}%
+\skillpill{computation-friendly compression}%
+\skillpill{string indexing}%
+\skillpill{stringology}%
+%
+\focusgroup{Compressed linear algebra on GPUs \& accelerators}
+\skillpill{compressed linear algebra}%
+\skillpill{memory-bounded GPU algorithms}%
+\skillpill{grammar-compressed matrices}%
+\skillpill{SpMV \& PageRank kernels}%
+\skillpill{genotype \& graph data}%
+%
+\focusgroup{Code archives \& semantic search}
+\skillpill{source-code archives}%
+\skillpill{semantic code search}%
+\skillpill{code-to-code retrieval}%
+\skillpill{digital preservation}%
+\skillpill{open-data infrastructures}%
+%
+\focusgroup{Cross-cutting}
+\skillpill{green, energy-aware algorithm engineering}%
+\par}
 \end{leftcolumn}
 
 % Right Column: Proficiencies (with compatible icons)
@@ -901,7 +916,8 @@ In presence attendance to SPIRE '22, where my research group contributed the con
 \vspace{.5em}
 
 \begin{tabular}{@{}ll@{}}
-\faFileCode \ \textbf{C/C++} & (Expert, C++11/14/17, cmake,\\ & pthread, parallel pattern) \\  % File icon substitute
+\faFileCode \ \textbf{C/C++} & (Expert; C++11/14/17, CMake,\\ & pthreads, parallel patterns) \\  % File icon substitute
+\faMicrochip\ \textbf{CUDA} & (GPU kernels, memory-bounded) \\
 \faFlask\ \textbf{Python} & (NumPy, pybind11) \\         % Flask for Python
 \faTerminal\ \textbf{Bash} & (Scripting/Automation) \\
 \faCoffee\ \textbf{Java} & (Prior experience) \\
