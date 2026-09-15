@@ -183,17 +183,10 @@
 }
 
 % ------------------------------------------------------------------------------
-% Grouped "Research focus" keyword pills (Technical Expertise section).
-% \skillpill renders a rounded accent chip that flows and wraps within a
-% RaggedRight block; \focusgroup prints a small accent label above each cluster.
-% The clusters are ordered to tell a coherent story (see that section).
+% Grouped "Research focus" keywords (Technical Expertise section). \focusgroup
+% prints a small accent label above each thematic cluster; the clusters are
+% ordered to tell a coherent story (see that section).
 % ------------------------------------------------------------------------------
-\newcommand{\skillpill}[1]{%
-  \tikz[baseline=(sp.base)]{%
-    \node[fill=accent, rounded corners=2pt, inner sep=3pt, text=white,
-          font=\footnotesize\bfseries] (sp) {#1};}%
-  \hspace{3pt plus 3pt minus 1pt}\allowbreak
-}
 \newcommand{\focusgroup}[1]{\par\smallskip{\small\bfseries\textcolor{accent}{#1}}\par\smallskip}
 
 \begin{document}
@@ -881,31 +874,19 @@ In presence attendance to SPIRE '22, where my research group contributed the con
 % on GPUs -> code archives & semantic search -> green), not a scattered cloud.
 \begin{leftcolumn}
 \textbf{\textcolor{accent}{\faCloud\ Research focus}}
-{\RaggedRight\setlength{\parindent}{0pt}\baselineskip=15pt\relax
+{\small\RaggedRight\setlength{\parindent}{0pt}%
 %
 \focusgroup{Compression \& compressed data structures}
-\skillpill{lossless compression}%
-\skillpill{compressed data structures}%
-\skillpill{computation-friendly compression}%
-\skillpill{string indexing}%
-\skillpill{stringology}%
+lossless compression \Lsep compressed data structures \Lsep computation-friendly compression \Lsep string indexing \Lsep stringology
 %
 \focusgroup{Compressed linear algebra on GPUs \& accelerators}
-\skillpill{compressed linear algebra}%
-\skillpill{memory-bounded GPU algorithms}%
-\skillpill{grammar-compressed matrices}%
-\skillpill{SpMV \& PageRank kernels}%
-\skillpill{genotype \& graph data}%
+compressed linear algebra \Lsep memory-bounded GPU algorithms \Lsep grammar-compressed matrices \Lsep SpMV \& PageRank kernels \Lsep genotype \& graph data
 %
 \focusgroup{Code archives \& semantic search}
-\skillpill{source-code archives}%
-\skillpill{semantic code search}%
-\skillpill{code-to-code retrieval}%
-\skillpill{digital preservation}%
-\skillpill{open-data infrastructures}%
+source-code archives \Lsep semantic code search \Lsep code-to-code retrieval \Lsep digital preservation \Lsep open-data infrastructures
 %
 \focusgroup{Cross-cutting}
-\skillpill{green, energy-aware algorithm engineering}%
+green, energy-aware algorithm engineering
 \par}
 \end{leftcolumn}
 
