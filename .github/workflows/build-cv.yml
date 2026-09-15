@@ -90,3 +90,30 @@ jobs:
           body: >
             Automatically built from commit ${{ github.sha }}.
             Variants: full / short  ×  EU (photo) / international (no photo).
+
+      # Because this repo is private, the release download links above are not
+      # publicly reachable. So the two *international* variants are also pushed
+      # over FTP to the personal website (same host/secret as academic_website's
+      # deploy.yml), where they are served publicly and linked from the home page:
+      #   https://www.francescotosoni.it/cv/cv-full-intl.pdf
+      #   https://www.francescotosoni.it/cv/cv-short-intl.pdf
+      # Requires the repository secret FTP_PASSWORD (FTP password for oughyvcm).
+      - name: Stage the international PDFs for the website
+        run: |
+          mkdir -p site-cv
+          cp artifacts/cv-full-intl/cv-full-intl.pdf   site-cv/
+          cp artifacts/cv-short-intl/cv-short-intl.pdf site-cv/
+          ls -l site-cv
+
+      # server-dir is dedicated to these two files, so the sync (which prunes
+      # remote files absent locally) only ever manages public_html/cv/ and never
+      # touches the rest of the site.
+      - name: Deploy international CVs to the website via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.francescotosoni.it
+          username: oughyvcm
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./site-cv/
+          server-dir: public_html/cv/
