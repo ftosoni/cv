@@ -50,11 +50,18 @@ jobs:
 
       # Full TeX Live image; XeLaTeX is required for fontspec, the Lato font,
       # fontawesome5 and academicons. Biber runs automatically.
+      #
+      # The Alpine-based image ships no Devanagari font, so the Hindi label
+      # (\hindi हिन्दी in main.tex) would silently fall back to a no-op. We install
+      # Noto Sans Devanagari (matched by main.tex's \IfFontExistsTF fallback) and
+      # rebuild the fontconfig cache so XeLaTeX can find it.
       - name: Compile ${{ matrix.variant }}
         uses: xu-cheng/latex-action@v3
         with:
           root_file: ${{ matrix.variant }}.tex
           latexmk_use_xelatex: true
+          extra_system_packages: "font-noto-devanagari"
+          pre_compile: "fc-cache -fv"
 
       - name: Upload ${{ matrix.variant }}.pdf
         uses: actions/upload-artifact@v4
