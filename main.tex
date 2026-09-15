@@ -151,7 +151,7 @@
 \newcommand{\Lgl}[1]{\href{#1}{\faGitlab\,code}}
 \newcommand{\Lswhid}[1]{\href{https://archive.softwareheritage.org/#1}{\faFingerprint\,SWHID}}
 \newcommand{\Lpdf}[1]{\href{#1}{\faFilePdf\,PDF}}
-\newcommand{\Lfix}[1]{\href{#1}{\faWrench\,erratum}}
+\newcommand{\Lfix}[1]{\href{#1}{\faWrench\,fix}}
 \newcommand{\Lcc}[2]{\href{#1}{\faCreativeCommons\,#2}}
 % talks
 \newcommand{\Lweb}[1]{\href{#1}{\faGlobe\,website}}
@@ -164,6 +164,23 @@
 \newcommand{\Lcert}[1]{\href{#1}{\faCertificate\,certificate}}
 % pill separator
 \newcommand{\Lsep}{\;\textcolor{body!40}{\textbullet}\;}
+
+% ------------------------------------------------------------------------------
+% Small framed footer for a publication entry, highlighting the self-archived
+% author PDF and making explicit that the licence refers to the availability of
+% THAT PDF (not necessarily the publisher's version of record).
+%   #1 = PDF url   #2 = licence url   #3 = licence name
+% ------------------------------------------------------------------------------
+\newcommand{\pdflicense}[3]{%
+  \par\smallskip
+  \begingroup\setlength{\fboxsep}{5pt}\setlength{\fboxrule}{0.4pt}%
+  \noindent\fcolorbox{accent!30}{accent!6}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \footnotesize\faFilePdf\ \href{#1}{Author PDF}\ \textcolor{body!45}{\textbullet}\ available under \href{#2}{\faCreativeCommons\,#3}%
+    }%
+  }%
+  \endgroup\par\smallskip
+}
 
 \begin{document}
 \newcounter{countdown} % Contatore per il countdown
@@ -326,7 +343,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvsection{Publications}
 
-{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,data \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,erratum \Lsep \faCreativeCommons\,licence.}}
+{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,data \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence.}}
 
 \smallskip
 
@@ -346,9 +363,11 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \textbf{F.~Tosoni}, P.~Bille, V.~Brunacci, A.~De Angelis, P.~Ferragina, G.~Manzini. \\
     ``Toward Greener Matrix Operations by Lossless Compressed Formats''. \\
     \textit{IEEE Access} [Q1, IF: 3.4], vol.~13, pp.~56756--56779, 2025. \\
-    \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lpdf{https://www.francescotosoni.it/static/j4.pdf} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv} \Lsep \Lcc{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
+    \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv}
 
     As the principal investigator, corresponding and first author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations. Published as Gold open access under CC~BY~4.0.
+
+    \pdflicense{https://www.francescotosoni.it/static/j4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
 
     \addtocounter{countdown}{-1}
 
@@ -356,9 +375,11 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     A.~Boffa, P.~Ferragina, \textbf{F.~Tosoni}, G.~Vinciguerra. \\
     ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
     \textit{Information Systems} (IS) [Q1, IF: 3.0], vol.~120, art.~102316, 2024. \\
-    \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lpdf{https://www.francescotosoni.it/static/j3.pdf} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb} \Lsep \Lcc{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+    \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
 
     Extended version of the SPIRE~2022 paper [c1]. I contributed to both the theoretical framework and the codebase of the CoCo-trie.
+
+    \pdflicense{https://www.francescotosoni.it/static/j3.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
 
     \addtocounter{countdown}{-1}
 
@@ -366,9 +387,11 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     P.~Ferragina, G.~Manzini, T.~Gagie, D.~Köppl, G.~Navarro, M.~Striani, \textbf{F.~Tosoni}. \\
     ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
     \textit{Proc. VLDB Endowment} (PVLDB) [Q1, IF: 2.6], vol.~15, no.~10, pp.~2175--2187, 2022. \\
-    \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lpdf{https://www.francescotosoni.it/static/j2.pdf} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e} \Lsep \Lcc{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+    \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
 
     As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
+
+    \pdflicense{https://www.francescotosoni.it/static/j2.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
 
     \addtocounter{countdown}{-1}
 
@@ -963,11 +986,11 @@ Native speaker fluency.
 
 \cvsection{Open Data Contributions \& Community Engagement}
 
-\noindent \textbf{Technical Ecosystem \& Tooling:} Architect and maintainer of open-source tools on Wikimedia Toolforge, including \href{https://code2codesearch.toolforge.org/}{Code2Code Search}, a semantic retrieval engine for the MediaWiki codebase. Developed \href{https://it.wikipedia.org/wiki/Utente:Nablabot}{Nablabot}, an automated framework for cross-wiki data consistency and error correction. Active Videshi member of the \href{https://meta.wikimedia.org/wiki/Indic_MediaWiki_Developers_User_Group}{Indic MediaWiki Developers User Group}, focusing on bulk reconciling data on Wikidata, technical student mentorship, and large-scale source code preservation and presentation layers.
+\noindent \textbf{Technical Ecosystem \& Tooling:} Architect and maintainer of open-source tools on Wikimedia Toolforge, including \href{https://code2codesearch.toolforge.org/}{Code2Code Search}, a semantic retrieval engine for the MediaWiki codebase. Developed \href{https://it.wikipedia.org/wiki/Utente:Nablabot}{Nablabot}, an automated framework for cross-wiki data consistency and error correction. Active Videshi member of the \href{https://meta.wikimedia.org/wiki/Indic_MediaWiki_Developers_User_Group}{Indic MediaWiki Developers User Group}, focusing on bulk reconciling data on Wikidata, technical student mentorship (\href{https://diff.wikimedia.org/2026/07/23/indic-wikimedia-hackathon-hyderabad-2026/}{Indic Wikimedia Hackathon Hyderabad 2026}), and large-scale source code preservation and presentation layers.
 
 \vspace{0.5em}
 
-\noindent \textbf{Knowledge Curation \& Impact:} Initiating over 150 pages and performing 65,000+ edits across Wikipedia, Wikidata, and Meta-Wiki, with a focus on structured data.
+\noindent \textbf{Knowledge Curation \& Impact:} Initiated 150+ articles and curated structured data at scale on Wikidata.
 
 \vspace{0.5em}
 
@@ -982,7 +1005,7 @@ All of the above statements are true in accordance with the regulations on subst
 
 \centering
 % Paris, France. 9\textsuperscript{th} July 2025\\
-Pisa (Italy), the 5\textsuperscript{th} of May 2026\\
+Pisa (Italy), the 15\textsuperscript{th} of September 2026\\
 \smallskip
 \includegraphics[width=.3\linewidth]{signature.pdf}
 
