@@ -55,6 +55,15 @@ jobs:
       # (\hindi हिन्दी in main.tex) would silently fall back to a no-op. We install
       # Noto Sans Devanagari (matched by main.tex's \IfFontExistsTF fallback) and
       # rebuild the fontconfig cache so XeLaTeX can find it.
+      # Date above the signature = date of the last commit (Europe/Rome), so it
+      # tracks the last content change and re-running the workflow does not
+      # move it. main.tex reads cvdate.tex; without it, it uses the build date.
+      - name: Stamp the CV date from the last commit
+        run: |
+          TZ=Europe/Rome date -d "@$(git log -1 --format=%ct)" \
+            '+\def\CVYEAR{%Y}\def\CVMONTH{%-m}\def\CVDAY{%-d}' > cvdate.tex
+          cat cvdate.tex
+
       - name: Compile ${{ matrix.variant }}
         uses: xu-cheng/latex-action@v3
         with:

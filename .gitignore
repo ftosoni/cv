@@ -21,6 +21,9 @@ cv-full-intl.pdf
 cv-short-eu.pdf
 cv-short-intl.pdf
 
+# Data del CV scritta dalla CI (vedi build-cv.yml)
+cvdate.tex
+
 # File temporanei
 *.tmp
 *~
