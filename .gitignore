@@ -14,7 +14,8 @@
 *.fls
 *.fdb_latexmk
 
-# PDF delle varianti generate dai wrapper cv-*.tex (solo main.pdf è versionato)
+# PDF generati (compilati dalla CI; nessun PDF è versionato)
+main.pdf
 cv-full-eu.pdf
 cv-full-intl.pdf
 cv-short-eu.pdf

@@ -80,8 +80,8 @@ MiKTeX offers to install any missing packages on first compilation.
 | `old.tex` | A previous draft, kept for reference. |
 | `.github/workflows/build-cv.yml` | CI that builds all four variants (see below). |
 
-Only `main.pdf` (the full+photo build) is version-controlled as a convenience
-snapshot; the variant PDFs are git-ignored and produced by CI.
+No PDF is version-controlled: `main.pdf` and the variant PDFs are git-ignored
+and produced by CI (see below).
 
 ## Continuous integration
 
