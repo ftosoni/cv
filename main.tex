@@ -163,6 +163,12 @@
 \newcommand{\Lhf}[1]{\href{#1}{\faSmile\,Hugging Face}}
 \newcommand{\Lphab}[1]{\href{#1}{\faTasks\,Phabricator}}
 \newcommand{\Lcert}[1]{\href{#1}{\faCertificate\,certificate}}
+% venue ranking: ICORE conference rank (#1 = portal entry id, #2 = rank).
+% Workshops have no ICORE rank of their own and are left unlabelled.
+\newcommand{\Licore}[2]{[\href{https://portal.core.edu.au/conf-ranks/#1/}{ICORE\,2026: #2}]}
+% venue ranking: SCImago journal quartile (#1 = SCImago source id, #2 = quartile,
+% #3 = SJR value), as shown on the journal's SCImago page (best category).
+\newcommand{\Lsjr}[3]{[\href{https://www.scimagojr.com/journalsearch.php?q=#1&tip=sid}{SJR\,2025: #2, #3}]}
 % pill separator
 \newcommand{\Lsep}{\;\textcolor{body!40}{\textbullet}\;}
 
@@ -171,9 +177,14 @@
 % their official/institutional homepage (P856), mirroring the popovers on
 % francescotosoni.it/publications.html (source of truth: academic_website
 % public_html/js/authors.js). Co-authors without an authoritative institutional
-% page (De Angelis, Boffa, Gagie, Striani, Carmona) stay unlinked, as there
-% linking the wrong person would be worse than not linking at all.
+% page fall back to their ORCID record (Boffa, Gagie, Striani) or, lacking
+% that, their DBLP profile (De Angelis, Carmona) -- both taken from authors.js.
 % ------------------------------------------------------------------------------
+\newcommand{\Auboffa}{\href{https://orcid.org/0000-0002-8178-135X}{A.~Boffa}}
+\newcommand{\Audeangelis}{\href{https://dblp.org/pid/25/8944.html}{A.~De Angelis}}
+\newcommand{\Augagie}{\href{https://orcid.org/0000-0003-3689-327X}{T.~Gagie}}
+\newcommand{\Austriani}{\href{https://orcid.org/0000-0002-7600-576X}{M.~Striani}}
+\newcommand{\Aucarmona}{\href{https://dblp.org/pid/348/5690.html}{G.~Carmona}}
 \newcommand{\Auferragina}{\href{https://www.santannapisa.it/en/paolo-ferragina}{P.~Ferragina}}
 \newcommand{\Aumanzini}{\href{https://pages.di.unipi.it/manzini/}{G.~Manzini}}
 \newcommand{\Aumencagli}{\href{https://pages.di.unipi.it/mencagli/}{G.~Mencagli}}
@@ -211,6 +222,25 @@
 % ordered to tell a coherent story (see that section).
 % ------------------------------------------------------------------------------
 \newcommand{\focusgroup}[1]{\par\smallskip{\small\bfseries\textcolor{accent}{#1}}\par\smallskip}
+
+% ------------------------------------------------------------------------------
+% Date printed above the signature. CI writes cvdate.tex with the date of the
+% last commit (see build-cv.yml), so the PDF carries the date its content last
+% changed; a local build without that file falls back to the compile date.
+% ------------------------------------------------------------------------------
+\InputIfFileExists{cvdate.tex}{}{}
+\providecommand{\CVYEAR}{\the\year}
+\providecommand{\CVMONTH}{\the\month}
+\providecommand{\CVDAY}{\the\day}
+% English ordinal: 11th-13th, else by last digit (1st, 2nd, 3rd, Nth). \numexpr
+% rounds #1/10, so the "digit" may go negative; that lands in \else (th), which
+% is right, since only last digits 5-9 round up.
+\newcommand{\cvordinal}[1]{#1\textsuperscript{%
+  \ifnum#1=11 th\else\ifnum#1=12 th\else\ifnum#1=13 th\else
+  \ifcase\numexpr#1-10*(#1/10)\relax th\or st\or nd\or rd\else th\fi
+  \fi\fi\fi}}
+\newcommand{\cvmonthname}[1]{\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
+\newcommand{\cvdate}{the \cvordinal{\CVDAY} of \cvmonthname{\CVMONTH} \CVYEAR}
 
 \begin{document}
 \newcounter{countdown} % Contatore per il countdown
@@ -342,6 +372,8 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     August 2019 - July 2020 cohort.}
     \href{http://www.conscienze.it/premi_2020_vincitori.asp}{\faLink\ Award announcement}
 
+    \ifshortcv\else% student-era distinctions: full CV only
+
     \divider
 
     \cvachievement{\faGithub}{Github --- Arctic Code Vault Contributor}{Awarded Github's Arctic Code Vault Contributor badge as part of the \href{https://archiveprogram.github.com/arctic-vault/}{2020 GitHub Archive Programme}.
@@ -369,11 +401,13 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     
     \href{https://firstascent.io}{\faGlobe\ Event Page}
 
+    \fi% end \ifshortcv (student-era distinctions)
+
 \smallskip
 
 \cvsection{Publications}
 
-{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,data \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence.}}
+{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,data \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence. \textit{Venue rankings:} ICORE 2026 (conferences; workshops are not ranked) and SCImago SJR 2025 (journals; best-category quartile), each linked to its source.}}
 
 \smallskip
 
@@ -390,9 +424,9 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 ]
 
     \item
-    \textbf{F.~Tosoni}, \Aubille, \Aubrunacci, A.~De Angelis, \Auferragina, \Aumanzini. \\
+    \textbf{F.~Tosoni}, \Aubille, \Aubrunacci, \Audeangelis, \Auferragina, \Aumanzini. \\
     ``Toward Greener Matrix Operations by Lossless Compressed Formats''. \\
-    \textit{IEEE Access} [Q1, IF: 3.4], vol.~13, pp.~56756--56779, 2025. \\
+    \textit{IEEE Access} \Lsjr{21100374601}{Q1}{0.884}, vol.~13, pp.~56756--56779, 2025. \\
     \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv}
 
     As the principal investigator, corresponding and first author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations. Published as Gold open access under CC~BY~4.0.
@@ -402,9 +436,9 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \addtocounter{countdown}{-1}
 
     \item
-    A.~Boffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
+    \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
     ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
-    \textit{Information Systems} (IS) [Q1, IF: 3.0], vol.~120, art.~102316, 2024. \\
+    \textit{Information Systems} (IS) \Lsjr{12305}{Q1}{0.981}, vol.~120, art.~102316, 2024. \\
     \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
 
     Extended version of the SPIRE~2022 paper [c1]. I contributed to both the theoretical framework and the codebase of the CoCo-trie.
@@ -414,9 +448,9 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \addtocounter{countdown}{-1}
 
     \item
-    \Auferragina, \Aumanzini, T.~Gagie, \Aukoppl, \Aunavarro, M.~Striani, \textbf{F.~Tosoni}. \\
+    \Auferragina, \Aumanzini, \Augagie, \Aukoppl, \Aunavarro, \Austriani, \textbf{F.~Tosoni}. \\
     ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
-    \textit{Proc. VLDB Endowment} (PVLDB) [Q1, IF: 2.6], vol.~15, no.~10, pp.~2175--2187, 2022. \\
+    \textit{Proc. VLDB Endowment} (PVLDB) \Lsjr{21100199855}{Q1}{1.767}, vol.~15, no.~10, pp.~2175--2187, 2022. \\
     \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
 
     As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
@@ -428,7 +462,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \item
     \textbf{F.~Tosoni}, \Auferragina, \Aumarino, \Auresta, \Ausanti. \\
     ``Locality Filtering for Efficient Ride-Sharing Platforms''. \\
-    \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) [Q1, IF: 7.9],
+    \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) \Lsjr{18378}{Q1}{2.608},
     vol.~23, no.~7, pp.~7785--7804, 2022. \\
     \Ldoi{10.1109/TITS.2021.3072830} \Lsep \Lwdpaper{Q138605098}
 
@@ -451,7 +485,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \textbf{F.~Tosoni}, \Aumencagli. \\
   ``Streaming Right Multiplication over Grammar-Compressed Matrices: A Memory-Bounded GPU Engine for Genotype and Graph Data''. \\
-  \textit{SIAM Symposium on Algorithm Engineering and Experiments} (ALENEX), 2027 \emph{(to appear)}. \\
+  \textit{SIAM Symposium on Algorithm Engineering and Experiments} (ALENEX) \Licore{1870}{A}, 2027 \emph{(to appear)}. \\
   \Larxiv{2607.24971} \Lsep \Lgh{https://github.com/ftosoni/g-mm-repair} \Lsep \Ldata{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
 
   As first and corresponding author, I designed and implemented a memory-bounded GPU engine for right-multiplication over grammar-compressed matrices, targeting genotype and graph data. The code is openly released and archived in Software Heritage; the accompanying data are deposited on Zenodo.
@@ -462,7 +496,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \Aupellizzari, \textbf{F.~Tosoni}. \\
   ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
   \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026}, \emph{(to appear)}. \\
-  \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
+  \Larxiv{2609.21667} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
 
   Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
 
@@ -471,7 +505,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \Auvenuta, \textbf{F.~Tosoni}, \Auferragina. \\
   ``Candidate Recall in Large-Scale Code-to-Code Retrieval: A Comprehensive Benchmark''. \\
-  \textit{Web Information Systems Engineering} (WISE), Springer, 2026 \emph{(to appear)}. \\
+  \textit{Web Information Systems Engineering} (WISE) \Licore{1271}{B}, Springer, 2026 \emph{(to appear)}. \\
   \Larxiv{2606.27401} \Lsep \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub\,code}
 
   A comprehensive benchmark of candidate recall for large-scale code-to-code retrieval.
@@ -481,7 +515,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \Auferragina, \textbf{F.~Tosoni}. \\
   ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
-  \textit{GREENVOLVE}, co-located at \textit{IEEE International Conference on Software Analysis, Evolution and Reengineering} (IEEE SANER Companion) [Rank: A], pp.~157--164, 2026. \\
+  \textit{GREENVOLVE Workshop}, co-located with \textit{IEEE International Conference on Software Analysis, Evolution and Reengineering} (SANER), in \textit{SANER 2026 Companion Proceedings}, pp.~157--164, 2026. \\
   \Ldoi{10.1109/SANER-C67878.2026.00027} \Lsep \Larxiv{2601.13220} \Lsep \Lwdpaper{Q138702496} \Lsep \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage} \Lsep \Lfix{https://www.francescotosoni.it/errata/c2.html}
 
   I wrote and curated the codebase, contributed to the scientific framework and writing and managed contacts with the Software Heritage team at Inria Paris.
@@ -489,9 +523,9 @@ Achieved 30/30 \textit{cum laude} in seven courses.
      \addtocounter{countdown}{-1}
 
   \item
-  A.~Boffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
+  \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
   ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''. \\
-  \textit{String Processing and Information Retrieval} (SPIRE) [Rank: C], pp.~233--249, 2022. \\
+  \textit{String Processing and Information Retrieval} (SPIRE) \Licore{1418}{C}, pp.~233--249, 2022. \\
   \href{https://doi.org/10.1007/978-3-031-20643-6_17}{\faLink\,DOI} \Lsep \Lwdpaper{Q138605132} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie}
 
   I contributed to both the theoretical framework and the codebase of the CoCo-trie.
@@ -504,12 +538,12 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \setcounter{countdown}{4} % Reset counter for working papers: w1..w4
 
 % === Working papers ===
-\cvsubsection{Working papers}[
+\cvsubsection{Submitted manuscripts}[
   \color{emphasis} % Match journal style
   \faScroll\ % Icon for preprints / working papers
 ]
 
-{\em Note}: Preprints under review or in preparation; not yet accepted at a peer-reviewed venue.
+{\em Note}: Manuscripts submitted to peer-reviewed journals, at the stage indicated for each; not yet accepted.
 
 \smallskip
 
@@ -521,6 +555,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \textbf{F.~Tosoni}, \Auferragina. \\
   ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
   \emph{Extended manuscript of the conference paper [c2].} \\
+  \textit{Submitted} (28 Aug 2026): \textit{Information and Software Technology} (IST) \Lsjr{18732}{Q1}{1.054}, Elsevier, special issue on Green Software Evolution. \\
   \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage}
 
      \addtocounter{countdown}{-1}
@@ -528,14 +563,16 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \textbf{F.~Tosoni}. \\
   ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
+  \textit{Minor revision:} \textit{SoftwareX} \Lsjr{21100422153}{Q2}{0.499}, Elsevier; revised version resubmitted on 14 Sep 2026. \\
   \Larxiv{2607.26766} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search} \Lsep \Lswhid{swh:1:dir:d4396b75a098693384a91bee2e5e90cf5c59ad5b;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:66b20f741e189f3926560db27035c181e54b5d5e;anchor=swh:1:rev:dcc823eaf51fc0527200c2cc1518e3a160685a25} \Lsep \Lzenodo{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
 
      \addtocounter{countdown}{-1}
 
   \item
-  G.~Carmona, \Auferragina, \Aumanzini, \textbf{F.~Tosoni}. \\
+  \Aucarmona, \Auferragina, \Aumanzini, \textbf{F.~Tosoni}. \\
   ``Extended Depth-First Representations of $k^2$-trees''. \\
   \emph{Extends} ``Depth-First Representations of $k^2$-trees'' (\href{https://doi.org/10.1007/978-3-032-05228-5_4}{SPIRE 2025}). \\
+  \textit{Under review:} \textit{Theory of Computing Systems} (ToCS) \Lsjr{20573}{Q3}{0.295}, Springer. \\
   \Larxiv{2607.28136}
 
      \addtocounter{countdown}{-1}
@@ -543,6 +580,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \textbf{F.~Tosoni}. \\
   ``An Analysis and Implementation of Seam Carving for Content-Aware Image Resizing''. \\
+  \textit{Under revision:} \textit{Image Processing On Line} (IPOL) \Lsjr{21100824667}{Q3}{0.297}, peer-reviewed article with reproducible code. \\
   \Larxiv{2608.04329} \Lsep \Lwdcode{Q141435187} \Lsep \Lgh{https://github.com/ftosoni/seam-carving}
 
      \addtocounter{countdown}{-1}
@@ -650,8 +688,8 @@ Developed and presented a Proof-of-Concept Toolforge tool to test against web ac
 
 \smallskip
 
-\cvsection{Scholarships}
-{\em Note}: For each scholarship, I report the associated publications (c1,c2,j1,j2,j3,j4) produced as outcomes.
+\cvsection{Research positions \& scholarships}
+{\em Note}: For each position, I report the associated publications (c1,c2,j1,j2,j3,j4) produced as outcomes.
 
 \divider
 
@@ -661,11 +699,6 @@ Developed and presented a Proof-of-Concept Toolforge tool to test against web ac
 \cvevent{Research Contractor}{Health Science Interdisciplinary Research Centre}{Sep 2025 -- Aug 2027}{Sant'Anna School, Italy}
 
 Research conducted at the Sant'Anna School of Advanced Studies, on solutions for code archival, language-to-code, code-to-code, and semantic search (\href{https://www.santannapisa.it/it/assegni-di-ricerca-e-selezioni-incarichi-esterni/selezione-la-stipula-di-due-contratti-di-ricerca}{\faGlobe\,website}). (c2)
-
-\divider
-
-\cvevent{RTDA (Junior Researcher) \textnormal{\textit{--- offer declined}}}{Free University of Bozen-Bolzano}{2025}{Bolzano, Italy}
-Tenure-track junior researcher position in Computer Science (INFO-01/A), Faculty of Engineering, under Prof.\ Johann Gamper. Project: scalable database solutions for temporal data and time-series processing. (\href{https://www.unibz.it/it/home/position-calls/positions-for-academic-staff/7618-informatics-prof-gamper-johann?group=16}{\faGlobe\,website})
 
 \divider
 
@@ -682,6 +715,10 @@ Recipient of a three-year PhD research grant from the University of Pisa (Depart
 
 \cvevent{Research Scholarship}{Citypost S.p.A.}{Jun -- Oct 2020}{Univ.~of Pisa}
 Title: \textit{Algorithms and Data Structures for Urban Mobility Platforms}. Duration: five months. Grant: Citypost S.p.A. Researched graph-based algorithmic solutions for vehicle routing and mobility problems, as part of Acube Lab's 2018–2020 research collaboration.
+
+\divider
+
+{\small\textit{Offer declined:} fixed-term junior researcher position (RTDA, art.~24(3)(a) L.~240/2010) in Computer Science (INFO-01/A), Free University of Bozen-Bolzano, 2025, with Prof.~Johann Gamper; project on scalable database solutions for temporal data and time-series processing. (\href{https://www.unibz.it/it/home/position-calls/positions-for-academic-staff/7618-informatics-prof-gamper-johann?group=16}{\faGlobe\,website})\par}
 
 \end{paracol}
 \begin{paracol}{1}
@@ -736,19 +773,14 @@ Grant on ``Using Graph Compression for Shortest Path Computation in Urban On-Dem
 
 \smallskip
 
-\cvsection{Personal grants}
+\cvsubsection{Travel \& open-access grants}
 
-{\em Note}: Competitive grants awarded to me personally as applicant/grantee.
-
-\divider
-
-\cvevent{Wikimedia CH --- Open-Access Publication Grant}{Support for open-access publication of the Code2Code Search system}{2026}{1{,}000 CHF}
-Awarded by \href{https://wikimedia.ch}{Wikimedia CH} to cover the article-processing charges for the open-access publication of ``MediaWiki Code2Code Search'' (w3). Approved June 2026. (\href{https://w.wiki/SrcE}{\faGlobe\,grant page})
-
-\divider
-
-\cvevent{Wikimedia Italia --- Microgrant 2026}{Participation in the Wikidata Workshop @ ISWC 2026, Bari}{24--27 Oct 2026}{\euro 1{,}704}
-Microgrant from \href{https://www.wikimedia.it}{Wikimedia Italia} to attend the Wikidata Workshop co-located with ISWC~2026 (Bari, Italy) and present the accepted paper bridging Software Heritage, COAR Notify and Wikidata (c4). Joint with C.~C.~Pellizzari di San Girolamo. (\href{https://w.wiki/UHgf}{\faGlobe\,grant page})
+{\small
+\begin{itemize}[leftmargin=1.3em, itemsep=3pt, topsep=1pt, parsep=0pt]
+  \item \textbf{2026}\enspace \href{https://wikimedia.ch}{Wikimedia CH}, open-access publication grant (1{,}000 CHF): article-processing charges for ``MediaWiki Code2Code Search'' (w3). {\footnotesize(\href{https://w.wiki/SrcE}{\faGlobe\,grant page})}
+  \item \textbf{2026}\enspace \href{https://www.wikimedia.it}{Wikimedia Italia}, travel microgrant (\euro 1{,}704, joint with C.~C.~Pellizzari di San Girolamo): presenting (c4) at the Wikidata Workshop @ ISWC~2026, Bari. {\footnotesize(\href{https://w.wiki/UHgf}{\faGlobe\,grant page})}
+\end{itemize}
+}
 
 \smallskip
 
@@ -1036,7 +1068,7 @@ All of the above statements are true in accordance with the regulations on subst
 
 \centering
 % Paris, France. 9\textsuperscript{th} July 2025\\
-Pisa (Italy), the 15\textsuperscript{th} of September 2026\\
+Pisa (Italy), \cvdate\\
 \smallskip
 \includegraphics[width=.3\linewidth]{signature.pdf}
 
