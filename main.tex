@@ -126,17 +126,6 @@
 \usetikzlibrary{calc} % For positioning
 % \usepackage{fontawesome} % For \faBook, \faDatabase, etc.
 
-\newcommand{\progbar}[2]{
-  \textcolor{body!50}{\rule{0.95\linewidth}{0.4pt}}\\
-  \textbf{#1} \hfill \textcolor{accent}{\faCircle\ \faCircle\ \faCircle\ \faCircleO\ \faCircleO}\\
-}
-
-%icons
-
-\newcommand{\myCustomIcon}{%
-    \includegraphics[height=1.2em]{path/to/your/custom_icon.pdf}% Adjust height as needed
-}
-
 % ------------------------------------------------------------------------------
 % Compact icon links for publications and talks (mirror the pill links on
 % francescotosoni.it). Colour comes from hyperref (urlcolor = accent), so both
@@ -256,7 +245,7 @@
   \email{\href{mailto:francesco.tosoni@santannapisa.it}{francesco.tosoni@santannapisa.it}}
   \homepage{\href{https://www.francescotosoni.it}{francescotosoni.it}}  % Sito personale PRIMO
   \printinfo{\faUniversity}{\href{https://www.santannapisa.it/en/francesco-tosoni}{www.santannapisa.it/en/francesco-tosoni}}  % Sito istituzionale
-  \printinfo{\faWikipediaW}{\href{https://www.wikidata.org/wiki/Q135913272}{Wikidata}}
+  \printinfo{\faBarcode}{\href{https://www.wikidata.org/wiki/Q135913272}{Wikidata}}
   \linkedin{\href{https://linkedin.com/in/francesco-tosoni}{LinkedIn}}
   \github{\href{https://github.com/ftosoni}{GitHub}}
   \gitlab{\href{https://gitlab.com/ftosoni}{GitLab}}
@@ -361,16 +350,14 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvsection{Awards}
 
-    \cvachievement{\faGraduationCap}{Sant'Anna School --- Best Graduate Award (Master's in Computer Science \& Networking)}{Ranked 2nd in the cohort (2017-2018) |
-    High GPA |
-    \faClock\ Fastest completion.}
+    \cvachievement{\faGraduationCap}{Sant'Anna School --- Best Graduates Award (MSc in Computer Science \& Networking, 2017--2018 cohort)}{Ranked 2nd in the cohort, based on GPA and \faClock\ time to completion.}
     \href{https://www.santannapisa.it/en/node/50801}{\faLink\ Award details}
 
     \divider
 
-    \cvachievement{\faGraduationCap}{con.Scienze --- National Best Master's Thesis Award 2020}{Selected among all Italian technical universities |
-    August 2019 - July 2020 cohort.}
-    \href{http://www.conscienze.it/premi_2020_vincitori.asp}{\faLink\ Award announcement}
+    \cvachievement{\faGraduationCap}{con.Scienze --- National Best Master's Thesis Award 2020}{Awarded by con.Scienze, the national conference of the heads of science and technology departments of Italian universities |
+    Theses defended from August 2019 to July 2020.}
+    \href{https://www.conscienze.it/premi_2020_vincitori.asp}{\faLink\ Award announcement}
 
 \smallskip
 
@@ -464,7 +451,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \item
   \Aupellizzari, \textbf{F.~Tosoni}. \\
   ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
-  \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026}, \emph{(to appear)}. \\
+  \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026} \emph{(to appear)}. \\
   \Larxiv{2609.21667} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
 
   Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
@@ -595,7 +582,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \Lwdcode{Q141434534} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
 
     \item[j2] \textbf{mm-repair} \href{https://gitlab.com/manzai/mm-repair}{\faGitlab}\\
-    Matrix multiplication implementation for RePair-compressed matrices. Efficient computation methods for matrices compressed using grammar-based compression techniques. (\href{https://gitlab.com/manzai/mm-repair}{GitHub site})\\
+    Matrix multiplication implementation for RePair-compressed matrices. Efficient computation methods for matrices compressed using grammar-based compression techniques. (\href{https://gitlab.com/manzai/mm-repair}{GitLab site})\\
     \Lwdcode{Q141434533} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
 
 \end{itemize}
@@ -630,7 +617,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \smallskip
 
 \cvsection{Research positions \& scholarships}
-{\em Note}: For each position, I report the associated publications (c1,c2,j1,j2,j3,j4) produced as outcomes.
+{\em Note}: For each position, I report the associated publications produced as outcomes.
 
 \divider
 
@@ -639,7 +626,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvevent{Research Contractor}{Health Science Interdisciplinary Research Centre}{Sep 2025 -- Aug 2027}{Sant'Anna School, Italy}
 
-Research conducted at the Sant'Anna School of Advanced Studies, on solutions for code archival, language-to-code, code-to-code, and semantic search (\href{https://www.santannapisa.it/it/assegni-di-ricerca-e-selezioni-incarichi-esterni/selezione-la-stipula-di-due-contratti-di-ricerca}{\faGlobe\,website}). (c2)
+Research conducted at the Sant'Anna School of Advanced Studies, on solutions for code archival, language-to-code, code-to-code, and semantic search (\href{https://www.santannapisa.it/it/assegni-di-ricerca-e-selezioni-incarichi-esterni/selezione-la-stipula-di-due-contratti-di-ricerca}{\faGlobe\,website}). (c2, c3, c4, c5, w2, w3, w4)
 
 \divider
 
@@ -668,48 +655,48 @@ Title: \textit{Algorithms and Data Structures for Urban Mobility Platforms}. Dur
 
 \cvsection{Funded projects supporting my research}
 
-{\em Note}: [Inter]national projects under which my positions or research were funded, as a team member (not as PI). For each project, I report the associated publications (c1,j1,j2,j3,j4) produced as outcomes.
+{\em Note}: [Inter]national projects under which my positions or research were funded, as a team member (not as PI). For each project, I report the associated publications produced as outcomes, as acknowledged in each publication.
 
 \divider
 
 \cvevent{Alfred P. Sloan Foundation}{Technology: Open Source in Science --- Grant G-2025-25193}{2025--ongoing}{Grant {\tt G-2025-25193}}
 Funding for the project to design and implement in Software Heritage new algorithmic solutions for compression and code-based searches.
 
-Grant \href{https://sloan.org/grant-detail/g-2025-25193}{\#G-2025-25193} (sloan.org) (c2)
+Grant \href{https://sloan.org/grant-detail/g-2025-25193}{\#G-2025-25193} (sloan.org) (c2, c3, c4, c5, w2, w3, w4)
 
 \divider
 
-\cvevent{NextGenerationEU—National Recovery and Resilience Plan (PNRR)}{SoBigData.it-Strengthening the Italian RI for Social Mining and Big Data Analytics --- Avviso (3264 del 28/12/2021)}{2022--ongoing}{Grant {\tt IR0000013}}
-Funding for the project ``SoBigData.it-Strengthening the Italian RI for Social Mining and Big Data Analytics.''
+\cvevent{European Union -- NextGenerationEU -- National Recovery and Resilience Plan (PNRR)}{SoBigData.it -- Strengthening the Italian RI for Social Mining and Big Data Analytics --- Avviso n.~3264 of 28/12/2021}{2022--2026}{Grant {\tt IR0000013}}
+Funding for the project ``SoBigData.it -- Strengthening the Italian RI for Social Mining and Big Data Analytics.''
 
-Visit \href{https://pnrr.sobigdata.it/}{pnrr.sobigdata.it/} (j3, j4)
+Visit \href{https://pnrr.sobigdata.it/}{pnrr.sobigdata.it} (j3, j4)
 
 \divider
 
-\cvevent{European Union-NextGenerationEU-PNRR}{ICSC-Centro Nazionale di Ricerca in High-Performance Computing, Big Data and Quantum Computing}{2022--ongoing}{Spoke ``Future HPC and BigData''}
+\cvevent{European Union -- NextGenerationEU -- PNRR}{ICSC -- Centro Nazionale di Ricerca in High-Performance Computing, Big Data and Quantum Computing}{2022--2025}{Spoke ``Future HPC and BigData''}
 Funding for the Spoke ``Future HPC and BigData.''
 
 Learn more at \href{https://www.supercomputing-icsc.it/}{www.supercomputing-icsc.it}. (j3, j4)
 
 \divider
 
-\cvevent{European Union-Horizon 2020 Program}{SoBigData++: European Integrated Infrastructure for Social Mining and Big Data Analytics}{2020--ongoing}{Grant 871042}
-Funded through the Scheme ``INFRAIA-01-2018-2019—Integrating Activities for Advanced Communities.'' More information can be found at \href{http://www.sobigdata.eu}{www.sobigdata.eu}. (j2, j3, j4)
+\cvevent{European Union -- Horizon 2020 Programme}{SoBigData++: European Integrated Infrastructure for Social Mining and Big Data Analytics}{2020--2024}{Grant \href{https://cordis.europa.eu/project/id/871042}{\tt 871042} (CORDIS)}
+Funded through the scheme ``INFRAIA-01-2018-2019 -- Integrating Activities for Advanced Communities.'' More information can be found at \href{http://www.sobigdata.eu}{www.sobigdata.eu}. (c1, j2, j3, j4)
 
 \divider
 
-\cvevent{European Union-Horizon 2020 Program}{HumanE AI Network}{2020--ongoing}{Grant {\tt 952026}}
+\cvevent{European Union -- Horizon 2020 Programme}{HumanE AI Network}{2020--2024}{Grant \href{https://cordis.europa.eu/project/id/952026}{\tt 952026} (CORDIS)}
 Funding through the project ``HumanE AI Network.'' \\
-See \href{https://www.humane-ai.eu}{www.humane-ai.eu} for details. (j2)
+See \href{https://www.humane-ai.eu}{www.humane-ai.eu} for details. (c1, j2)
 
 \divider %\switchcolumn
 
-\cvevent{NextGenerationEU – PNRR / MUR PRIN Project}{Multicriteria Data Structures and Algorithms: From Compressed to Learned Indexes, and Beyond}{2019–2023}{Grant n. {\tt 2017WR7SHH}}
-Funding from the Italian Ministry of University and Research (MUR) under the ``Progetti di Rilevante Interesse Nazionale'' (PRIN) programme for the project ``Multicriteria Data Structures and Algorithms.'' Extended research includes compressed/learned indexes and beyond. Project website: \href{https://learned.di.unipi.it}{learned.di.unipi.it}. (j2, j3)
+\cvevent{MUR PRIN 2017 Project}{Multicriteria Data Structures and Algorithms: From Compressed to Learned Indexes, and Beyond}{2019--2023}{Grant n. {\tt 2017WR7SHH}}
+Funding from the Italian Ministry of University and Research (MUR) under the ``Progetti di Rilevante Interesse Nazionale'' (PRIN) programme for the project ``Multicriteria Data Structures and Algorithms.'' Extended research includes compressed/learned indexes and beyond. Project website: \href{https://learned.di.unipi.it}{learned.di.unipi.it}. (c1, j2, j3)
 
 \divider
 
-\cvevent{MIT-UniPI Grant}{Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility}{2019–2021}{}
+\cvevent{MIT-UniPI Grant}{Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility}{2019--2021}{}
 Grant on ``Using Graph Compression for Shortest Path Computation in Urban On-Demand Mobility'' (\href{https://old.unipi.it/index.php/finanziamenti-di-ateneo/itemlist/category/332-mit-unipi-project}{\faGlobe\,website}). (j1)
 
 \smallskip
@@ -839,11 +826,11 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
 \medskip
 
 \ifshortcv\else
-\cvsection{Participation to conferences}
+\cvsection{Participation in conferences}
 
 \cvevent{The 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER 2026)}{IEEE Computer Society}{17--20 Mar 2026}{Limassol, Cyprus}
 
-In-person attendance to SANER 2026, the premier event on the theory and practice of recovering information from existing software and systems (\href{https://conf.researchr.org/home/saner-2026}{\faGlobe\,website})
+In-person attendance at SANER 2026, the premier event on the theory and practice of recovering information from existing software and systems (\href{https://conf.researchr.org/home/saner-2026}{\faGlobe\,website})
 
 \divider
 
@@ -865,9 +852,9 @@ Engaged with leaders from UNESCO, Inria, and Software Heritage, participating in
 
 \divider
 
-\cvevent{Conference article: ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''}{SPIRE '22: 29th International Symposium on String Processing and Information Retrieval}{8--10 nov 2022}{Concepción, Chile}
+\cvevent{Conference article: ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''}{SPIRE '22: 29th International Symposium on String Processing and Information Retrieval}{8--10 Nov 2022}{Concepción, Chile}
 
-In presence attendance to SPIRE '22, where my research group contributed the conference article (c1) (\href{http://spire2022.inf.udec.cl/}{\faGlobe\,website})
+In-person attendance at SPIRE '22, where my research group contributed the conference article (c1) (\href{http://spire2022.inf.udec.cl/}{\faGlobe\,website})
 
 \fi% end \ifshortcv (Participation to conferences hidden in the short CV)
 
@@ -995,9 +982,15 @@ Native speaker fluency.
 
 \noindent Maintainer of open-source tools on Wikimedia Toolforge, including \href{https://code2codesearch.toolforge.org/}{Code2Code Search} (w3) and the \href{https://it.wikipedia.org/wiki/Utente:Nablabot}{Nablabot} cross-wiki consistency bot. Member of the \href{https://meta.wikimedia.org/wiki/Indic_MediaWiki_Developers_User_Group}{Indic MediaWiki Developers User Group} (Wikidata reconciliation; student mentoring at the \href{https://diff.wikimedia.org/2026/07/23/indic-wikimedia-hackathon-hyderabad-2026/}{Indic Wikimedia Hackathon 2026}). Co-manager of the \href{https://zenodo.org/communities/wikidata}{Wikidata community on Zenodo}, curating inclusion requests for Wikidata-related research outputs. \longonly{Initiated 150+ Wikipedia articles; organised Wikimedia Italia meetups (\href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-cinema_indiano_a_Pisa}{Pisa, 2025}; \href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-Pakistan}{Bolzano, 2024}); \href{https://diff.wikimedia.org/author/super-nabla/}{author on Diff}; jury member, Wikipedia Asian Month 2025.}
 
-\divider 
+% The self-certification under Italian law and the signature are printed only
+% in the EU variant (used for Italian procedures); a declaration under DPR
+% 445/2000 means nothing to an international reader, and leaving the signature
+% out of the international PDF keeps it from circulating needlessly.
+\ifphotocv
+\divider
 
 All of the above statements are true in accordance with the regulations on substitute declarations as per Article 46 et seq. of the Italian Presidential Decree 445/2000.
+\fi
 
 \medskip
 \medskip
@@ -1005,8 +998,10 @@ All of the above statements are true in accordance with the regulations on subst
 \centering
 % Paris, France. 9\textsuperscript{th} July 2025\\
 Pisa (Italy), \cvdate\\
+\ifphotocv
 \smallskip
 \includegraphics[width=.3\linewidth]{signature.pdf}
+\fi
 
 
 \end{paracol}

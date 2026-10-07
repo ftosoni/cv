@@ -23,7 +23,9 @@ controlled by two flags:
 The `short` variant drops the more encyclopaedic sections (code artefacts,
 professional internships, conference attendance, coursework lists). The
 `no-photo` variant suits the anglosphere/international market where CV photos are
-discouraged; the photo variant suits EU academia.
+discouraged; the photo variant suits EU academia. Only the photo (EU) variant
+ends with the self-certification under Italian DPR 445/2000 and the signature,
+as needed for Italian procedures.
 
 Four thin wrappers select the combinations:
 
