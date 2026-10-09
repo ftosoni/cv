@@ -379,11 +379,19 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \faBook\ % Icon for journals
 ]
 
-\setcounter{countdown}{4} % Numbering follows the online publication list (francescotosoni.it): j1..j4
+\setcounter{countdown}{5} % Numbering follows the online publication list (francescotosoni.it): j1..j5
 
 \begin{enumerate}[
     label=\textbf{[j\arabic{countdown}].}
 ]
+
+    \item
+    \textbf{F.~Tosoni}. \\
+    ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
+    \textit{SoftwareX} \Lsjr{21100422153}{Q2}{0.499}, Elsevier, 2026 \emph{(to appear)}. \\
+    \Larxiv{2607.26766} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search} \Lsep \Lswhid{swh:1:dir:d4396b75a098693384a91bee2e5e90cf5c59ad5b;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:66b20f741e189f3926560db27035c181e54b5d5e;anchor=swh:1:rev:dcc823eaf51fc0527200c2cc1518e3a160685a25} \Lsep \Lzenodo{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
+
+    \addtocounter{countdown}{-1}
 
     \item
     \textbf{F.~Tosoni}, \Aubille, \Aubrunacci, \Audeangelis, \Auferragina, \Aumanzini. \\
@@ -497,7 +505,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \end{enumerate}
 
-\setcounter{countdown}{4} % Reset counter for working papers: w1..w4
+\setcounter{countdown}{3} % Reset counter for working papers: w1..w3
 
 % === Working papers ===
 \cvsubsection{Submitted manuscripts}[
@@ -519,14 +527,6 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \emph{Extended manuscript of the conference paper [c2].} \\
   \textit{Submitted} (28 Aug 2026): \textit{Information and Software Technology} (IST) \Lsjr{18732}{Q1}{1.054}, Elsevier, special issue on Green Software Evolution. \\
   \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage}
-
-     \addtocounter{countdown}{-1}
-
-  \item
-  \textbf{F.~Tosoni}. \\
-  ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
-  \textit{Minor revision:} \textit{SoftwareX} \Lsjr{21100422153}{Q2}{0.499}, Elsevier; revised version resubmitted on 14 Sep 2026. \\
-  \Larxiv{2607.26766} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search} \Lsep \Lswhid{swh:1:dir:d4396b75a098693384a91bee2e5e90cf5c59ad5b;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:66b20f741e189f3926560db27035c181e54b5d5e;anchor=swh:1:rev:dcc823eaf51fc0527200c2cc1518e3a160685a25} \Lsep \Lzenodo{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
 
      \addtocounter{countdown}{-1}
 
@@ -554,13 +554,13 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \ifshortcv\else
 \cvsection{Code artefacts}
 
-{\em Note}: For each code artefact, I report the associated publication/manuscript (c1, c2, c3, c4, c5, j2, j3, j4, w1, w3, w4) in which the code served for experimental evaluations. Where available, links to the corresponding Wikidata item and Software Heritage snapshot (SWHID) are also given.
+{\em Note}: For each code artefact, I report the associated publication/manuscript (c1, c2, c3, c4, c5, j2, j3, j4, j5, w1, w3) in which the code served for experimental evaluations. Where available, links to the corresponding Wikidata item and Software Heritage snapshot (SWHID) are also given.
 
 \divider
 
 \begin{itemize}
 
-    \item[w3] \textbf{MediaWiki Code2Code Search} \href{https://github.com/ftosoni/mediawiki-code2code-search}{\faGithub} A semantic search engine for the MediaWiki ecosystem that allows users to find code based on "under-the-surface" similarity rather than exact keywords. It leverages a Jina AI bi-encoder model to generate vector embeddings for over 1.1 million code snippets, enabling cross-language retrieval (C++, PHP, Python, etc.) based on functional behaviour. The tool integrates with \href{https://www.softwareheritage.org/}{Software Heritage} to provide intrinsic permalinks (SWHIDs) for long-term traceability and features a polyglot interface supporting Italian, Telugu, and French. Developed as part of a research project at the \href{https://www.santannapisa.it/}{Sant'Anna School of Advanced Studies} and funded by the \href{https://sloan.org/}{Alfred P. Sloan Foundation}. (\href{https://code2codesearch.toolforge.org/}{Project site}, \href{https://github.com/ftosoni/mediawiki-code2code-search}{GitHub site})\\
+    \item[j5] \textbf{MediaWiki Code2Code Search} \href{https://github.com/ftosoni/mediawiki-code2code-search}{\faGithub} A semantic search engine for the MediaWiki ecosystem that allows users to find code based on "under-the-surface" similarity rather than exact keywords. It leverages a Jina AI bi-encoder model to generate vector embeddings for over 1.1 million code snippets, enabling cross-language retrieval (C++, PHP, Python, etc.) based on functional behaviour. The tool integrates with \href{https://www.softwareheritage.org/}{Software Heritage} to provide intrinsic permalinks (SWHIDs) for long-term traceability and features a polyglot interface supporting Italian, Telugu, and French. Developed as part of a research project at the \href{https://www.santannapisa.it/}{Sant'Anna School of Advanced Studies} and funded by the \href{https://sloan.org/}{Alfred P. Sloan Foundation}. (\href{https://code2codesearch.toolforge.org/}{Project site}, \href{https://github.com/ftosoni/mediawiki-code2code-search}{GitHub site})\\
     \Lwdcode{Q139251277} \Lsep \Lswhid{swh:1:dir:d4396b75a098693384a91bee2e5e90cf5c59ad5b;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:66b20f741e189f3926560db27035c181e54b5d5e;anchor=swh:1:rev:dcc823eaf51fc0527200c2cc1518e3a160685a25} \Lsep \Lzenodo{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
 
     \item[c5] \textbf{g-mm-repair} \href{https://github.com/ftosoni/g-mm-repair}{\faGithub} A memory-bounded GPU engine for streaming right-multiplication over grammar-compressed matrices, targeting genotype and graph data. Extends the RePair-compressed matrix-multiplication line of work (mm-repair) to memory-constrained accelerators. (\href{https://github.com/ftosoni/g-mm-repair}{GitHub site})\\
@@ -573,7 +573,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
     \item[w1] \textbf{seam-carving} \href{https://github.com/ftosoni/seam-carving}{\faGithub} An analysis and implementation of the seam-carving algorithm for content-aware image resizing. (\href{https://github.com/ftosoni/seam-carving}{GitHub site})\\
     \Lwdcode{Q141435187}
 
-    \item[c2, w4] \textbf{green-compressed-storage} \href{https://github.com/ftosoni/green-compressed-storage}{\faGithub}\ Efficiently reads large source-code datasets in Parquet format using a Permute-Partition-Compress approach on top of RocksDB. Achieved GiB/s throughput and compelling compression for source code archival. (\href{https://github.com/ftosoni/green-compressed-storage}{GitHub site})\\
+    \item[c2, w3] \textbf{green-compressed-storage} \href{https://github.com/ftosoni/green-compressed-storage}{\faGithub}\ Efficiently reads large source-code datasets in Parquet format using a Permute-Partition-Compress approach on top of RocksDB. Achieved GiB/s throughput and compelling compression for source code archival. (\href{https://github.com/ftosoni/green-compressed-storage}{GitHub site})\\
     \Lwdcode{Q141434536}
 
     \item[j4] \textbf{green-lossless-spmv} \href{https://github.com/acubeLab/green-lossless-spmv}{\faGithub}\\
@@ -632,7 +632,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvevent{Research Contractor}{Health Science Interdisciplinary Research Centre}{Sep 2025 -- Aug 2027}{Sant'Anna School, Italy}
 
-Research conducted at the Sant'Anna School of Advanced Studies, on solutions for code archival, language-to-code, code-to-code, and semantic search (\href{https://www.santannapisa.it/it/assegni-di-ricerca-e-selezioni-incarichi-esterni/selezione-la-stipula-di-due-contratti-di-ricerca}{\faGlobe\,website}). (c2, c3, c4, c5, w2, w3, w4)
+Research conducted at the Sant'Anna School of Advanced Studies, on solutions for code archival, language-to-code, code-to-code, and semantic search (\href{https://www.santannapisa.it/it/assegni-di-ricerca-e-selezioni-incarichi-esterni/selezione-la-stipula-di-due-contratti-di-ricerca}{\faGlobe\,website}). (c2, c3, c4, c5, j5, w2, w3)
 
 \divider
 
@@ -668,7 +668,7 @@ Title: \textit{Algorithms and Data Structures for Urban Mobility Platforms}. Dur
 \cvevent{Alfred P. Sloan Foundation}{Technology: Open Source in Science --- Grant G-2025-25193}{2025--ongoing}{Grant {\tt G-2025-25193}}
 Funding for the project to design and implement in Software Heritage new algorithmic solutions for compression and code-based searches.
 
-Grant \href{https://sloan.org/grant-detail/g-2025-25193}{\#G-2025-25193} (sloan.org) (c2, c3, c4, c5, w2, w3, w4)
+Grant \href{https://sloan.org/grant-detail/g-2025-25193}{\#G-2025-25193} (sloan.org) (c2, c3, c4, c5, j5, w2, w3)
 
 \divider
 
@@ -716,7 +716,7 @@ Grant on ``Using Graph Compression for Shortest Path Computation in Urban On-Dem
 
 {\small
 \begin{itemize}[leftmargin=1.3em, itemsep=3pt, topsep=1pt, parsep=0pt]
-  \item \textbf{2026}\enspace \href{https://wikimedia.ch}{Wikimedia CH}, open-access publication grant (1{,}000 CHF): article-processing charges for ``MediaWiki Code2Code Search'' (w3). {\footnotesize(\href{https://w.wiki/SrcE}{\faGlobe\,grant page})}
+  \item \textbf{2026}\enspace \href{https://wikimedia.ch}{Wikimedia CH}, open-access publication grant (1{,}000 CHF): article-processing charges for ``MediaWiki Code2Code Search'' (j5). {\footnotesize(\href{https://w.wiki/SrcE}{\faGlobe\,grant page})}
   \item \textbf{2026}\enspace \href{https://www.wikimedia.it}{Wikimedia Italia}, travel microgrant (\euro 1{,}704, joint with C.~C.~Pellizzari di San Girolamo): presenting (c4) at the Wikidata Workshop @ ISWC~2026, Bari. {\footnotesize(\href{https://w.wiki/UHgf}{\faGlobe\,grant page})}
 \end{itemize}
 }
@@ -1008,7 +1008,7 @@ Native speaker fluency.
 
 \cvsection{Open Data Contributions \& Community Engagement}
 
-\noindent Maintainer of open-source tools on Wikimedia Toolforge, including \href{https://code2codesearch.toolforge.org/}{Code2Code Search} (w3) and the \href{https://it.wikipedia.org/wiki/Utente:Nablabot}{Nablabot} cross-wiki consistency bot. Member of the \href{https://meta.wikimedia.org/wiki/Indic_MediaWiki_Developers_User_Group}{Indic MediaWiki Developers User Group} (Wikidata reconciliation; student mentoring at the \href{https://diff.wikimedia.org/2026/07/23/indic-wikimedia-hackathon-hyderabad-2026/}{Indic Wikimedia Hackathon 2026}). Co-manager of the \href{https://zenodo.org/communities/wikidata}{Wikidata community on Zenodo}, curating inclusion requests for Wikidata-related research outputs. \longonly{Initiated 150+ Wikipedia articles; organised Wikimedia Italia meetups (\href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-cinema_indiano_a_Pisa}{Pisa, 2025}; \href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-Pakistan}{Bolzano, 2024}); \href{https://diff.wikimedia.org/author/super-nabla/}{author on Diff}; jury member, Wikipedia Asian Month 2025.}
+\noindent Maintainer of open-source tools on Wikimedia Toolforge, including \href{https://code2codesearch.toolforge.org/}{Code2Code Search} (j5) and the \href{https://it.wikipedia.org/wiki/Utente:Nablabot}{Nablabot} cross-wiki consistency bot. Member of the \href{https://meta.wikimedia.org/wiki/Indic_MediaWiki_Developers_User_Group}{Indic MediaWiki Developers User Group} (Wikidata reconciliation; student mentoring at the \href{https://diff.wikimedia.org/2026/07/23/indic-wikimedia-hackathon-hyderabad-2026/}{Indic Wikimedia Hackathon 2026}). Co-manager of the \href{https://zenodo.org/communities/wikidata}{Wikidata community on Zenodo}, curating inclusion requests for Wikidata-related research outputs. \longonly{Initiated 150+ Wikipedia articles; organised Wikimedia Italia meetups (\href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-cinema_indiano_a_Pisa}{Pisa, 2025}; \href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-Pakistan}{Bolzano, 2024}); \href{https://diff.wikimedia.org/author/super-nabla/}{author on Diff}; jury member, Wikipedia Asian Month 2025.}
 
 % The self-certification under Italian law and the signature are printed only
 % in the EU variant (used for Italian procedures); a declaration under DPR
