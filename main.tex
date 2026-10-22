@@ -205,6 +205,20 @@
   \endgroup\par\smallskip
 }
 
+% Same framed footer for an author PDF that carries no open licence but is
+% self-archived with the publisher's permission (e.g. SIAM, copyright retained).
+%   #1 = PDF url   #2 = availability note
+\newcommand{\pdfnotice}[2]{%
+  \par\smallskip
+  \begingroup\setlength{\fboxsep}{5pt}\setlength{\fboxrule}{0.4pt}%
+  \noindent\fcolorbox{accent!30}{accent!6}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \footnotesize\faFilePdf\ \href{#1}{Author PDF}\ \textcolor{body!45}{\textbullet}\ #2%
+    }%
+  }%
+  \endgroup\par\smallskip
+}
+
 % ------------------------------------------------------------------------------
 % Grouped "Research focus" keywords (Technical Expertise section). \focusgroup
 % prints a small accent label above each thematic cluster; the clusters are
@@ -463,6 +477,8 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \Larxiv{2607.24971} \Lsep \Lgh{https://github.com/ftosoni/g-mm-repair} \Lsep \Ldata{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
 
   As first and corresponding author, I designed and implemented a memory-bounded GPU engine for right-multiplication over grammar-compressed matrices, targeting genotype and graph data. The code is openly released and archived in Software Heritage; the accompanying data are deposited on Zenodo.
+
+  \pdfnotice{https://www.francescotosoni.it/static/c5.pdf}{camera-ready, \textcopyright\ the authors, posted as permitted by SIAM}
 
      \addtocounter{countdown}{-1}
 
