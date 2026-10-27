@@ -140,6 +140,30 @@ A focused research collaboration on efficient code compression and scalable data
 \fi% end \ifshortcv (Professional internships hidden in the short CV)
 ```
 
+## Industry experience (sezione completa)
+
+Tolta nella revisione di ottobre 2026: tirocini del 2014 ed evento Bending Spoons del 2018, segnali da studente in un CV accademico post-dottorato.
+
+```latex
+\ifshortcv\else
+\cvsection{Industry experience}
+
+\begin{itemize}[leftmargin=1.3em, itemsep=2pt, topsep=1pt, parsep=0pt]
+  \item \textbf{Sep 2018}\enspace Invited participant, \textbf{Bending Spoons} (Copenhagen, Denmark) --- selected among 20 top Italian tech students from 400+ applicants for a coding-challenge event.
+  \item \textbf{Aug 2014}\enspace Intern, \textbf{EPLASS GmbH} (Würzburg, Germany) --- \texttt{C\#} development at an internet-based software company. {\footnotesize(\href{https://www.francescotosoni.it/static/eplass.pdf}{\faCertificate\,certificate})}
+  \item \textbf{Aug 2014}\enspace Intern, \textbf{Flyeralarm GmbH} (Würzburg, Germany) --- cross-departmental operations at a pan-European online printing firm. {\footnotesize(\href{https://www.francescotosoni.it/static/flyeralarm.pdf}{\faCertificate\,certificate})}
+\end{itemize}
+\fi% end \ifshortcv (Professional internships hidden in the short CV)
+```
+
+## Voci di Wikipedia avviate (Community Engagement)
+
+Tolta nella revisione di ottobre 2026 dall'inizio della parte `\longonly` della sezione *Open Data Contributions & Community Engagement*.
+
+```latex
+\longonly{Initiated 150+ Wikipedia articles; organised Wikimedia Italia meetups
+```
+
 ## Open Data Contributions & Community Engagement (versione estesa)
 
 
