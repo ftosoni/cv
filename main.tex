@@ -241,8 +241,8 @@
 % \pubcaption{topic}{summary}: one-line caption of a publication; the same
 % text appears on francescotosoni.it/publications.html.
 \newcommand{\pubcaption}[2]{\par\textit{#1:} #2\par\smallskip}
-% \corr follows "F. Tosoni" in works where he is the corresponding author (as
-% stated in the paper, or as sole author).
+% \corr follows the name of each work's corresponding author (as stated in the
+% paper, or the sole author); the website marks the same author.
 \newcommand{\corr}{\,{\footnotesize\faEnvelope[regular]}}
 \newcommand{\pubtag}[2]{{\setlength{\fboxsep}{1.6pt}\colorbox{Pub#1}{\textcolor{white}{\footnotesize\bfseries\strut#1#2}}}}
 \newenvironment{publist}{\begin{itemize}[leftmargin=2.6em, labelsep=0.6em, align=left]\sloppy}{\end{itemize}}
@@ -407,7 +407,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvsection{Publications}
 
-{\footnotesize\textcolor{body!70}{\textit{Grouped by research topic}; within each topic, accepted works newest first, then submitted manuscripts. \textit{Labels} (numbered as on \href{https://www.francescotosoni.it/publications.html}{francescotosoni.it}):\ \pubtag{j}{} journal article \Lsep \pubtag{c}{} conference or workshop paper \Lsep \pubtag{w}{} manuscript submitted to a journal, not yet accepted. \textit{Corresponding author:}\ \faEnvelope[regular]\ after my name. \textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,Zenodo \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence. \textit{Venue rankings:} ICORE 2026 (conferences; workshops are not ranked) and SCImago SJR 2025 (journals; best-category quartile), each linked to its source. \textit{Author order:} alphabetical, as customary in theoretical computer science, in j2, j3, c1, c2, c4, w2.}}
+{\footnotesize\textcolor{body!70}{\textit{Grouped by research topic}; within each topic, accepted works newest first, then submitted manuscripts. \textit{Labels} (numbered as on \href{https://www.francescotosoni.it/publications.html}{francescotosoni.it}):\ \pubtag{j}{} journal article \Lsep \pubtag{c}{} conference or workshop paper \Lsep \pubtag{w}{} manuscript submitted to a journal, not yet accepted. \textit{Corresponding author:}\ \faEnvelope[regular]\ after the name. \textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,Zenodo \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence. \textit{Venue rankings:} ICORE 2026 (conferences; workshops are not ranked) and SCImago SJR 2025 (journals; best-category quartile), each linked to its source. \textit{Author order:} alphabetical, as customary in theoretical computer science, in j2, j3, c1, c2, c4, w2.}}
 
 \smallskip
 
@@ -454,7 +454,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \pdflicense{https://www.francescotosoni.it/static/j4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
 
   \item[\pubtag{j}{3}]
-  \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
+  \Auboffa\corr, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
   ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
   \textit{Information Systems} (IS) \Lsjr{12305}{Q1}{0.981}, vol.~120, art.~102316, 2024. \\
   \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
@@ -476,7 +476,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \pdflicense{https://www.francescotosoni.it/static/j2.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
 
   \item[\pubtag{c}{1}]
-  \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
+  \Auboffa\corr, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
   ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''. \\
   \textit{String Processing and Information Retrieval} (SPIRE) \Licore{1418}{C}, pp.~233--249, 2022. \\
   \href{https://doi.org/10.1007/978-3-031-20643-6_17}{\faLink\,DOI} \Lsep \Lwdpaper{Q138605132} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie}
@@ -493,7 +493,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \pubcaption{Compressed key-value stores \& green software}{the journal version of [c2] adds PPC-informed key ordering, which shrinks the store by 37--45\% with respect to SquashFS and swh.shard, and multithreaded retrieval reaching GiB/s.}
 
   \item[\pubtag{w}{2}]
-  \Aucarmona, \Auferragina, \Aumanzini, \textbf{F.~Tosoni}. \\
+  \Aucarmona\corr, \Auferragina, \Aumanzini, \textbf{F.~Tosoni}. \\
   ``Extended Depth-First Representations of $k^2$-trees''. \\
   \emph{Extends} ``Depth-First Representations of $k^2$-trees'' (\href{https://doi.org/10.1007/978-3-032-05228-5_4}{SPIRE 2025}). \\
   \textit{Under review:} \textit{Theory of Computing Systems} (ToCS) \Lsjr{20573}{Q3}{0.295}, Springer. \\
@@ -530,7 +530,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \pdflicense{https://www.francescotosoni.it/static/c4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
 
   \item[\pubtag{c}{3}]
-  \Auvenuta, \textbf{F.~Tosoni}, \Auferragina. \\
+  \Auvenuta\corr, \textbf{F.~Tosoni}, \Auferragina. \\
   ``Candidate Recall in Large-Scale Code-to-Code Retrieval: A Comprehensive Benchmark''. \\
   \textit{Web Information Systems Engineering} (WISE) \Licore{1271}{B}, Springer, 2026 \emph{(to appear)}. \\
   \Larxiv{2606.27401} \Lsep \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub\,code}
