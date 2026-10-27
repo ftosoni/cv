@@ -228,6 +228,29 @@
 \newcommand{\focusgroup}[1]{\par\smallskip{\small\bfseries\textcolor{accent}{#1}}\par\smallskip}
 
 % ------------------------------------------------------------------------------
+% Publication labels, coloured by type as on DBLP (and on francescotosoni.it):
+% journal = purple, conference/workshop = blue, submitted (not yet accepted) =
+% grey. White text on each colour meets WCAG AA (j 8.2:1, c 6.4:1, w 5.5:1);
+% the letter keeps the type readable without colour.
+%   \pubtag{j|c|w}{number}   e.g. \pubtag{j}{5} -> [j5]; empty number -> [j]
+% publist = the per-topic list, with \item[\pubtag{..}{..}].
+% ------------------------------------------------------------------------------
+\definecolor{Pubj}{HTML}{8B1E78}
+\definecolor{Pubc}{HTML}{1A5DB4}
+\definecolor{Pubw}{HTML}{5F6B76}
+% \pubcaption{topic}{summary}: one-line caption of a publication; the same
+% text appears on francescotosoni.it/publications.html.
+\newcommand{\pubcaption}[2]{\par\textit{#1:} #2\par\smallskip}
+% \corr follows "F. Tosoni" in works where he is the corresponding author (as
+% stated in the paper, or as sole author).
+\newcommand{\corr}{\,{\footnotesize\faEnvelope[regular]}}
+\newcommand{\pubtag}[2]{{\setlength{\fboxsep}{1.6pt}\colorbox{Pub#1}{\textcolor{white}{\footnotesize\bfseries\strut#1#2}}}}
+\newenvironment{publist}{\begin{itemize}[leftmargin=2.6em, labelsep=0.6em, align=left]\sloppy}{\end{itemize}}
+% artefactlist = the per-topic list of code artefacts; wider margin, since an
+% artefact may carry two labels (e.g. \pubtag{c}{2}\,\pubtag{w}{3}).
+\newenvironment{artefactlist}{\begin{itemize}[leftmargin=4.6em, labelsep=0.6em]}{\end{itemize}}
+
+% ------------------------------------------------------------------------------
 % Date printed above the signature. CI writes cvdate.tex with the date of the
 % last commit (see build-cv.yml), so the PDF carries the date its content last
 % changed; a local build without that file falls back to the compile date.
@@ -384,195 +407,162 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \cvsection{Publications}
 
-{\footnotesize\textcolor{body!70}{\textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,Zenodo \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence. \textit{Venue rankings:} ICORE 2026 (conferences; workshops are not ranked) and SCImago SJR 2025 (journals; best-category quartile), each linked to its source. \textit{Author order:} alphabetical, as customary in theoretical computer science, in j2, j3, c1, c2, c4, w2.}}
+{\footnotesize\textcolor{body!70}{\textit{Grouped by research topic}; within each topic, accepted works newest first, then submitted manuscripts. \textit{Labels} (numbered as on \href{https://www.francescotosoni.it/publications.html}{francescotosoni.it}):\ \pubtag{j}{} journal article \Lsep \pubtag{c}{} conference or workshop paper \Lsep \pubtag{w}{} manuscript submitted to a journal, not yet accepted. \textit{Corresponding author:}\ \faEnvelope[regular]\ after my name. \textit{Link legend:}\ \ \faLink\,DOI \Lsep \faScroll\,arXiv \Lsep \faFilePdf\,author PDF \Lsep \faDatabase\,Wikidata \Lsep \faGithub\,/\,\faGitlab\,code \Lsep \faArchive\,Zenodo \Lsep \faFingerprint\,SWHID \Lsep \faWrench\,fix \Lsep \faCreativeCommons\,licence. \textit{Venue rankings:} ICORE 2026 (conferences; workshops are not ranked) and SCImago SJR 2025 (journals; best-category quartile), each linked to its source. \textit{Author order:} alphabetical, as customary in theoretical computer science, in j2, j3, c1, c2, c4, w2.}}
 
 \smallskip
 
-% === Journals ===
-\cvsubsection{Journals}[
-  \color{emphasis} % Optional: Subtle styling
-  \faBook\ % Icon for journals
-]
+% Labels (j/c/w + number) are fixed identifiers shared with the website and
+% cross-referenced below (code artefacts, positions, projects): they do NOT
+% follow the order of the list, which is by topic.
 
-\setcounter{countdown}{5} % Numbering follows the online publication list (francescotosoni.it): j1..j5
+% === Topic 1: compression ===
+\cvsubsection{\faIcon{compress-arrows-alt}\ Lossless compression \& compressed data structures}
 
-\begin{enumerate}[
-    label=\textbf{[j\arabic{countdown}].}
-]
+\begin{publist}
 
-    \item
-    \textbf{F.~Tosoni}. \\
-    ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
-    \textit{SoftwareX} \Lsjr{21100422153}{Q2}{0.499}, vol.~36, art.~103127, 2026. \\
-    \Ldoi{10.1016/j.softx.2026.103127} \Lsep \Larxiv{2607.26766} \Lsep \Lwdpaper{Q141698369} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
-
-    As sole author, I designed, built and deployed the tool on Wikimedia Toolforge, coordinating with the Toolforge administrators. I secured an open-access publication grant from \href{https://wikimedia.ch}{Wikimedia CH} covering the article-processing charges. Published as Gold open access under CC~BY~4.0.
-
-    \pdflicense{https://www.francescotosoni.it/static/j5.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
-
-    \addtocounter{countdown}{-1}
-
-    \item
-    \textbf{F.~Tosoni}, \Aubille, \Aubrunacci, \Audeangelis, \Auferragina, \Aumanzini. \\
-    ``Toward Greener Matrix Operations by Lossless Compressed Formats''. \\
-    \textit{IEEE Access} \Lsjr{21100374601}{Q1}{0.884}, vol.~13, pp.~56756--56779, 2025. \\
-    \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv}
-
-    As first and corresponding author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations. Published as Gold open access under CC~BY~4.0.
-
-    \pdflicense{https://www.francescotosoni.it/static/j4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
-
-    \addtocounter{countdown}{-1}
-
-    \item
-    \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
-    ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
-    \textit{Information Systems} (IS) \Lsjr{12305}{Q1}{0.981}, vol.~120, art.~102316, 2024. \\
-    \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
-
-    Extended version of the SPIRE~2022 paper [c1]. I contributed to both the theoretical framework and the codebase of the CoCo-trie.
-
-    \pdflicense{https://www.francescotosoni.it/static/j3.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
-
-    \addtocounter{countdown}{-1}
-
-    \item
-    \Auferragina, \Aumanzini, \Augagie, \Aukoppl, \Aunavarro, \Austriani, \textbf{F.~Tosoni} {\footnotesize(alphabetical by convention; the published order was altered during typesetting)}. \\
-    ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
-    \textit{Proc. VLDB Endowment} (PVLDB) \Lsjr{21100199855}{Q1}{1.767}, vol.~15, no.~10, pp.~2175--2187, 2022. \\
-    \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
-
-    As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
-
-    \pdflicense{https://www.francescotosoni.it/static/j2.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
-
-    \addtocounter{countdown}{-1}
-
-    \item
-    \textbf{F.~Tosoni}, \Auferragina, \Aumarino, \Auresta, \Ausanti. \\
-    ``Locality Filtering for Efficient Ride-Sharing Platforms''. \\
-    \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) \Lsjr{18378}{Q1}{2.608},
-    vol.~23, no.~7, pp.~7785--7804, 2022. \\
-    \Ldoi{10.1109/TITS.2021.3072830} \Lsep \Lwdpaper{Q138605098}
-
-    Based on my MSc thesis, this work, developed in collaboration with the \href{https://senseable.mit.edu/}{MIT Senseable} City Lab, earned the \href{https://www.conscienze.it/premi_2020_vincitori.asp}{con.Scienze National Best Master’s Thesis Award 2020}.
-
-    \addtocounter{countdown}{-1}
-\end{enumerate}
-
-\setcounter{countdown}{5} % Reset counter for conferences: c1..c5
-
-% === Conferences ===
-\cvsubsection{Conferences}[
-  \color{emphasis} % Match journal style
-  \faUsers\ % Icon for conferences
-]
-\begin{enumerate}[
-    label=\textbf{[c\arabic{countdown}].}
-]
-
-  \item
-  \textbf{F.~Tosoni}, \Aumencagli. \\
+  \item[\pubtag{c}{5}]
+  \textbf{F.~Tosoni}\corr, \Aumencagli. \\
   ``Streaming Right Multiplication over Grammar-Compressed Matrices: A Memory-Bounded GPU Engine for Genotype and Graph Data''. \\
   \textit{SIAM Symposium on Algorithm Engineering and Experiments} (ALENEX) \Licore{1870}{A}, 2027 \emph{(to appear)}. \\
   \Larxiv{2607.24971} \Lsep \Lgh{https://github.com/ftosoni/g-mm-repair} \Lsep \Lzenodo{code}{https://doi.org/10.5281/zenodo.23139247} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
+  \pubcaption{Compressed linear algebra on GPUs}{a layered, streaming schedule computes matrix--vector products directly on RePair-compressed matrices with two alternating buffers, shrinking the GPU memory footprint 3.5--8$\times$ with respect to a cuSPARSE CSR baseline on genotype data.}
 
-  As first and corresponding author, I designed and implemented a memory-bounded GPU engine for right-multiplication over grammar-compressed matrices, targeting genotype and graph data. The code is openly released and archived in Software Heritage; the accompanying data are deposited on Zenodo.
+  As first and corresponding author, I designed and implemented a memory-bounded GPU engine for right-\allowbreak multiplication over grammar-compressed matrices, targeting genotype and graph data. The code is openly released and archived in Software Heritage; the accompanying data are deposited on Zenodo.
 
   % TODO: restore once SIAM publishes the proceedings and the SIAM version is hosted
   % (the Consent to Publish allows the *published* version on a personal site, A3).
   % \pdfnotice{https://www.francescotosoni.it/static/c5.pdf}{\textcopyright\ the authors, posted as permitted by SIAM}
 
-     \addtocounter{countdown}{-1}
-
-  \item
-  \Aupellizzari, \textbf{F.~Tosoni}. \\
-  ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
-  \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026} \emph{(to appear)}. \\
-  \Larxiv{2609.21667} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
-
-  Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
-
-  \pdflicense{https://www.francescotosoni.it/static/c4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
-
-     \addtocounter{countdown}{-1}
-
-  \item
-  \Auvenuta, \textbf{F.~Tosoni}, \Auferragina. \\
-  ``Candidate Recall in Large-Scale Code-to-Code Retrieval: A Comprehensive Benchmark''. \\
-  \textit{Web Information Systems Engineering} (WISE) \Licore{1271}{B}, Springer, 2026 \emph{(to appear)}. \\
-  \Larxiv{2606.27401} \Lsep \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub\,code}
-
-  A comprehensive benchmark of candidate recall for large-scale code-to-code retrieval.
-
-     \addtocounter{countdown}{-1}
-
-  \item
-  \Auferragina, \textbf{F.~Tosoni}. \\
+  \item[\pubtag{c}{2}]
+  \Auferragina, \textbf{F.~Tosoni}\corr. \\
   ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
   \textit{GREENVOLVE Workshop}, co-located with \textit{IEEE International Conference on Software Analysis, Evolution and Reengineering} (SANER), in \textit{SANER 2026 Companion Proceedings}, pp.~157--164, 2026. \\
   \Ldoi{10.1109/SANER-C67878.2026.00027} \Lsep \Larxiv{2601.13220} \Lsep \Lwdpaper{Q138702496} \Lsep \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage} \Lsep \Lfix{https://www.francescotosoni.it/errata/c2.html}
+  \pubcaption{Compressed key-value stores \& green software}{a RocksDB-based store for Terabyte-scale source-code datasets, whose compression settings span a Pareto trade-off among space, throughput and energy, with GiB/s retrieval.}
 
   I wrote and curated the codebase, contributed to the scientific framework and writing and managed contacts with the Software Heritage team at Inria Paris.
 
-     \addtocounter{countdown}{-1}
+  \item[\pubtag{j}{4}]
+  \textbf{F.~Tosoni}\corr, \Aubille, \Aubrunacci, \Audeangelis, \Auferragina, \Aumanzini. \\
+  ``Toward Greener Matrix Operations by Lossless Compressed Formats''. \\
+  \textit{IEEE Access} \Lsjr{21100374601}{Q1}{0.884}, vol.~13, pp.~56756--56779, 2025. \\
+  \Ldoi{10.1109/ACCESS.2025.3555119} \Lsep \Larxiv{2409.18620} \Lsep \Lwdpaper{Q138605133} \Lsep \Lwdcode{Q141434535} \Lsep \Lgh{https://github.com/acubeLab/green-lossless-spmv}
+  \pubcaption{Compressed matrix formats \& energy efficiency}{choosing the right compressed format for sparse matrix--vector products (and PageRank) cuts energy by up to an order of magnitude on servers and single-board computers; the parallelism that minimises time need not minimise energy.}
 
-  \item
+  As first and corresponding author, I initiated and led this interdisciplinary research project, bridging theoretical computer science and electronic engineering. My work involved enhancing Google's Zuckerli compressed matrix formats (\href{https://github.com/ftosoni/zuckerli}{Github fork}) to enable computation-friendly matrix-to-vector and PageRank kernel operations. Published as Gold open access under CC~BY~4.0.
+
+  \pdflicense{https://www.francescotosoni.it/static/j4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
+
+  \item[\pubtag{j}{3}]
+  \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
+  ``CoCo-trie: Data-aware Compression and Indexing of Strings''. \\
+  \textit{Information Systems} (IS) \Lsjr{12305}{Q1}{0.981}, vol.~120, art.~102316, 2024. \\
+  \Ldoi{10.1016/j.is.2023.102316} \Lsep \Lwdpaper{Q138605129} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
+  \pubcaption{Compressed string dictionaries}{a trie that collapses subtries into succinctly encoded macro-nodes, chosen by a data-aware optimisation, and supports lookup, prefix, predecessor and range queries.}
+
+  Extended version of the SPIRE~2022 paper [c1]. I contributed to both the theoretical framework and the codebase of the CoCo-trie.
+
+  \pdflicense{https://www.francescotosoni.it/static/j3.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+
+  \item[\pubtag{j}{2}]
+  \Auferragina, \Aumanzini, \Augagie, \Aukoppl, \Aunavarro, \Austriani, \textbf{F.~Tosoni}\corr\ {\footnotesize(alphabetical by convention; the published order was altered during typesetting)}. \\
+  ``Improving Matrix-Vector Multiplication via Lossless Grammar-Compressed Matrices''. \\
+  \textit{Proc. VLDB Endowment} (PVLDB) \Lsjr{21100199855}{Q1}{1.767}, vol.~15, no.~10, pp.~2175--2187, 2022. \\
+  \Ldoi{10.14778/3547305.3547321} \Lsep \Larxiv{2203.14540} \Lsep \Lwdpaper{Q114053619} \Lsep \Lwdcode{Q141434533} \Lsep \Lgl{https://gitlab.com/manzai/mm-repair} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
+  \pubcaption{Grammar compression \& compressed linear algebra}{a lossless format for real-valued matrices supports matrix--vector products in time and space proportional to the compressed size, matching $k$-th order entropy bounds, and runs at least 2$\times$ faster than Compressed Linear Algebra (CLA) with multiple threads.}
+
+  As the corresponding author, I developed the theoretical framework and codebase for column-reordering optimisation algorithms based on TSP heuristics. I also conducted extensive comparisons with baselines, notably with Apache SystemDS's Compressed Linear Algebra (CLA), for which I corresponded with Prof. Matthias Boehm (IBM Research), who later refereed my PhD dissertation.
+
+  \pdflicense{https://www.francescotosoni.it/static/j2.pdf}{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}
+
+  \item[\pubtag{c}{1}]
   \Auboffa, \Auferragina, \textbf{F.~Tosoni}, \Auvinciguerra. \\
   ``Compressed String Dictionaries via Data-Aware Subtrie Compaction''. \\
   \textit{String Processing and Information Retrieval} (SPIRE) \Licore{1418}{C}, pp.~233--249, 2022. \\
   \href{https://doi.org/10.1007/978-3-031-20643-6_17}{\faLink\,DOI} \Lsep \Lwdpaper{Q138605132} \Lsep \Lwdcode{Q141434534} \Lsep \Lgh{https://github.com/aboffa/CoCo-trie}
+  \pubcaption{Compressed string dictionaries}{data-aware subtrie compaction selects which subtries to collapse into succinct macro-nodes so as to minimise space, improving space--time trade-offs over highly engineered tries.}
 
   I contributed to both the theoretical framework and the codebase of the CoCo-trie.
 
-    \addtocounter{countdown}{-1}
-
-
-\end{enumerate}
-
-\setcounter{countdown}{3} % Reset counter for working papers: w1..w3
-
-% === Working papers ===
-\cvsubsection{Submitted manuscripts}[
-  \color{emphasis} % Match journal style
-  \faScroll\ % Icon for preprints / working papers
-]
-
-{\em Note}: Manuscripts submitted to peer-reviewed journals, at the stage indicated for each; not yet accepted.
-
-\smallskip
-
-\begin{enumerate}[
-    label=\textbf{[w\arabic{countdown}].}
-]
-
-  \item
-  \textbf{F.~Tosoni}, \Auferragina. \\
+  \item[\pubtag{w}{3}]
+  \textbf{F.~Tosoni}\corr, \Auferragina. \\
   ``The Energy--Throughput Trade-off in Lossless-Compressed Source Code Storage''. \\
   \emph{Extended manuscript of the conference paper [c2].} \\
   \textit{Submitted} (28 Aug 2026): \textit{Information and Software Technology} (IST) \Lsjr{18732}{Q1}{1.054}, Elsevier, special issue on Green Software Evolution. \\
   \Lwdcode{Q141434536} \Lsep \Lgh{https://github.com/ftosoni/green-compressed-storage}
+  \pubcaption{Compressed key-value stores \& green software}{the journal version of [c2] adds PPC-informed key ordering, which shrinks the store by 37--45\% with respect to SquashFS and swh.shard, and multithreaded retrieval reaching GiB/s.}
 
-     \addtocounter{countdown}{-1}
-
-  \item
+  \item[\pubtag{w}{2}]
   \Aucarmona, \Auferragina, \Aumanzini, \textbf{F.~Tosoni}. \\
   ``Extended Depth-First Representations of $k^2$-trees''. \\
   \emph{Extends} ``Depth-First Representations of $k^2$-trees'' (\href{https://doi.org/10.1007/978-3-032-05228-5_4}{SPIRE 2025}). \\
   \textit{Under review:} \textit{Theory of Computing Systems} (ToCS) \Lsjr{20573}{Q3}{0.295}, Springer. \\
   \Larxiv{2607.28136}
+  \pubcaption{Succinct data structures for graphs}{depth-first layouts of $k^2$-trees, with identical subtrees compressed in linear time via suffix and LCP arrays, improve cache locality, space and peak memory in matrix operations.}
 
-     \addtocounter{countdown}{-1}
+\end{publist}
 
-  \item
-  \textbf{F.~Tosoni}. \\
+% === Topic 2: source code ===
+\cvsubsection{\faCode\ Semantic code search \& linking software to open data}
+
+\begin{publist}
+
+  \item[\pubtag{j}{5}]
+  \textbf{F.~Tosoni}\corr. \\
+  ``MediaWiki Code2Code Search: Neural Retrieval for the Semantic Discovery of Open-Source Software Entities''. \\
+  \textit{SoftwareX} \Lsjr{21100422153}{Q2}{0.499}, vol.~36, art.~103127, 2026. \\
+  \Ldoi{10.1016/j.softx.2026.103127} \Lsep \Larxiv{2607.26766} \Lsep \Lwdpaper{Q141698369} \Lsep \Lwdcode{Q139251277} \Lsep \Lgh{https://github.com/ftosoni/mediawiki-code2code-search} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
+  \pubcaption{Neural code retrieval}{a semantic code-to-code search engine over 1.29 million MediaWiki functions, types and templates, whose 168.6 MiB FAISS index serves queries on Wikimedia Toolforge.}
+
+  As sole author, I designed, built and deployed the tool on Wikimedia Toolforge, coordinating with the Toolforge administrators. I secured an open-access publication grant from \href{https://wikimedia.ch}{Wikimedia CH} covering the article-processing charges. Published as Gold open access under CC~BY~4.0.
+
+  \pdflicense{https://www.francescotosoni.it/static/j5.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
+
+  \item[\pubtag{c}{4}]
+  \Aupellizzari, \textbf{F.~Tosoni}\corr. \\
+  ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
+  \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026} \emph{(to appear)}. \\
+  \Larxiv{2609.21667} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
+  \pubcaption{Linked open data for software}{application profiles and a reconciliation pipeline link 4,397 article--repository pairs to Wikidata, creating 4,182 software items with Software Heritage identifiers (SWHIDs).}
+
+  Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
+
+  \pdflicense{https://www.francescotosoni.it/static/c4.pdf}{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}
+
+  \item[\pubtag{c}{3}]
+  \Auvenuta, \textbf{F.~Tosoni}, \Auferragina. \\
+  ``Candidate Recall in Large-Scale Code-to-Code Retrieval: A Comprehensive Benchmark''. \\
+  \textit{Web Information Systems Engineering} (WISE) \Licore{1271}{B}, Springer, 2026 \emph{(to appear)}. \\
+  \Larxiv{2606.27401} \Lsep \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub\,code}
+  \pubcaption{Neural code retrieval}{a benchmark of the first-stage candidate recall of deep-learning models for code-to-code search over Terabyte-scale collections, with LLM-based code normalisation and query rewriting.}
+
+  A comprehensive benchmark of candidate recall for large-scale code-to-code retrieval.
+
+\end{publist}
+
+% === Topic 3: other ===
+\cvsubsection{\faIcon{project-diagram}\ Other}
+
+\begin{publist}
+
+  \item[\pubtag{j}{1}]
+  \textbf{F.~Tosoni}\corr, \Auferragina, \Aumarino, \Auresta, \Ausanti. \\
+  ``Locality Filtering for Efficient Ride-Sharing Platforms''. \\
+  \textit{IEEE Transactions on Intelligent Transportation Systems} (TITS) \Lsjr{18378}{Q1}{2.608},
+  vol.~23, no.~7, pp.~7785--7804, 2022. \\
+  \Ldoi{10.1109/TITS.2021.3072830} \Lsep \Lwdpaper{Q138605098}
+  \pubcaption{Graph algorithms \& geometric data structures}{a locality filter prunes the shareability network, whose maximum matching yields the shared rides, and fast shortest-path queries avoid any quadratic all-pairs lookup table.}
+
+  Based on my MSc thesis, this work, developed in collaboration with the \href{https://senseable.mit.edu/}{MIT Senseable} City Lab, earned the \href{https://www.conscienze.it/premi_2020_vincitori.asp}{con.Scienze National Best Master’s Thesis Award 2020}.
+
+  \item[\pubtag{w}{1}]
+  \textbf{F.~Tosoni}\corr. \\
   ``An Analysis and Implementation of Seam Carving for Content-Aware Image Resizing''. \\
   \textit{Under revision:} \textit{Image Processing On Line} (IPOL) \Lsjr{21100824667}{Q3}{0.297}, peer-reviewed article with reproducible code. \\
   \Larxiv{2608.04329} \Lsep \Lwdcode{Q141435187} \Lsep \Lgh{https://github.com/ftosoni/seam-carving}
+  \pubcaption{Dynamic programming on matrices \& reproducible software}{minimum-energy seams are found by dynamic programming over the pixel-energy matrix; IPOL reviews the source code together with the article.}
 
-     \addtocounter{countdown}{-1}
-
-\end{enumerate}
+\end{publist}
 
 \smallskip
 
@@ -583,40 +573,57 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 
 \divider
 
-\begin{itemize}
+% Grouped by the same research topics as the Publications section; labels
+% coloured by publication type (\pubtag).
 
-    \item[j5] \textbf{MediaWiki Code2Code Search} \href{https://github.com/ftosoni/mediawiki-code2code-search}{\faGithub} Semantic code search over 1.1M+ MediaWiki code snippets, retrieving functionally similar code across programming languages via neural embeddings, with \href{https://www.softwareheritage.org/}{Software Heritage} permalinks (SWHIDs). Interface in 30 languages (e.g.\ Pashto, Irish, Luxembourgish), 14 of them Indian (e.g.\ Telugu, Santali, Maithili). (\href{https://code2codesearch.toolforge.org/}{Project site}, \href{https://github.com/ftosoni/mediawiki-code2code-search}{GitHub site})\\
-    \Lwdcode{Q139251277} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
+\focusgroup{Lossless compression \& compressed data structures}
 
-    \item[c5] \textbf{g-mm-repair} \href{https://github.com/ftosoni/g-mm-repair}{\faGithub} A memory-bounded GPU engine for streaming right-multiplication over grammar-compressed matrices, targeting genotype and graph data. Extends the RePair-compressed matrix-multiplication line of work (mm-repair) to memory-constrained accelerators. (\href{https://github.com/ftosoni/g-mm-repair}{GitHub site})\\
+\begin{artefactlist}
+
+    \item[\pubtag{c}{5}] \textbf{g-mm-repair} \href{https://github.com/ftosoni/g-mm-repair}{\faGithub} A memory-bounded GPU engine for streaming right-multiplication over grammar-compressed matrices, targeting genotype and graph data. Extends the RePair-compressed matrix-multiplication line of work (mm-repair) to memory-constrained accelerators. (\href{https://github.com/ftosoni/g-mm-repair}{GitHub site})\\
     \Lzenodo{code}{https://doi.org/10.5281/zenodo.23139247} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
 
-    \item[c4] \textbf{swh-wd-reconciliation} \href{https://github.com/ftosoni/swh-wd-reconciliation}{\faGithub} Tooling to bridge Software Heritage code archival with the Semantic Web, reconciling archived software with Wikidata items via COAR Notify. (\href{https://github.com/ftosoni/swh-wd-reconciliation}{GitHub site})
-
-    \item[c3] \textbf{code2code\_benchmark} \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub} A comprehensive benchmark for evaluating candidate recall in large-scale code-to-code retrieval. (\href{https://github.com/leeeov4/code2code_benchmark}{GitHub site})
-
-    \item[w1] \textbf{seam-carving} \href{https://github.com/ftosoni/seam-carving}{\faGithub} An analysis and implementation of the seam-carving algorithm for content-aware image resizing. (\href{https://github.com/ftosoni/seam-carving}{GitHub site})\\
-    \Lwdcode{Q141435187}
-
-    \item[c2, w3] \textbf{green-compressed-storage} \href{https://github.com/ftosoni/green-compressed-storage}{\faGithub}\ Efficiently reads large source-code datasets in Parquet format using a Permute-Partition-Compress approach on top of RocksDB. Achieved GiB/s throughput and compelling compression for source code archival. (\href{https://github.com/ftosoni/green-compressed-storage}{GitHub site})\\
+    \item[\pubtag{c}{2}\,\pubtag{w}{3}] \textbf{green-compressed-storage} \href{https://github.com/ftosoni/green-compressed-storage}{\faGithub}\ Efficiently reads large source-code datasets in Parquet format using a Permute-Partition-Compress approach on top of RocksDB. Achieved GiB/s throughput and compelling compression for source code archival. (\href{https://github.com/ftosoni/green-compressed-storage}{GitHub site})\\
     \Lwdcode{Q141434536}
 
-    \item[j4] \textbf{green-lossless-spmv} \href{https://github.com/acubeLab/green-lossless-spmv}{\faGithub}\\
+    \item[\pubtag{j}{4}] \textbf{green-lossless-spmv} \href{https://github.com/acubeLab/green-lossless-spmv}{\faGithub}\\
     Green Lossless Sparse Matrix-Vector Multiplication (SpMV) implementation. It focuses on lossless compression techniques that optimise space, time, and energy for multiplications between binary or ternary matrix formats and real-valued vectors. (\href{https://github.com/acubeLab/green-lossless-spmv}{GitHub site})\\
     \Lwdcode{Q141434535}
 
-    \item[j4] \textbf{zuckerli} \href{https://github.com/ftosoni/zuckerli}{\faGithub}\\
+    \item[\pubtag{j}{4}] \textbf{zuckerli} \href{https://github.com/ftosoni/zuckerli}{\faGithub}\\
     Readapted Google's Zuckerli compressed matrix format to carry out computation-friendly matrix-vector multiplication kernels and PageRank computations. (\href{https://github.com/ftosoni/zuckerli}{GitHub fork})
 
-    \item[c1, j3] \textbf{CoCo-trie} \href{https://github.com/aboffa/CoCo-trie}{\faGithub}\\
+    \item[\pubtag{c}{1}\,\pubtag{j}{3}] \textbf{CoCo-trie} \href{https://github.com/aboffa/CoCo-trie}{\faGithub}\\
     A data-aware trie-shaped data structure for indexing and compressing string sets, developed by A\textsuperscript{3} lab. Implements principled subtree collapsing with optimal encoding scheme selection to minimise space. (\href{https://github.com/aboffa/CoCo-trie}{GitHub site})\\
     \Lwdcode{Q141434534} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
 
-    \item[j2] \textbf{mm-repair} \href{https://gitlab.com/manzai/mm-repair}{\faGitlab}\\
+    \item[\pubtag{j}{2}] \textbf{mm-repair} \href{https://gitlab.com/manzai/mm-repair}{\faGitlab}\\
     Matrix multiplication implementation for RePair-compressed matrices. Efficient computation methods for matrices compressed using grammar-based compression techniques. (\href{https://gitlab.com/manzai/mm-repair}{GitLab site})\\
     \Lwdcode{Q141434533} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
 
-\end{itemize}
+\end{artefactlist}
+
+\focusgroup{Semantic code search \& linking software to open data}
+
+\begin{artefactlist}
+
+    \item[\pubtag{j}{5}] \textbf{MediaWiki Code2Code Search} \href{https://github.com/ftosoni/mediawiki-code2code-search}{\faGithub} Semantic code search over 1.1M+ MediaWiki code snippets, retrieving functionally similar code across programming languages via neural embeddings, with \href{https://www.softwareheritage.org/}{Software Heritage} permalinks (SWHIDs). Interface in 30 languages (e.g.\ Pashto, Irish, Luxembourgish), 14 of them Indian (e.g.\ Telugu, Santali, Maithili). (\href{https://code2codesearch.toolforge.org/}{Project site}, \href{https://github.com/ftosoni/mediawiki-code2code-search}{GitHub site})\\
+    \Lwdcode{Q139251277} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
+
+    \item[\pubtag{c}{4}] \textbf{swh-wd-reconciliation} \href{https://github.com/ftosoni/swh-wd-reconciliation}{\faGithub} Tooling to bridge Software Heritage code archival with the Semantic Web, reconciling archived software with Wikidata items via COAR Notify. (\href{https://github.com/ftosoni/swh-wd-reconciliation}{GitHub site})
+
+    \item[\pubtag{c}{3}] \textbf{code2code\_benchmark} \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub} A comprehensive benchmark for evaluating candidate recall in large-scale code-to-code retrieval. (\href{https://github.com/leeeov4/code2code_benchmark}{GitHub site})
+
+\end{artefactlist}
+
+\focusgroup{Other}
+
+\begin{artefactlist}
+
+    \item[\pubtag{w}{1}] \textbf{seam-carving} \href{https://github.com/ftosoni/seam-carving}{\faGithub} An analysis and implementation of the seam-carving algorithm for content-aware image resizing. (\href{https://github.com/ftosoni/seam-carving}{GitHub site})\\
+    \Lwdcode{Q141435187}
+
+\end{artefactlist}
 
 \divider
 
@@ -801,8 +808,6 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
 
 \yr{2026}
 \begin{talklist}
-  \item \textbf{25 Oct}\enspace \textit{``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''} --- 6th Wikidata Workshop, co-located with ISWC 2026, Bari, Italy. Joint with C.~C.~Pellizzari di San Girolamo (c4).\ {\footnotesize(\href{https://wikidataworkshop.github.io/2026/}{\faGlobe\,website} \Lsep \href{https://www.francescotosoni.it/static/slides_20261025.pdf}{\faFilePowerpoint\,slides} \Lsep \href{https://commons.wikimedia.org/wiki/File:Wikidata_Workshop_2026._From_Code_Archival_to_Knowledge_Graph_(Ep%C3%ACdosis,_Super_nabla).pdf}{\faImages\,Commons} \Lsep \Lzenodo{slides}{https://doi.org/10.5281/zenodo.23639881})}
-
   \ifshortcv\else% community/outreach talks: full CV only
   \item \textbf{31 Aug}\enspace \textit{``Unpacking Software Heritage Open Science''} --- DCW Conversation Hour \#44, Deoband Community Wikimedia, online.\tvir\ {\footnotesize(\href{https://www.francescotosoni.it/static/slides_20260831.pdf}{\faFilePowerpoint\,slides} \Lsep \href{https://commons.wikimedia.org/wiki/File:DCW_Conversation_Hour_44,_Unpacking_Software_Heritage_Open_Science_(Francesco_Tosoni).pdf}{\faImages\,Commons} \Lsep \Lzenodo{slides}{https://doi.org/10.5281/zenodo.22254222})}
   \fi
