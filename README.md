@@ -1,5 +1,7 @@
 # Curriculum Vitae — Francesco Tosoni, PhD
 
+[![Build CV](https://github.com/ftosoni/cv/actions/workflows/build-cv.yml/badge.svg)](https://github.com/ftosoni/cv/actions/workflows/build-cv.yml)
+
 Source for the academic CV of **Francesco Tosoni** (Scuola Superiore Sant'Anna /
 University of Pisa). Typeset in LaTeX on top of the
 [AltaCV](https://github.com/liantze/AltaCV) class.
@@ -9,6 +11,17 @@ University of Pisa). Typeset in LaTeX on top of the
 - 🔗 ORCID [`0000-0001-8457-3866`](https://orcid.org/0000-0001-8457-3866) ·
   [DBLP](https://dblp.org/pid/317/5120-1.html) ·
   [Google Scholar](https://scholar.google.com/citations?user=8-0w_KAAAAAJ)
+
+## Download
+
+| Variant | PDF |
+| --- | --- |
+| Full, international (no photo) | [website](https://www.francescotosoni.it/cv/cv-full-intl.pdf) · [release](https://github.com/ftosoni/cv/releases/latest/download/cv-full-intl.pdf) |
+| Short, international (no photo) | [website](https://www.francescotosoni.it/cv/cv-short-intl.pdf) · [release](https://github.com/ftosoni/cv/releases/latest/download/cv-short-intl.pdf) |
+| Full, EU (with photo) | [release](https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf) |
+| Short, EU (with photo) | [release](https://github.com/ftosoni/cv/releases/latest/download/cv-short-eu.pdf) |
+
+The EU PDFs built by CI are **unsigned** (see [Signature](#signature)).
 
 ## Build variants
 
@@ -24,8 +37,9 @@ The `short` variant drops the more encyclopaedic sections (code artefacts,
 professional internships, conference attendance, coursework lists). The
 `no-photo` variant suits the anglosphere/international market where CV photos are
 discouraged; the photo variant suits EU academia. Only the photo (EU) variant
-ends with the self-certification under Italian DPR 445/2000 and the signature,
-as needed for Italian procedures.
+ends with the self-certification under Italian DPR 445/2000 and the signature
+(when available locally, see [Signature](#signature)), as needed for Italian
+procedures.
 
 Four thin wrappers select the combinations:
 
@@ -79,13 +93,15 @@ MiKTeX offers to install any missing packages on first compilation.
 | `altacv.cls` | The AltaCV document class (upstream). |
 | `sample.bib` | Bibliography database loaded via `biblatex`. |
 | `photos/` | Photos (© Francesco Tosoni, all rights reserved; see [`photos/README.md`](photos/README.md)). |
-| `unipi-logo.png`, … | Other images used in the CV. |
+| `unipi-logo.png`, `*_High.png` | Other images used in the CV (icons: see `nicethings_icons_readme.txt`). |
 | `private/` | Git-ignored, local only: `signature.pdf` for the signed EU variants. |
-| `old.tex` | A previous draft, kept for reference. |
+| `old.tex`, `OLD.md` | Previous drafts, kept for reference. |
 | `.github/workflows/build-cv.yml` | CI that builds all four variants (see below). |
 
 No PDF is version-controlled: `main.pdf` and the variant PDFs are git-ignored
-and produced by CI (see below).
+and produced by CI (see below). CI also writes `cvdate.tex` (git-ignored), so the
+date printed at the end is the date of the last commit; local builds without it
+print the build date.
 
 ## Continuous integration
 
@@ -100,6 +116,10 @@ to a rolling **`latest`** GitHub Release, e.g.:
 https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf
 https://github.com/ftosoni/cv/releases/latest/download/cv-short-intl.pdf
 ```
+
+The two international variants are also copied over FTP to
+<https://www.francescotosoni.it/cv/>, which needs the repository secret
+`FTP_PASSWORD`.
 
 ## Publications & talks
 
@@ -117,6 +137,19 @@ WCAG 2.1 AAA for normal text). Hyperlinks share the accent colour, and the
 "Research Focus" skill tags use solid accent fills with white text for a legible
 contrast ratio.
 
+## Signature
+
+The handwritten signature is not part of this repository. To build a signed EU
+variant locally, put it in `private/signature.pdf` (git-ignored). Builds without
+it, including those made by CI, leave the signature space blank.
+
+## Reusing the layout
+
+You are welcome to use this repository as a starting point for your own CV:
+the AltaCV class and the build setup (variants, wrappers, CI) are reusable.
+Replace the content of `main.tex` and the images with your own, though: the
+content and the photos are not licensed for reuse (see below).
+
 ## Credits & licence
 
 Built on **AltaCV** v1.2 by Lian Tze Lim, distributed under the
@@ -126,7 +159,3 @@ The AltaCV class file retains its original licence.
 The CV **content** (text, images, and personal data in `main.tex` and the bundled
 images) is © Francesco Tosoni and is not covered by the LPPL. The photos in
 [`photos/`](photos/) are © Francesco Tosoni, **all rights reserved**.
-
-The handwritten signature is not part of this repository: to build a signed EU
-variant locally, put it in `private/signature.pdf` (git-ignored). Builds without
-it, including those made by CI, leave the signature space blank.
