@@ -88,11 +88,11 @@ and produced by CI (see below).
 ## Continuous integration
 
 [`.github/workflows/build-cv.yml`](.github/workflows/build-cv.yml) recompiles the
-CV on every push/PR that touches the sources (and on demand via *Run workflow*).
-A build **matrix** compiles all four variants in parallel on a full TeX Live
-image; a broken source fails the check. Each variant's PDF is uploaded as an
-artifact, and on `main` all four are attached to a rolling **`latest`** GitHub
-Release, e.g.:
+CV on every push to `main` that touches the sources (and on demand via *Run
+workflow*). To save Actions minutes, a **single job** pulls a full TeX Live image
+once and compiles the four variants in a row; a broken source fails the check,
+and a newer push cancels a build still in progress. All four PDFs are attached
+to a rolling **`latest`** GitHub Release, e.g.:
 
 ```
 https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf

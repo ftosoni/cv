@@ -1,15 +1,21 @@
 name: Build CV
 
 # Recompiles the CV whenever the sources change, catching a broken LaTeX build
-# immediately and publishing up-to-date PDFs. Four variants are built in
-# parallel from the thin wrappers cv-*.tex:
+# immediately and publishing up-to-date PDFs. Four variants are built from the
+# thin wrappers cv-*.tex:
 #   cv-full-eu     full CV, with photo        (EU academia)
 #   cv-full-intl   full CV, no photo          (anglosphere / international)
 #   cv-short-eu    condensed CV, with photo
 #   cv-short-intl  condensed CV, no photo
-# Every run uploads each PDF as an artifact; on `main` all four are attached to
-# a rolling "latest" release, e.g.:
+# On `main` all four are attached to a rolling "latest" release, e.g.:
 #   https://github.com/ftosoni/cv/releases/latest/download/cv-full-eu.pdf
+#
+# Kept lean on purpose, since Actions minutes on a private repo are metered:
+# ONE job pulls the TeX Live image once and compiles the four variants in a
+# row (instead of four parallel jobs, each billed separately and each pulling
+# the image), then publishes them directly, with no artifact round-trip to a
+# second job. A newer push cancels a build still in progress. Run it by hand
+# from the Actions tab (workflow_dispatch) when needed.
 
 on:
   push:
@@ -23,11 +29,6 @@ on:
       - '**.jpeg'
       - 'signature.pdf'
       - '.github/workflows/build-cv.yml'
-  pull_request:
-    paths:
-      - '**.tex'
-      - '**.cls'
-      - '**.bib'
   workflow_dispatch:
 
 permissions:
@@ -40,21 +41,11 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        variant: [cv-full-eu, cv-full-intl, cv-short-eu, cv-short-intl]
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # Full TeX Live image; XeLaTeX is required for fontspec, the Lato font,
-      # fontawesome5 and academicons. Biber runs automatically.
-      #
-      # The Alpine-based image ships no Devanagari font, so the Hindi label
-      # (\hindi हिन्दी in main.tex) would silently fall back to a no-op. We install
-      # Noto Sans Devanagari (matched by main.tex's \IfFontExistsTF fallback) and
-      # rebuild the fontconfig cache so XeLaTeX can find it.
       # Date above the signature = date of the last commit (Europe/Rome), so it
       # tracks the last content change and re-running the workflow does not
       # move it. main.tex reads cvdate.tex; without it, it uses the build date.
@@ -64,45 +55,40 @@ jobs:
             '+\def\CVYEAR{%Y}\def\CVMONTH{%-m}\def\CVDAY{%-d}' > cvdate.tex
           cat cvdate.tex
 
-      - name: Compile ${{ matrix.variant }}
+      # Full TeX Live image; XeLaTeX is required for fontspec, the Lato font,
+      # fontawesome5 and academicons. Biber runs automatically.
+      #
+      # The Alpine-based image ships no Devanagari font, so the Hindi label
+      # (\hindi हिन्दी in main.tex) would silently fall back to a no-op. We install
+      # Noto Sans Devanagari (matched by main.tex's \IfFontExistsTF fallback) and
+      # rebuild the fontconfig cache so XeLaTeX can find it.
+      - name: Compile the four variants
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: ${{ matrix.variant }}.tex
+          root_file: |
+            cv-full-eu.tex
+            cv-full-intl.tex
+            cv-short-eu.tex
+            cv-short-intl.tex
           latexmk_use_xelatex: true
           extra_system_packages: "font-noto-devanagari"
           pre_compile: "fc-cache -fv"
 
-      - name: Upload ${{ matrix.variant }}.pdf
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.variant }}
-          path: ${{ matrix.variant }}.pdf
-          if-no-files-found: error
+      - name: Check the PDFs
+        run: ls -l cv-full-eu.pdf cv-full-intl.pdf cv-short-eu.pdf cv-short-intl.pdf
 
-  release:
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all built PDFs
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-
-      - name: Collect PDFs
-        run: |
-          mkdir -p release
-          find artifacts -name '*.pdf' -exec cp {} release/ \;
-          ls -l release
-
-      # Rolling release with the freshest PDFs. Remove this job for an
-      # artifact-only workflow.
+      # Rolling release with the freshest PDFs.
       - name: Publish to "latest" release
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: Latest CV build
-          files: release/*.pdf
+          files: |
+            cv-full-eu.pdf
+            cv-full-intl.pdf
+            cv-short-eu.pdf
+            cv-short-intl.pdf
           body: >
             Automatically built from commit ${{ github.sha }}.
             Variants: full / short  ×  EU (photo) / international (no photo).
@@ -115,16 +101,17 @@ jobs:
       #   https://www.francescotosoni.it/cv/cv-short-intl.pdf
       # Requires the repository secret FTP_PASSWORD (FTP password for oughyvcm).
       - name: Stage the international PDFs for the website
+        if: github.ref == 'refs/heads/main'
         run: |
           mkdir -p site-cv
-          cp artifacts/cv-full-intl/cv-full-intl.pdf   site-cv/
-          cp artifacts/cv-short-intl/cv-short-intl.pdf site-cv/
+          cp cv-full-intl.pdf cv-short-intl.pdf site-cv/
           ls -l site-cv
 
       # server-dir is dedicated to these two files, so the sync (which prunes
       # remote files absent locally) only ever manages public_html/cv/ and never
       # touches the rest of the site.
       - name: Deploy international CVs to the website via FTP
+        if: github.ref == 'refs/heads/main'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.francescotosoni.it
