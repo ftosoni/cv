@@ -27,7 +27,6 @@ on:
       - '**.png'
       - '**.jpg'
       - '**.jpeg'
-      - 'signature.pdf'
       - '.github/workflows/build-cv.yml'
   workflow_dispatch:
 

@@ -27,3 +27,5 @@ cvdate.tex
 # File temporanei
 *.tmp
 *~
+# Local-only private files (handwritten signature): never committed
+private/

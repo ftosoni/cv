@@ -78,7 +78,9 @@ MiKTeX offers to install any missing packages on first compilation.
 | `cv-{full,short}-{eu,intl}.tex` | One-line wrappers selecting a build variant. |
 | `altacv.cls` | The AltaCV document class (upstream). |
 | `sample.bib` | Bibliography database loaded via `biblatex`. |
-| `photo.jpeg`, `signature.pdf`, `unipi-logo.png`, … | Images used in the CV. |
+| `photos/` | Photos (© Francesco Tosoni, all rights reserved; see [`photos/README.md`](photos/README.md)). |
+| `unipi-logo.png`, … | Other images used in the CV. |
+| `private/` | Git-ignored, local only: `signature.pdf` for the signed EU variants. |
 | `old.tex` | A previous draft, kept for reference. |
 | `.github/workflows/build-cv.yml` | CI that builds all four variants (see below). |
 
@@ -122,4 +124,9 @@ Built on **AltaCV** v1.2 by Lian Tze Lim, distributed under the
 The AltaCV class file retains its original licence.
 
 The CV **content** (text, images, and personal data in `main.tex` and the bundled
-images) is © Francesco Tosoni and is not covered by the LPPL.
+images) is © Francesco Tosoni and is not covered by the LPPL. The photos in
+[`photos/`](photos/) are © Francesco Tosoni, **all rights reserved**.
+
+The handwritten signature is not part of this repository: to build a signed EU
+variant locally, put it in `private/signature.pdf` (git-ignored). Builds without
+it, including those made by CI, leave the signature space blank.

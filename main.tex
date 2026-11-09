@@ -277,7 +277,7 @@
 %% You can add multiple photos on the left or right
 %% Photo shown only in the "EU" variant (\photocv true); omitted for the
 %% anglosphere/international variant where photos are discouraged.
-\ifphotocv\photoR{2.8cm}{photo.jpeg}\fi
+\ifphotocv\photoR{2.8cm}{photos/photo.jpeg}\fi
 % \photoL{2.5cm}{Yacht_High,Suitcase_High}
 \personalinfo{%
   \email{\href{mailto:francesco.tosoni@santannapisa.it}{francesco.tosoni@santannapisa.it}}
@@ -1063,9 +1063,13 @@ All of the above statements are true in accordance with the regulations on subst
 \centering
 % Paris, France. 9\textsuperscript{th} July 2025\\
 Pisa (Italy), \cvdate\\
+% The signature is never committed: keep it in private/signature.pdf (the
+% private/ folder is git-ignored). Without it (e.g. in CI) the space is left
+% blank, so the published EU PDFs carry no signature.
 \ifphotocv
-\smallskip
-\includegraphics[width=.3\linewidth]{signature.pdf}
+\IfFileExists{private/signature.pdf}{%
+  \smallskip
+  \includegraphics[width=.3\linewidth]{private/signature.pdf}}{}
 \fi
 
 
