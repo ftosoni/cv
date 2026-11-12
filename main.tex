@@ -141,6 +141,7 @@
 \newcommand{\Lgh}[1]{\href{#1}{\faGithub\,code}}
 \newcommand{\Lgl}[1]{\href{#1}{\faGitlab\,code}}
 \newcommand{\Lswhid}[1]{\href{https://archive.softwareheritage.org/#1}{\faFingerprint\,SWHID}}
+\newcommand{\Lswhlatest}[1]{\href{https://archive.softwareheritage.org/browse/origin/directory/?origin_url=#1}{\faFingerprint\,SWH (latest)}}% latest archived version of an origin; moves over time, unlike a SWHID
 \newcommand{\Lpdf}[1]{\href{#1}{\faFilePdf\,PDF}}
 \newcommand{\Lpaper}[1]{\href{#1}{\faLink\,paper}}% official version on the venue site (no DOI)
 \newcommand{\Lfix}[1]{\href{#1}{\faWrench\,fix}}
@@ -523,7 +524,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
   \Aupellizzari, \textbf{F.~Tosoni}\corr. \\
   ``From Code Archival to Knowledge Graph: Bridging Software Heritage, COAR Notify and Wikidata''. \\
   \textit{Wikidata Workshop 2026}, co-located with \textit{ISWC 2026} \emph{(to appear)}. \\
-  \Lpaper{https://wikidataworkshop.github.io/2026/papers/paper23.pdf} \Lsep \Larxiv{2609.21667} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation}
+  \Lpaper{https://wikidataworkshop.github.io/2026/papers/paper23.pdf} \Lsep \Larxiv{2609.21667} \Lsep \Lwdpaper{Q142121085} \Lsep \Lwdcode{Q142121084} \Lsep \Lgh{https://github.com/ftosoni/swh-wd-reconciliation} \Lsep \Lswhid{swh:1:dir:45fde2460721b6ce8b4304809a2679e675c657cd;origin=https://github.com/ftosoni/swh-wd-reconciliation;visit=swh:1:snp:4b3c6798b37d3e3f05cb2377c425846d63b714e2;anchor=swh:1:rev:e65088aea0903bbd8af49e464a6e49045e751480}
   \pubcaption{Linked open data for software}{application profiles and a reconciliation pipeline link 4,397 article--repository pairs to Wikidata, creating 4,182 software items with Software Heritage identifiers (SWHIDs).}
 
   Work on bridging Software Heritage code archival with the Semantic Web via COAR Notify and Wikidata reconciliation.
@@ -570,7 +571,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \ifshortcv\else
 \cvsection{Code artefacts}
 
-{\em Note}: For each code artefact, I report the associated publication/manuscript (c1, c2, c3, c4, c5, j2, j3, j4, j5, w1, w3) in which the code served for experimental evaluations. Where available, links to the corresponding Wikidata item and Software Heritage snapshot (SWHID) are also given.
+{\em Note}: For each code artefact, I report the associated publication/manuscript (c1, c2, c3, c4, c5, j2, j3, j4, j5, w1, w3) in which the code served for experimental evaluations. Where available, links to the corresponding Wikidata item and Software Heritage snapshot (SWHID) are also given: the SWHID pins the version used in the publication, while \emph{SWH (latest)} opens the latest version archived in Software Heritage.
 
 \divider
 
@@ -582,25 +583,25 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \begin{artefactlist}
 
     \item[\pubtag{c}{5}] \textbf{g-mm-repair} \href{https://github.com/ftosoni/g-mm-repair}{\faGithub} A memory-bounded GPU engine for streaming right-multiplication over grammar-compressed matrices, targeting genotype and graph data. Extends the RePair-compressed matrix-multiplication line of work (mm-repair) to memory-constrained accelerators. (\href{https://github.com/ftosoni/g-mm-repair}{GitHub site})\\
-    \Lzenodo{code}{https://doi.org/10.5281/zenodo.23139247} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5}
+    \Lzenodo{code}{https://doi.org/10.5281/zenodo.23139247} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.22677746} \Lsep \Lswhid{swh:1:dir:b3ac33f72dfebd25b447c18a1b149eedb127fff5} \Lsep \Lswhlatest{https://github.com/ftosoni/g-mm-repair}
 
     \item[\pubtag{c}{2}\,\pubtag{w}{3}] \textbf{green-compressed-storage} \href{https://github.com/ftosoni/green-compressed-storage}{\faGithub}\ Efficiently reads large source-code datasets in Parquet format using a Permute-Partition-Compress approach on top of RocksDB. Achieved GiB/s throughput and compelling compression for source code archival. (\href{https://github.com/ftosoni/green-compressed-storage}{GitHub site})\\
-    \Lwdcode{Q141434536}
+    \Lwdcode{Q141434536} \Lsep \Lswhlatest{https://github.com/ftosoni/green-compressed-storage}
 
     \item[\pubtag{j}{4}] \textbf{green-lossless-spmv} \href{https://github.com/acubeLab/green-lossless-spmv}{\faGithub}\\
     Green Lossless Sparse Matrix-Vector Multiplication (SpMV) implementation. It focuses on lossless compression techniques that optimise space, time, and energy for multiplications between binary or ternary matrix formats and real-valued vectors. (\href{https://github.com/acubeLab/green-lossless-spmv}{GitHub site})\\
-    \Lwdcode{Q141434535}
+    \Lwdcode{Q141434535} \Lsep \Lswhlatest{https://github.com/acubeLab/green-lossless-spmv}
 
     \item[\pubtag{j}{4}] \textbf{zuckerli} \href{https://github.com/ftosoni/zuckerli}{\faGithub}\\
     Readapted Google's Zuckerli compressed matrix format to carry out computation-friendly matrix-vector multiplication kernels and PageRank computations. (\href{https://github.com/ftosoni/zuckerli}{GitHub fork})
 
     \item[\pubtag{c}{1}\,\pubtag{j}{3}] \textbf{CoCo-trie} \href{https://github.com/aboffa/CoCo-trie}{\faGithub}\\
     A data-aware trie-shaped data structure for indexing and compressing string sets, developed by A\textsuperscript{3} lab. Implements principled subtree collapsing with optimal encoding scheme selection to minimise space. (\href{https://github.com/aboffa/CoCo-trie}{GitHub site})\\
-    \Lwdcode{Q141434534} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb}
+    \Lwdcode{Q141434534} \Lsep \Lswhid{swh:1:rev:16f456a70d51934a2756f8e5b3ace9d441d7cdcb} \Lsep \Lswhlatest{https://github.com/aboffa/CoCo-trie}
 
     \item[\pubtag{j}{2}] \textbf{mm-repair} \href{https://gitlab.com/manzai/mm-repair}{\faGitlab}\\
     Matrix multiplication implementation for RePair-compressed matrices. Efficient computation methods for matrices compressed using grammar-based compression techniques. (\href{https://gitlab.com/manzai/mm-repair}{GitLab site})\\
-    \Lwdcode{Q141434533} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e}
+    \Lwdcode{Q141434533} \Lsep \Lswhid{swh:1:dir:d5322d5edbdab2d13e94d39da42f3594db86bb4e} \Lsep \Lswhlatest{https://gitlab.com/manzai/mm-repair}
 
 \end{artefactlist}
 
@@ -609,11 +610,13 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \begin{artefactlist}
 
     \item[\pubtag{j}{5}] \textbf{MediaWiki Code2Code Search} \href{https://github.com/ftosoni/mediawiki-code2code-search}{\faGithub} Semantic code search over 1.1M+ MediaWiki code snippets, retrieving functionally similar code across programming languages via neural embeddings, with \href{https://www.softwareheritage.org/}{Software Heritage} permalinks (SWHIDs). Interface in 30 languages (e.g.\ Pashto, Irish, Luxembourgish), 14 of them Indian (e.g.\ Telugu, Santali, Maithili). (\href{https://code2codesearch.toolforge.org/}{Project site}, \href{https://github.com/ftosoni/mediawiki-code2code-search}{GitHub site})\\
-    \Lwdcode{Q139251277} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search}
+    \Lwdcode{Q139251277} \Lsep \Lswhid{swh:1:dir:ab5d977c84536650f31a7f022940a44e546ef804;origin=https://github.com/ftosoni/mediawiki-code2code-search;visit=swh:1:snp:39bdb2d283a8178d200bd365747c8c663aff6a20;anchor=swh:1:rev:406f8e7531a351b83459e08573d78849063a4178} \Lsep \Lzenodo{data}{https://doi.org/10.5281/zenodo.20586256} \Lsep \Lhf{https://huggingface.co/datasets/ftosoni/mediawiki-code2code-search} \Lsep \Lswhlatest{https://github.com/ftosoni/mediawiki-code2code-search}
 
-    \item[\pubtag{c}{4}] \textbf{swh-wd-reconciliation} \href{https://github.com/ftosoni/swh-wd-reconciliation}{\faGithub} Tooling to bridge Software Heritage code archival with the Semantic Web, reconciling archived software with Wikidata items via COAR Notify. (\href{https://github.com/ftosoni/swh-wd-reconciliation}{GitHub site})
+    \item[\pubtag{c}{4}] \textbf{swh-wd-reconciliation} \href{https://github.com/ftosoni/swh-wd-reconciliation}{\faGithub} Tooling to bridge Software Heritage code archival with the Semantic Web, reconciling archived software with Wikidata items via COAR Notify. (\href{https://github.com/ftosoni/swh-wd-reconciliation}{GitHub site})\\
+    \Lwdcode{Q142121084} \Lsep \Lswhid{swh:1:dir:45fde2460721b6ce8b4304809a2679e675c657cd;origin=https://github.com/ftosoni/swh-wd-reconciliation;visit=swh:1:snp:4b3c6798b37d3e3f05cb2377c425846d63b714e2;anchor=swh:1:rev:e65088aea0903bbd8af49e464a6e49045e751480} \Lsep \Lswhlatest{https://github.com/ftosoni/swh-wd-reconciliation}
 
-    \item[\pubtag{c}{3}] \textbf{code2code\_benchmark} \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub} A comprehensive benchmark for evaluating candidate recall in large-scale code-to-code retrieval. (\href{https://github.com/leeeov4/code2code_benchmark}{GitHub site})
+    \item[\pubtag{c}{3}] \textbf{code2code\_benchmark} \href{https://github.com/leeeov4/code2code_benchmark}{\faGithub} A comprehensive benchmark for evaluating candidate recall in large-scale code-to-code retrieval. (\href{https://github.com/leeeov4/code2code_benchmark}{GitHub site})\\
+    \Lswhlatest{https://github.com/leeeov4/code2code_benchmark}
 
 \end{artefactlist}
 
@@ -622,7 +625,7 @@ Achieved 30/30 \textit{cum laude} in seven courses.
 \begin{artefactlist}
 
     \item[\pubtag{w}{1}] \textbf{seam-carving} \href{https://github.com/ftosoni/seam-carving}{\faGithub} An analysis and implementation of the seam-carving algorithm for content-aware image resizing. (\href{https://github.com/ftosoni/seam-carving}{GitHub site})\\
-    \Lwdcode{Q141435187}
+    \Lwdcode{Q141435187} \Lsep \Lswhlatest{https://github.com/ftosoni/seam-carving}
 
 \end{artefactlist}
 
