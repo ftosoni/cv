@@ -181,3 +181,84 @@ Tolta nella revisione di ottobre 2026 dall'inizio della parte `\longonly` della 
 
 \noindent \textbf{Community Leadership \& Outreach:} Frequent collaborator with tech communities, particularly in the Indic region, to foster cross-cultural digitisation. In partnership with \textit{Wikimedia Italia} (WMIT), organised Wikimedian meetups such as \href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-cinema_indiano_a_Pisa}{Indian Wiki-cinema} (Pisa, 2025) and \href{https://it.wikipedia.org/wiki/Wikipedia:Raduni/Wiki-Pakistan}{Wiki-Pakistan} (Bolzano, 2024). I contribute technical insights as an \href{https://diff.wikimedia.org/author/super-nabla/}{author on Diff} and served as a jury member for the Wikipedia Asian Month (November 2025).
 ```
+
+## Materie della triennale (Relevant coursework, BSc)
+
+Erano nella voce della laurea triennale, solo nella versione full. Tolte a novembre 2026: poco pertinenti per posizioni in algoritmica e compressione su GPU.
+
+```latex
+\longonly{Relevant coursework:
+\begin{itemize}
+    \item Fundamentals of Telecommunications, Signal Processing, and Automation
+    \item Algorithms, Databases, and Computer Programming (focus on \texttt{Java} and \texttt{C})
+    \item Fundamentals of Antennas and Electronic Circuits
+\end{itemize}}
+
+\smallskip
+```
+
+## Riga sul networking nelle materie della magistrale
+
+Era l'ultima voce di *Relevant coursework* della magistrale, solo nella versione full. Tolta a novembre 2026.
+
+```latex
+    \item Networking (protocols, components, configuration, and management), JUNOS network OS, optical fibre technologies
+```
+
+## Simposio UNESCO / Software Heritage 2026 (descrizione estesa)
+
+Descrizione originale, accorciata a novembre 2026 perché suggeriva una partecipazione attiva a un evento seguito da uditore. Segue l'inizio dei link, rimasti invariati.
+
+```latex
+Attended the 10th-anniversary symposium co-hosted by UNESCO and Software Heritage, focusing on the preservation of source code as a Digital Public Good. Participated in high-level discussions regarding the renewal of the UNESCO–Inria partnership, the role of Free and Open-Source Software (FOSS) in sustainable innovation, and the importance of transparent AI grounded in open, verifiable code archives. Explored the integration of software preservation within the UNESCO Recommendation on Open Science and the Global Digital Compact to support inclusive and interoperable digital ecosystems. (\href{https://www.unesco.org/en/articles/software-heritage-symposium-and-summit}
+```
+
+## Simposio UNESCO / Software Heritage 2025 (descrizione estesa)
+
+Descrizione originale, accorciata a novembre 2026 per lo stesso motivo. Segue l'inizio dei link, rimasti invariati.
+
+```latex
+Engaged with leaders from UNESCO, Inria, and Software Heritage, participating in discussions and panels on critical topics including cybersecurity and regulation (e.g., EU's Cyber Resilience Act), open and transparent AI (with insights from EU AI Office, IBM Research, Open Source Initiative), open science (aligned with UNESCO Recommendation on Open Science), and cultural preservation of software as digital heritage. (\href{https://www.unesco.org/en/articles/software-heritage-2025-symposium-and-summit}
+```
+
+## Simposi UNESCO / Software Heritage: le due voci separate
+
+Le edizioni 2025 e 2026 erano due voci distinte in *Participation in conferences* (solo versione full). Unite in una sola voce a novembre 2026 per non dare troppo spazio a eventi seguiti da uditore; nella voce unita è caduto il link al sito SWH dell'edizione 2025.
+
+```latex
+\cvevent{Software Heritage 2026 Symposium and Summit}{UNESCO headquarters}{28 Jan 2026}{Paris, France}
+
+Attended the 10th-anniversary symposium co-hosted by UNESCO and Software Heritage on the preservation of source code as a Digital Public Good. (\href{https://www.unesco.org/en/articles/software-heritage-symposium-and-summit}{\faGlobe\,UNESCO website} \Lsep \href{https://diff.wikimedia.org/2026/02/16/when-source-code-archival-is-recognised-as-digital-public-good-insights-from-software-heritages-10-year-journey-at-unesco/}{\faGlobe\,Diff blog post})
+
+\divider
+
+\cvevent{Software Heritage 2025 Symposium and Summit}{UNESCO headquarters}{29 Jan 2025}{Paris, France}
+
+Attended the symposium co-hosted by UNESCO, Inria and Software Heritage on cybersecurity regulation, open and transparent AI, open science and software as digital heritage. (\href{https://www.unesco.org/en/articles/software-heritage-2025-symposium-and-summit}{\faGlobe\,UNESCO website} \Lsep \href{https://www.softwareheritage.org/2024/11/19/software-heritage-2025-symposium-summit/}{\faGlobe\,SWH website})
+```
+
+## Numero di articoli revisionati
+
+In *Peer reviewing* ogni voce terminava con il numero di lavori revisionati; tolti a novembre 2026 perché con numeri così piccoli sottolineavano il volume ridotto più che il ruolo. Code originali delle tre voci:
+
+```latex
+research track, Venice, Italy --- 2 papers reviewed.
+industrial track, Lyon, France --- 1 paper reviewed.
+Springer Nature --- 1 manuscript.
+```
+
+## Spagnolo: nota sulla scrittura
+
+Testo originale della riga; tolto "AI-assisted writing" a novembre 2026.
+
+```latex
+experience attending scientific seminars in Spanish; AI-assisted writing.
+```
+
+## Hindi: nota sulla scrittura
+
+Testo originale della riga; tolto "Gboard-assisted writing; no handwriting" a novembre 2026.
+
+```latex
+{\em CEFR A2}. Basic grammar and vocabulary knowledge. Gboard-assisted writing; no handwriting.
+```
