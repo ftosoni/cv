@@ -15,7 +15,8 @@ name: Build CV
 # row (instead of four parallel jobs, each billed separately and each pulling
 # the image), then publishes them directly, with no artifact round-trip to a
 # second job. A newer push cancels a build still in progress. Run it by hand
-# from the Actions tab (workflow_dispatch) when needed.
+# from the Actions tab (workflow_dispatch) when needed: because of the paths
+# filter below, an empty commit does not trigger a build.
 
 on:
   push:
