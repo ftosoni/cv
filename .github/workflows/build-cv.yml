@@ -44,7 +44,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Date above the signature = date of the last commit (Europe/Rome), so it
       # tracks the last content change and re-running the workflow does not
@@ -80,7 +80,7 @@ jobs:
       # Rolling release with the freshest PDFs.
       - name: Publish to "latest" release
         if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: latest
           name: Latest CV build
@@ -112,7 +112,7 @@ jobs:
       # touches the rest of the site.
       - name: Deploy international CVs to the website via FTP
         if: github.ref == 'refs/heads/main'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ftp.francescotosoni.it
           username: oughyvcm
