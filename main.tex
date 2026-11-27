@@ -284,22 +284,23 @@
 \personalinfo{%
   \email{\href{mailto:francesco.tosoni@santannapisa.it}{francesco.tosoni@santannapisa.it}}
   \homepage{\href{https://www.francescotosoni.it}{francescotosoni.it}}  % Sito personale PRIMO
-  \printinfo{\faUniversity}{\href{https://www.santannapisa.it/en/francesco-tosoni}{www.santannapisa.it/en/francesco-tosoni}}  % Sito istituzionale
+  % Short CV header: email, website, GitHub, ORCID, dblp, Scholar only.
+  \longonly{\printinfo{\faUniversity}{\href{https://www.santannapisa.it/en/francesco-tosoni}{www.santannapisa.it/en/francesco-tosoni}}}  % Sito istituzionale
   \longonly{\printinfo{\faBarcode}{\href{https://www.wikidata.org/wiki/Q135913272}{Wikidata}}}
-  \linkedin{\href{https://linkedin.com/in/francesco-tosoni}{LinkedIn}}
+  \longonly{\linkedin{\href{https://linkedin.com/in/francesco-tosoni}{LinkedIn}}}
   \github{\href{https://github.com/ftosoni}{GitHub}}
   \longonly{\gitlab{\href{https://gitlab.com/ftosoni}{GitLab}}}
   \printinfo{\faUserCheck}{\href{https://orcid.org/0000-0001-8457-3866}{ORCID: 0000-0001-8457-3866}}
   \printinfo{\faBook}{\href{https://dblp.org/pid/317/5120-1.html}{dblp}}
   \printinfo{\faGraduationCap}{\href{https://scholar.google.com/citations?hl=it&user=8-0w_KAAAAAJ}{Google Scholar}}
-  \printinfo{\faDatabase}{\href{https://www.scopus.com/authid/detail.uri?authorId=57223035885}{Scopus}}
-  % Secondary profiles: full CV only.
+  % Secondary profiles: full CV only (Scopus and WoS matter for Italian calls).
   \longonly{%
+  \printinfo{\faDatabase}{\href{https://www.scopus.com/authid/detail.uri?authorId=57223035885}{Scopus}}
   \printinfo{\faSearch}{\href{https://www.semanticscholar.org/author/Francesco-Tosoni/2267595223}{Semantic Scholar}}
   \printinfo{\faUsers}{\href{https://www.researchgate.net/scientific-contributions/Francesco-Tosoni-2193508092}{ResearchGate}}
   \printinfo{\faArchive}{\href{https://www.iris.sssup.it/cris/rp/rp47259}{IRIS Sant'Anna}}
-  \printinfo{\faArchive}{\href{https://arpi.unipi.it/cris/rp/rp146832}{ARPI Pisa}}}
-  \printinfo{\faGlobe}{\href{https://www.webofscience.com/wos/author/record/OFN-4534-2025}{Web of Science}}
+  \printinfo{\faArchive}{\href{https://arpi.unipi.it/cris/rp/rp146832}{ARPI Pisa}}
+  \printinfo{\faGlobe}{\href{https://www.webofscience.com/wos/author/record/OFN-4534-2025}{Web of Science}}}
   
   \medskip
   
@@ -321,7 +322,7 @@
 
 \medskip
 \noindent
-Computer scientist (PhD) working at the intersection of {\em lossless data compression}, {\em compressed data structures}, and {\em green, energy-aware algorithm engineering}. I design compressed representations that support computation without decompression, with provable space and time guarantees and reproducible experimental validation: notably {\em sparse matrix--vector products on grammar-compressed matrices}, on CPUs and on GPUs. My current research extends this line to memory-bounded GPU kernels and designs scalable, energy-aware compression, indexing, and semantic-search techniques for large source-code archives (Software Heritage), grounded in a commitment to open science and open-data infrastructures.
+Computer scientist (PhD) designing compressed representations that support computation without decompression, with provable space and time guarantees and reproducible experiments: notably {\em sparse matrix--vector products on grammar-compressed matrices}, on CPUs and GPUs. Current work extends this line to memory-bounded GPU kernels and to energy-aware compression, indexing and semantic search for large source-code archives (Software Heritage), with a commitment to open science.
 
 \medskip
 
@@ -683,9 +684,11 @@ Recipient of a three-year PhD research grant from the University of Pisa (Depart
 \cvevent{Research Scholarship}{Citypost S.p.A.}{Jun -- Oct 2020}{Univ.~of Pisa}
 Title: \textit{Algorithms and Data Structures for Urban Mobility Platforms}. Duration: five months. Grant: Citypost S.p.A. Researched graph-based algorithmic solutions for vehicle routing and mobility problems, as part of Acube Lab's 2018–2020 research collaboration.
 
+\ifshortcv\else% declined RTDA offer: full CV only (meaningful for Italian calls)
 \divider
 
 {\small\textit{Offer declined:} fixed-term junior researcher position (RTDA, art.~24(3)(a) L.~240/2010) in Computer Science (INFO-01/A), Free University of Bozen-Bolzano, 2025, with Prof.~Johann Gamper; project on scalable database solutions for temporal data and time-series processing. (\href{https://www.unibz.it/it/home/position-calls/positions-for-academic-staff/7618-informatics-prof-gamper-johann?group=16}{\faGlobe\,website})\par}
+\fi
 
 \end{paracol}
 \begin{paracol}{1}
@@ -872,7 +875,9 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
 
 \medskip
 
-\cvsection{Peer reviewing}
+\cvsection{Professional service}
+
+\cvsubsection{Peer reviewing}
 
 \begin{itemize}[leftmargin=1.3em, itemsep=2pt, topsep=1pt, parsep=0pt]
   \item \textbf{2026}\enspace Program Committee member, \textbf{WISE 2026} \Licore{1271}{B} (27th Int.~Conf.~on Web Information Systems Engineering), research track, Venice, Italy. {\footnotesize(\href{https://conferences.sigappfr.org/wise2026/program-committee/#letter-F}{\faUsers\,program committee})}
@@ -880,9 +885,7 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
   \item \textbf{2025}\enspace Reviewer, \textbf{The Journal of Supercomputing} \Lsjr{25623}{Q2}{0.729}, Springer Nature. {\footnotesize(\href{https://www.francescotosoni.it/static/peer_review/Reviewer%20Certificate%2009%20December%202025.pdf}{\faCertificate\,certificate})}
 \end{itemize}
 
-\medskip
-
-\cvsection{Professional memberships}
+\cvsubsection{Memberships}
 
 \begin{itemize}[leftmargin=1.3em, itemsep=2pt, topsep=1pt, parsep=0pt]
   \item \textbf{2026}\enspace Professional Member, \textbf{ACM} (Association for Computing Machinery), since Nov 2026. {\footnotesize(\href{https://www.francescotosoni.it/static/memberships/ACM_2026_certificate.pdf}{\faCertificate\,certificate})}
@@ -892,7 +895,7 @@ Three-month stay at the laboratory directed by Prof.~\href{https://users.dcc.uch
 \medskip
 
 \ifshortcv\else
-\cvsection{Participation in conferences}
+\cvsubsection{Conference attendance}
 
 \cvevent{The 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER 2026)}{IEEE Computer Society}{17--20 Mar 2026}{Limassol, Cyprus}
 

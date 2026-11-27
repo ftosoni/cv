@@ -262,3 +262,15 @@ Testo originale della riga; tolto "Gboard-assisted writing; no handwriting" a no
 ```latex
 {\em CEFR A2}. Basic grammar and vocabulary knowledge. Gboard-assisted writing; no handwriting.
 ```
+
+## Profilo iniziale (versione lunga)
+
+Paragrafo in prima persona sotto l'intestazione; ridotto a due frasi impersonali a novembre 2026.
+
+```latex
+Computer scientist (PhD) working at the intersection of {\em lossless data compression}, {\em compressed data structures}, and {\em green, energy-aware algorithm engineering}. I design compressed representations that support computation without decompression, with provable space and time guarantees and reproducible experimental validation: notably {\em sparse matrix--vector products on grammar-compressed matrices}, on CPUs and on GPUs. My current research extends this line to memory-bounded GPU kernels and designs scalable, energy-aware compression, indexing, and semantic-search techniques for large source-code archives (Software Heritage), grounded in a commitment to open science and open-data infrastructures.
+```
+
+## Sezioni di servizio separate
+
+Fino a novembre 2026 *Peer reviewing*, *Professional memberships* e *Participation in conferences* (solo full) erano tre `\cvsection` distinte; ora sono sottosezioni di *Professional service* (la terza rinominata *Conference attendance*), con contenuto invariato.
